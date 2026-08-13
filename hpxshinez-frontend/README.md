@@ -16,32 +16,55 @@ npm run build
 src/
   assets/logo.png
   components/
-    shared/          # Logo, ImagePlaceholder only
+    shared/          # Logo
     desktop/         # Full desktop page tree
     mobile/          # Mobile inner content (no phone chrome)
+  data/media.ts      # Photo slots + path helpers + reserved video map
   hooks/useIsMobile.ts
   styles/variables.css
   styles/global.css
   App.tsx            # Viewport switch
   main.tsx
+public/
+  images/webp/       # WebP stills at 640 (mobile) and 1024 (desktop)
 ```
 
 ## Viewport switch
 
-`App` uses `useIsMobile()` (`matchMedia('(max-width: 767px)')`) and renders either `MobileLayout` or `DesktopLayout`. Section markup and CSS stay in parallel trees; only `Logo` and `ImagePlaceholder` are shared.
+`App` uses `useIsMobile()` (`matchMedia('(max-width: 767px)')`) and renders either `MobileLayout` or `DesktopLayout`. Section markup and CSS stay in parallel trees; only `Logo` is shared.
 
-## Image slot inventory
+## Image slots
 
-| Component | Slot | Dimensions | Viewport |
-|-----------|------|------------|----------|
-| `desktop/Hero` | `heroLeft` (m3-h1) | `width: 100%` of 1fr col; `aspect-ratio: 3/4` (~351×468 at 1280) | Desktop |
-| `desktop/Hero` | `heroCenter` (m3-h2) | `width: 100%` of 1.4fr col; `aspect-ratio: 4/3` (~491×368 at 1280) | Desktop |
-| `desktop/Hero` | `heroRight` (m3-h3) | `width: 100%` of 1fr col; `aspect-ratio: 3/4` (~351×468 at 1280) | Desktop |
-| `desktop/Gallery` | `gallery1`…`gallery6` (m3-g1–g6) | `width: 100%` of auto-fit `minmax(150px,1fr)`; `aspect-ratio: 1/1` | Desktop |
-| `mobile/Hero` | `heroBanner` | `width: 100%`; `aspect-ratio: 16/9` (~393×221) | Mobile |
-| `mobile/Gallery` | `gallery1`…`gallery6` | `width: 100%` of 3-col cell; `aspect-ratio: 1/1` (~116×116 at 393px) | Mobile |
+Stills are WebP-only from `public/images/webp` (`object-fit: cover`). Desktop slots load **1024**; mobile slots load **640**. Paths come from `photoSrc` in `src/data/media.ts`.
 
-Nav/footer logos use `src/assets/logo.png` (not placeholders).
+| Component | Slot | Photo | Aspect |
+|-----------|------|-------|--------|
+| `desktop/Hero` | `heroLeft` | `10-orange-lancer-foam` | `3/4` |
+| `desktop/Hero` | `heroCenter` | `09-orange-lancer-hero` | `4/3` |
+| `desktop/Hero` | `heroRight` | `11-orange-lancer-wheel` | `3/4` |
+| `mobile/Hero` | `heroBanner` | `09-orange-lancer-hero` | `16/9` |
+| `desktop/Gallery` / `mobile/Gallery` | `gallery1` | `02-lancer-interior-after` | `1/1` |
+| | `gallery2` | `06-charger-tire-after` | `1/1` |
+| | `gallery3` | `04-lancer-rear-seat-after` | `1/1` |
+| | `gallery4` | `08-subaru-mat-after` | `1/1` |
+| | `gallery5` | `12-kia-interior-finished` | `1/1` |
+| | `gallery6` | `13-mat-foam-process` | `1/1` |
+
+Hero LCP candidates use `fetchPriority="high"` (desktop center + mobile banner). Gallery images use `loading="lazy"`.
+
+Nav/footer logos use `src/assets/logo.png`.
+
+## Reserved videos (not wired yet)
+
+Clips stay in `assets/hpxshinez-web-VIDEOS` (720×1280 vertical). Do not copy to `public/` until a later pass. Prefer gallery `1/1` or desktop hero side `3/4`; avoid `4/3` and `16/9` (heavy crop). `reservedVideos` in `media.ts` mirrors this table.
+
+| Clip | Future use | Why |
+|------|------------|-----|
+| `01-charger-gt-walkaround` | Gallery (or hero side) | Finished-car showcase |
+| `02-foam-cannon-canopy` | Gallery | Process / action variety |
+| `03-kia-wheel-pressure-rinse` | Gallery | Strongest wheel-process clip |
+
+A later pass can swap two gallery stills (e.g. slots 3 and 6) for muted looping `<video>` without re-deciding assets.
 
 ## Notes
 

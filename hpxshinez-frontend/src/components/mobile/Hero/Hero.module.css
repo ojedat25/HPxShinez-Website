@@ -54,13 +54,23 @@
   border-radius: var(--radius-md);
 }
 
+.media {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: var(--color-placeholder);
+}
+
+.mediaImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .banner {
   margin: var(--space-15) 0 0;
   border-top: 1px solid var(--color-border-soft);
   border-bottom: 1px solid var(--color-border-soft);
   border-radius: 0;
-}
-
-.bannerOverlay {
-  inset: var(--space-7);
 }

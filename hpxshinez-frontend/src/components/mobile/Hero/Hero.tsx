@@ -1,8 +1,10 @@
-import { ImagePlaceholder } from '../../shared/ImagePlaceholder/ImagePlaceholder'
+import { mobileHeroMedia, photoSrc } from '../../../data/media'
 import styles from './Hero.module.css'
 
 /** Mobile hero: eyebrow, headline, copy, IG CTA, 16:9 image band. */
 export function Hero() {
+  const { banner } = mobileHeroMedia
+
   return (
     <>
       <section className={styles.hero}>
@@ -29,12 +31,21 @@ export function Hero() {
         </a>
       </section>
       {/* heroBanner: width 100%; aspect-ratio 16/9 (~393×221 at design width) */}
-      <ImagePlaceholder
-        aspectRatio="16 / 9"
-        label="IMAGE HERE"
-        className={styles.banner}
-        overlayClassName={styles.bannerOverlay}
-      />
+      <div
+        className={`${styles.media} ${styles.banner}`}
+        style={{ aspectRatio: banner.aspectRatio }}
+      >
+        <img
+          className={styles.mediaImg}
+          src={photoSrc(banner.slug, 640)}
+          width={banner.width}
+          height={banner.height}
+          alt={banner.alt}
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
     </>
   )
 }

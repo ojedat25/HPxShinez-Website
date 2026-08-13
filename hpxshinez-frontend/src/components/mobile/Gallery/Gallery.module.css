@@ -16,11 +16,21 @@
   gap: var(--space-3);
 }
 
+.media {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: var(--color-placeholder);
+}
+
+.mediaImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .slot {
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-sm);
-}
-
-.slotOverlay {
-  inset: var(--space-2);
 }
