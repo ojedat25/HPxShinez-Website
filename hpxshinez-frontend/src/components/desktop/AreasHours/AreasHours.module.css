@@ -1,0 +1,77 @@
+.section {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: var(--space-section-y) var(--space-page-x);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-24);
+}
+
+.eyebrow {
+  font: 700 var(--font-size-eyebrow) / 1 var(--font-body);
+  letter-spacing: var(--letter-spacing-section);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-11);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: var(--line-height-heading);
+  margin-bottom: var(--space-15);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+.chip {
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  background: var(--color-surface-chip);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--space-6) var(--space-12);
+}
+
+.note {
+  margin-top: var(--space-12);
+  font-size: var(--font-size-md-plus);
+  color: var(--color-text-faint);
+}
+
+.hoursList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-9);
+}
+
+.hoursRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-surface-chip);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-13) var(--space-15);
+}
+
+.hoursDays {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--font-size-hours);
+  letter-spacing: var(--letter-spacing-md);
+}
+
+.hoursTime {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--font-size-hours-value);
+  color: var(--color-text);
+}

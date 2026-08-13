@@ -1,0 +1,189 @@
+:root {
+  /* Colors */
+  --color-bg: #0a0a0a;
+  --color-bg-deep: #070707;
+  --color-bg-footer: #060606;
+  --color-text: #f4f4f4;
+  --color-text-muted: #cfcfcf;
+  --color-text-secondary: #a9a9a9;
+  --color-text-tertiary: #9a9a9a;
+  --color-text-dim: #7a7a7a;
+  --color-text-faint: #6f6f6f;
+  --color-text-copyright: #565656;
+  --color-text-note: #c9c9c9;
+  --color-accent: #e01e2b;
+  --color-accent-dark: #b3141f;
+  --color-accent-soft: rgba(224, 30, 43, 0.08);
+  --color-accent-glow: rgba(224, 30, 43, 0.14);
+  --color-accent-glow-strong: rgba(224, 30, 43, 0.18);
+  --color-surface: #111;
+  --color-surface-chip: #121212;
+  --color-placeholder: #141414;
+  --color-header-bg: rgba(8, 8, 8, 0.82);
+  --color-header-bg-mobile: rgba(8, 8, 8, 0.85);
+  --color-border: #1c1c1c;
+  --color-border-section: #1a1a1a;
+  --color-border-soft: #1f1f1f;
+  --color-border-mid: #232323;
+  --color-border-strong: #242424;
+  --color-border-nav: #2a2a2a;
+  --color-border-follow: #2c2c2c;
+  --color-border-dashed: #3a3a3a;
+  --color-border-badge: #3a2326;
+  --color-border-copyright: #141414;
+  --color-logo-light: #cfcfcf;
+  --color-logo-mid: #7a7a7a;
+  --color-logo-dark: #101010;
+  --color-overlay-dashed: rgba(255, 255, 255, 0.28);
+  --color-overlay-label: rgba(255, 255, 255, 0.5);
+  --color-overlay-muted: rgba(255, 255, 255, 0.25);
+  --color-overlay-faint: rgba(255, 255, 255, 0.35);
+  --color-selection-bg: #e01e2b;
+  --color-selection-text: #fff;
+  --color-white: #fff;
+
+  /* Logo gradient */
+  --gradient-logo: radial-gradient(
+    circle at 50% 45%,
+    var(--color-logo-light) 0%,
+    var(--color-logo-mid) 48%,
+    var(--color-logo-dark) 78%
+  );
+  --gradient-hero-glow: radial-gradient(
+    circle at 50% 22%,
+    var(--color-accent-glow),
+    transparent 55%
+  );
+  --gradient-book-glow: radial-gradient(
+    circle at 50% 0%,
+    var(--color-accent-glow-strong),
+    transparent 60%
+  );
+
+  /* Spacing */
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 5px;
+  --space-4: 7px;
+  --space-5: 8px;
+  --space-6: 9px;
+  --space-7: 10px;
+  --space-8: 11px;
+  --space-9: 12px;
+  --space-10: 13px;
+  --space-11: 14px;
+  --space-12: 16px;
+  --space-13: 18px;
+  --space-14: 20px;
+  --space-15: 22px;
+  --space-16: 24px;
+  --space-17: 26px;
+  --space-18: 28px;
+  --space-19: 30px;
+  --space-20: 32px;
+  --space-21: 34px;
+  --space-22: 36px;
+  --space-23: 38px;
+  --space-24: 50px;
+  --space-25: 54px;
+  --space-26: 64px;
+  --space-27: 70px;
+  --space-28: 90px;
+  --space-29: 96px;
+  --space-30: 104px;
+
+  --space-page-x: 30px;
+  --space-page-x-mobile: 18px;
+  --space-header-y: 14px;
+  --space-header-y-mobile: 12px;
+  --space-section-y: 90px;
+  --space-section-y-top: 96px;
+  --space-section-y-bottom: 70px;
+  --space-hero-top: 70px;
+  --space-hero-top-mobile: 28px;
+  --space-sticky-bar: 64px;
+
+  /* Layout */
+  --max-width-content: 1280px;
+  --max-width-hero-text: 1000px;
+  --max-width-hero-copy: 560px;
+  --max-width-book: 680px;
+  --max-width-book-copy: 500px;
+
+  /* Radii */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-full: 50%;
+
+  /* Typography */
+  --font-display: 'Saira Condensed', sans-serif;
+  --font-body: 'Hanken Grotesk', sans-serif;
+
+  --font-size-xs: 11px;
+  --font-size-xs-plus: 11.5px;
+  --font-size-sm: 12px;
+  --font-size-sm-plus: 12.5px;
+  --font-size-md: 13px;
+  --font-size-md-plus: 13.5px;
+  --font-size-base: 14px;
+  --font-size-lg: 15px;
+  --font-size-xl: 17px;
+  --font-size-2xl: 18px;
+  --font-size-3xl: 19px;
+  --font-size-4xl: 20px;
+  --font-size-5xl: 21px;
+  --font-size-6xl: 23px;
+  --font-size-nav-cta: 14px;
+  --font-size-hero-cta: 17px;
+  --font-size-book-cta: 20px;
+  --font-size-card-title: 23px;
+  --font-size-hours: 20px;
+  --font-size-hours-value: 21px;
+  --font-size-wordmark: 18px;
+  --font-size-eyebrow: 12.5px;
+  --font-size-badge: 11.5px;
+
+  /* Mobile type overrides (applied under .mobile) */
+  --font-size-wordmark-mobile: 15px;
+  --font-size-eyebrow-mobile: 11px;
+  --font-size-hero-mobile: 72px;
+  --font-size-hero-copy-mobile: 14px;
+  --font-size-hero-cta-mobile: 15px;
+  --font-size-card-title-mobile: 20px;
+  --font-size-card-copy-mobile: 11.5px;
+  --font-size-badge-mobile: 10.5px;
+  --font-size-chip-mobile: 12px;
+  --font-size-hours-mobile: 17px;
+  --font-size-book-title-mobile: 34px;
+  --font-size-book-copy-mobile: 13px;
+  --font-size-book-cta-mobile: 16px;
+  --font-size-book-handle-mobile: 12.5px;
+  --font-size-sticky-cta: 15px;
+
+  --letter-spacing-tight: 0.003em;
+  --letter-spacing-sm: 0.03em;
+  --letter-spacing-md: 0.04em;
+  --letter-spacing-lg: 0.05em;
+  --letter-spacing-xl: 0.06em;
+  --letter-spacing-nav: 0.09em;
+  --letter-spacing-eyebrow: 0.14em;
+  --letter-spacing-section: 0.22em;
+  --letter-spacing-section-mobile: 0.2em;
+  --letter-spacing-overlay: 0.18em;
+
+  --line-height-hero: 0.84;
+  --line-height-hero-mobile: 0.82;
+  --line-height-heading: 0.95;
+  --line-height-book: 0.92;
+  --line-height-body: 1.55;
+  --line-height-body-loose: 1.6;
+  --line-height-card: 1.5;
+  --line-height-card-mobile: 1.4;
+
+  /* Effects */
+  --blur-header: 14px;
+  --blur-header-mobile: 12px;
+  --z-header: 30;
+  --z-header-mobile: 20;
+  --z-sticky-bar: 30;
+}

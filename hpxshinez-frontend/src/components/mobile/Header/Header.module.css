@@ -1,0 +1,37 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header-mobile);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-header-y-mobile) var(--space-page-x-mobile);
+  background: var(--color-header-bg-mobile);
+  backdrop-filter: blur(var(--blur-header-mobile));
+  border-bottom: 1px solid var(--color-border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--font-size-wordmark-mobile);
+  letter-spacing: var(--letter-spacing-md);
+  text-transform: uppercase;
+}
+
+.accent {
+  color: var(--color-accent);
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2);
+}

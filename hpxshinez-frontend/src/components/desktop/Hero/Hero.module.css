@@ -1,0 +1,107 @@
+.hero {
+  position: relative;
+  text-align: center;
+  padding: var(--space-hero-top) var(--space-page-x) 0;
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero-glow);
+  pointer-events: none;
+}
+
+.copyBlock {
+  position: relative;
+  max-width: var(--max-width-hero-text);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  border: 1px solid var(--color-border-nav);
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4) var(--space-12);
+  font: 600 var(--font-size-sm) / 1 var(--font-body);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-17);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(56px, 11vw, 150px);
+  line-height: var(--line-height-hero);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.accent {
+  color: var(--color-accent);
+}
+
+.copy {
+  max-width: var(--max-width-hero-copy);
+  margin: var(--space-16) auto 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(15px, 2vw, 19px);
+  line-height: var(--line-height-body);
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-10);
+  justify-content: center;
+  margin-top: var(--space-19);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-7);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--font-size-hero-cta);
+  letter-spacing: var(--letter-spacing-lg);
+  text-transform: uppercase;
+  color: var(--color-white);
+  background: var(--color-accent);
+  padding: 15px var(--space-18);
+  border-radius: var(--radius-md);
+}
+
+.collage {
+  position: relative;
+  max-width: var(--max-width-content);
+  margin: var(--space-25) auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: var(--space-11);
+  align-items: end;
+}
+
+.sideSlot {
+  width: 100%;
+  margin-bottom: var(--space-17);
+}
+
+.centerSlot {
+  width: 100%;
+}
+
+.sideBorder {
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+}
+
+.centerBorder {
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+}

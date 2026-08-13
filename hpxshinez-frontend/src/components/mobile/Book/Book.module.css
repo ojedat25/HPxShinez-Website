@@ -1,0 +1,54 @@
+.card {
+  margin: var(--space-20) var(--space-page-x-mobile) 0;
+  padding: var(--space-18) var(--space-14);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-mid);
+  border-top: 2px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.eyebrow {
+  font: 700 var(--font-size-eyebrow-mobile) / 1 var(--font-body);
+  letter-spacing: var(--letter-spacing-section-mobile);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-9);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: var(--font-size-book-title-mobile);
+  line-height: var(--line-height-book);
+}
+
+.copy {
+  font-size: var(--font-size-book-copy-mobile);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-card);
+  margin: var(--space-7) 0 var(--space-12);
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--font-size-book-cta-mobile);
+  letter-spacing: var(--letter-spacing-lg);
+  text-transform: uppercase;
+  color: var(--color-white);
+  background: var(--color-accent);
+  padding: var(--space-11) var(--space-14);
+  border-radius: var(--radius-md);
+}
+
+.handle {
+  margin-top: var(--space-7);
+  font-size: var(--font-size-book-handle-mobile);
+  color: var(--color-text-tertiary);
+}

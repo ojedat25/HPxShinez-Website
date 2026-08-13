@@ -1,0 +1,26 @@
+.section {
+  padding: var(--space-20) var(--space-page-x-mobile) 0;
+}
+
+.eyebrow {
+  font: 700 var(--font-size-eyebrow-mobile) / 1 var(--font-body);
+  letter-spacing: var(--letter-spacing-section-mobile);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-9);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.slot {
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.slotOverlay {
+  inset: var(--space-2);
+}

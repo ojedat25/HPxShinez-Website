@@ -1,0 +1,57 @@
+.section {
+  padding: var(--space-20) var(--space-page-x-mobile) 0;
+}
+
+.eyebrow {
+  font: 700 var(--font-size-eyebrow-mobile) / 1 var(--font-body);
+  letter-spacing: var(--letter-spacing-section-mobile);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-9);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-16);
+}
+
+.chip {
+  font-size: var(--font-size-chip-mobile);
+  font-weight: 600;
+  background: var(--color-surface-chip);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4) var(--space-9);
+}
+
+.hoursList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.hoursRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-surface-chip);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-11) var(--space-12);
+}
+
+.hoursDays {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--font-size-hours-mobile);
+}
+
+.hoursTime {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--font-size-hours-mobile);
+  color: var(--color-text);
+}
