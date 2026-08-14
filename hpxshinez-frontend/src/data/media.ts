@@ -93,7 +93,7 @@ export const desktopHeroMedia = {
   },
   center: {
     ...PHOTO['09-orange-lancer-hero'],
-    aspectRatio: '4 / 3',
+    aspectRatio: '3 / 4',
   },
   right: {
     ...PHOTO['11-orange-lancer-wheel'],
