@@ -1,7 +1,7 @@
-import { galleryMedia, photoSrc } from '../../../data/media'
+import { GalleryStage } from '../../shared/GalleryStage/GalleryStage'
 import styles from './Gallery.module.css'
 
-/** Desktop Instagram-style gallery grid (m3-g1–g6). */
+/** Desktop work section: featured compare slider + optional stills. */
 export function Gallery() {
   return (
     <section id="work" className={styles.section}>
@@ -20,26 +20,7 @@ export function Gallery() {
             Follow @HPxShinezDetailz
           </a>
         </div>
-        <div className={styles.grid}>
-          {galleryMedia.map((slot) => (
-            // gallery1–gallery6 (m3-g1–g6): width 100% of auto-fit minmax(150px,1fr) cell; aspect-ratio 1/1
-            <div
-              key={slot.slug}
-              className={`${styles.media} ${styles.slot}`}
-              style={{ aspectRatio: slot.aspectRatio }}
-            >
-              <img
-                className={styles.mediaImg}
-                src={photoSrc(slot.slug, 1024)}
-                width={slot.width}
-                height={slot.height}
-                alt={slot.alt}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          ))}
-        </div>
+        <GalleryStage imageWidth={1024} />
       </div>
     </section>
   )

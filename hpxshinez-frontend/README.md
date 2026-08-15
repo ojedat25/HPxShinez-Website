@@ -16,7 +16,7 @@ npm run build
 src/
   assets/logo.png
   components/
-    shared/          # Logo
+    shared/          # Logo, BeforeAfterSlider, GalleryStage
     desktop/         # Full desktop page tree
     mobile/          # Mobile inner content (no phone chrome)
   data/media.ts      # Photo slots + path helpers + reserved video map
@@ -31,7 +31,7 @@ public/
 
 ## Viewport switch
 
-`App` uses `useIsMobile()` (`matchMedia('(max-width: 767px)')`) and renders either `MobileLayout` or `DesktopLayout`. Section markup and CSS stay in parallel trees; only `Logo` is shared.
+`App` uses `useIsMobile()` (`matchMedia('(max-width: 767px)')`) and renders either `MobileLayout` or `DesktopLayout`. Section markup and CSS stay in parallel trees; `Logo`, `BeforeAfterSlider`, and `GalleryStage` are shared.
 
 ## Image slots
 
@@ -43,12 +43,8 @@ Stills are WebP-only from `public/images/webp` (`object-fit: cover`). Desktop sl
 | `desktop/Hero` | `heroCenter` | `09-orange-lancer-hero` | `4/3` |
 | `desktop/Hero` | `heroRight` | `11-orange-lancer-wheel` | `3/4` |
 | `mobile/Hero` | `heroBanner` | `09-orange-lancer-hero` | `16/9` |
-| `desktop/Gallery` / `mobile/Gallery` | `gallery1` | `02-lancer-interior-after` | `1/1` |
-| | `gallery2` | `06-charger-tire-after` | `1/1` |
-| | `gallery3` | `04-lancer-rear-seat-after` | `1/1` |
-| | `gallery4` | `08-subaru-mat-after` | `1/1` |
-| | `gallery5` | `12-kia-interior-finished` | `1/1` |
-| | `gallery6` | `13-mat-foam-process` | `1/1` |
+| `desktop/Gallery` / `mobile/Gallery` | Compare (left) | Prev/next slider: tire `05`/`06`, rear seat `03`/`04`, mat `07`/`08` | `4/3` |
+| | Thumbs (right) | 3×3 grid of compare frames + stills (`galleryThumbs`); click or prev/next to enlarge | `1/1` |
 
 Hero LCP candidates use `fetchPriority="high"` (desktop center + mobile banner). Gallery images use `loading="lazy"`.
 

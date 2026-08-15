@@ -1,8 +1,11 @@
 /** Photo slug under /images/webp/ (without width suffix). */
 export type PhotoSlug =
   | '02-lancer-interior-after'
+  | '03-lancer-rear-seat-before'
   | '04-lancer-rear-seat-after'
+  | '05-charger-tire-before'
   | '06-charger-tire-after'
+  | '07-subaru-mat-before'
   | '08-subaru-mat-after'
   | '09-orange-lancer-hero'
   | '10-orange-lancer-foam'
@@ -31,9 +34,21 @@ const PHOTO: Record<PhotoSlug, PhotoAsset> = {
     width: 1536,
     height: 2048,
   },
+  '03-lancer-rear-seat-before': {
+    slug: '03-lancer-rear-seat-before',
+    alt: 'Mitsubishi Lancer rear seat before cleaning',
+    width: 1536,
+    height: 2048,
+  },
   '04-lancer-rear-seat-after': {
     slug: '04-lancer-rear-seat-after',
     alt: 'Mitsubishi Lancer rear seat after cleaning',
+    width: 1536,
+    height: 2048,
+  },
+  '05-charger-tire-before': {
+    slug: '05-charger-tire-before',
+    alt: 'Dodge Charger tire and wheel before detailing',
     width: 1536,
     height: 2048,
   },
@@ -42,6 +57,12 @@ const PHOTO: Record<PhotoSlug, PhotoAsset> = {
     alt: 'Dodge Charger tire and wheel after detailing',
     width: 1536,
     height: 2048,
+  },
+  '07-subaru-mat-before': {
+    slug: '07-subaru-mat-before',
+    alt: 'Subaru floor mat before deep cleaning',
+    width: 1536,
+    height: 1152,
   },
   '08-subaru-mat-after': {
     slug: '08-subaru-mat-after',
@@ -109,33 +130,69 @@ export const mobileHeroMedia = {
   },
 } as const satisfies Record<string, ImageSlot>
 
+export type GalleryStill = PhotoAsset & {
+  kind: 'still'
+  aspectRatio: string
+}
+
+export type GalleryBeforeAfter = {
+  kind: 'beforeAfter'
+  aspectRatio: string
+  before: PhotoAsset
+  after: PhotoAsset
+}
+
+export type GallerySlot = GalleryStill | GalleryBeforeAfter
+
 /** Gallery slots 1–6 (same order desktop + mobile). */
-export const galleryMedia: ImageSlot[] = [
+export const galleryMedia: GallerySlot[] = [
   {
+    kind: 'still',
     ...PHOTO['02-lancer-interior-after'],
     aspectRatio: '1 / 1',
   },
   {
-    ...PHOTO['06-charger-tire-after'],
+    kind: 'beforeAfter',
     aspectRatio: '1 / 1',
+    before: PHOTO['05-charger-tire-before'],
+    after: PHOTO['06-charger-tire-after'],
   },
   {
-    ...PHOTO['04-lancer-rear-seat-after'],
+    kind: 'beforeAfter',
     aspectRatio: '1 / 1',
+    before: PHOTO['03-lancer-rear-seat-before'],
+    after: PHOTO['04-lancer-rear-seat-after'],
   },
   {
-    ...PHOTO['08-subaru-mat-after'],
+    kind: 'beforeAfter',
     aspectRatio: '1 / 1',
+    before: PHOTO['07-subaru-mat-before'],
+    after: PHOTO['08-subaru-mat-after'],
   },
   {
+    kind: 'still',
     ...PHOTO['12-kia-interior-finished'],
     aspectRatio: '1 / 1',
   },
   {
+    kind: 'still',
     ...PHOTO['13-mat-foam-process'],
     aspectRatio: '1 / 1',
   },
 ]
+
+export const comparePairs: GalleryBeforeAfter[] = galleryMedia.filter(
+  (slot): slot is GalleryBeforeAfter => slot.kind === 'beforeAfter',
+)
+
+export const galleryStills: GalleryStill[] = galleryMedia.filter(
+  (slot): slot is GalleryStill => slot.kind === 'still',
+)
+
+/** All gallery photos, including compare before/after frames. */
+export const galleryThumbs: PhotoAsset[] = galleryMedia.flatMap((slot) =>
+  slot.kind === 'still' ? [slot] : [slot.before, slot.after],
+)
 
 /**
  * Reserved for a later pass (not copied to public/ yet).
