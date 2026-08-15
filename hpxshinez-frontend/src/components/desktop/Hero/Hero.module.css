@@ -46,6 +46,43 @@
 
 .accent {
   color: var(--color-accent);
+  background-image: linear-gradient(
+    118deg,
+    var(--color-accent) 0%,
+    var(--color-accent) 42%,
+    #ff6b75 48%,
+    #fff 50%,
+    #ff6b75 52%,
+    var(--color-accent) 58%,
+    var(--color-accent) 100%
+  );
+  background-size: 250% 250%;
+  background-repeat: no-repeat;
+  background-position: 100% 0%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineSweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) 400ms 1 forwards;
+}
+
+@keyframes shineSweep {
+  from {
+    background-position: 100% 0%;
+  }
+  to {
+    background-position: 0% 20%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accent {
+    animation: none;
+    background-image: none;
+    -webkit-text-fill-color: var(--color-accent);
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: var(--color-accent);
+  }
 }
 
 .copy {
