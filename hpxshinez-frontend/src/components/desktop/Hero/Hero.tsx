@@ -10,7 +10,7 @@ export function Hero() {
       <div className={styles.glow} aria-hidden="true" />
       <div className={styles.copyBlock}>
         <div className={styles.eyebrow}>
-          Mobile detailing · Twin Cities metro
+          Mobile detailing - Twin Cities metro
         </div>
         <h1 className={styles.title}>
           Get that

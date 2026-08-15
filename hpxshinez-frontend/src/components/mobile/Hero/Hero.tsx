@@ -13,7 +13,7 @@ export function Hero() {
     <>
       <section id="top" className={styles.hero}>
         <div className={styles.eyebrow}>
-          Mobile detailing · Twin Cities metro
+          Mobile detailing - Twin Cities metro
         </div>
         <h1 className={styles.title}>
           Get that

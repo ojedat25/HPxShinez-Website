@@ -13,7 +13,7 @@ export function Footer() {
               HPxShinez <span className={styles.accent}>Detailz</span>
             </div>
             <div className={styles.tagline}>
-              Mobile car detailing · Twin Cities, MN
+              Mobile car detailing - Twin Cities, MN
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@ export function Footer() {
         </a>
       </div>
       <div className={styles.copyright}>
-        © 2026 HPxShinez Detailz · Booking via Instagram DM only
+        © 2026 HPxShinez Detailz - Booking via Instagram DM only
       </div>
     </footer>
   )

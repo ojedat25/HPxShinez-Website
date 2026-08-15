@@ -33,6 +33,15 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
   )
   const selected = galleryThumbs[thumbIndex]
 
+  useEffect(() => {
+    for (const item of comparePairs) {
+      const before = new Image()
+      before.src = photoSrc(item.before.slug, imageWidth)
+      const after = new Image()
+      after.src = photoSrc(item.after.slug, imageWidth)
+    }
+  }, [imageWidth])
+
   function goPair(delta: number) {
     setPairIndex((current) => (current + delta + pairCount) % pairCount)
   }
@@ -81,7 +90,6 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
       <div className={styles.layout}>
         <div className={styles.sliderFrame}>
           <BeforeAfterSlider
-            key={pair.after.slug}
             className={styles.slider}
             beforeSrc={photoSrc(pair.before.slug, imageWidth)}
             afterSrc={photoSrc(pair.after.slug, imageWidth)}
