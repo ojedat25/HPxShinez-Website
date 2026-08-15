@@ -15,7 +15,17 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-bottom: var(--space-16);
+}
+
+.note {
+  margin: var(--space-9) 0 var(--space-16);
+  font-size: var(--font-size-card-copy-mobile);
+  color: var(--color-text-faint);
+}
+
+.emphasis {
+  font-weight: 700;
+  color: var(--color-accent);
 }
 
 .chip {

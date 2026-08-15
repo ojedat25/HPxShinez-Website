@@ -31,7 +31,8 @@ export function AreasHours() {
           ))}
         </div>
         <p className={styles.note}>
-          Mobile only. No shop, no address. We bring the gear to your driveway.
+          <strong className={styles.emphasis}>Mobile only.</strong> No shop, no
+          address. We bring the gear to your driveway.
         </p>
       </div>
       <div>

@@ -45,6 +45,11 @@
   color: var(--color-text-faint);
 }
 
+.emphasis {
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
 .hoursList {
   display: flex;
   flex-direction: column;

@@ -28,6 +28,10 @@ export function AreasHours() {
           </span>
         ))}
       </div>
+      <p className={styles.note}>
+        <strong className={styles.emphasis}>Mobile only.</strong> No shop, no
+        address. We bring the gear to your driveway.
+      </p>
       <div className={styles.eyebrow}>Hours</div>
       <div className={styles.hoursList}>
         {HOURS.map((row) => (
