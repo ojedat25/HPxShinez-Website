@@ -3,7 +3,7 @@ import styles from './Book.module.css'
 /** Mobile book card with red top border and IG CTA. */
 export function Book() {
   return (
-    <section className={styles.card}>
+    <section id="book" className={styles.card}>
       <div className={styles.eyebrow}>Ready to shine</div>
       <div className={styles.title}>Slide into our DMs</div>
       <p className={styles.copy}>

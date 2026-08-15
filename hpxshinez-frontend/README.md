@@ -66,4 +66,4 @@ A later pass can swap two gallery stills (e.g. slots 3 and 6) for muted looping 
 
 - Colors, spacing, and type sizes live in `styles/variables.css` — no hardcoded hex in components.
 - Instagram SVG icons are left as commented placeholders (`{/* Instagram icon — no lucide equivalent */}`); lucide-react has no Instagram brand icon.
-- Mobile hamburger uses `Menu` from `lucide-react`.
+- Mobile hamburger opens a drawer with Services, Work, Areas, and Book via DM.

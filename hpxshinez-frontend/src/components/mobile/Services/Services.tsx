@@ -27,7 +27,7 @@ const SERVICES: ServiceCard[] = [
 /** Mobile 2×2 services grid with TBD badges. */
 export function Services() {
   return (
-    <section className={styles.section}>
+    <section id="services" className={styles.section}>
       <div className={styles.eyebrow}>Services</div>
       <div className={styles.grid}>
         {SERVICES.map((service) => (

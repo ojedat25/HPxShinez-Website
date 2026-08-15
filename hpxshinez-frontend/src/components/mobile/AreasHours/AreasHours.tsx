@@ -19,7 +19,7 @@ const HOURS = [
 /** Mobile service area chips and hours rows (eyebrow-only headers). */
 export function AreasHours() {
   return (
-    <section className={styles.section}>
+    <section id="areas" className={styles.section}>
       <div className={styles.eyebrow}>Service Areas</div>
       <div className={styles.chips}>
         {AREAS.map((area) => (

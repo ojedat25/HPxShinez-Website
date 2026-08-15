@@ -11,7 +11,7 @@ export function Hero() {
 
   return (
     <>
-      <section className={styles.hero}>
+      <section id="top" className={styles.hero}>
         <div className={styles.eyebrow}>
           Mobile detailing · Twin Cities metro
         </div>
