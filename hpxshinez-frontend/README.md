@@ -19,7 +19,7 @@ src/
     shared/          # Logo, BeforeAfterSlider, GalleryStage
     desktop/         # Full desktop page tree
     mobile/          # Mobile inner content (no phone chrome)
-  data/media.ts      # Photo slots + path helpers + reserved video map
+  data/media.ts      # Photo/video slots + path helpers + gallery filter
   hooks/useIsMobile.ts
   styles/variables.css
   styles/global.css
@@ -27,6 +27,8 @@ src/
   main.tsx
 public/
   images/webp/       # WebP stills at 640 (mobile) and 1024 (desktop)
+  videos/mp4/        # Gallery clips (720×1280)
+  videos/posters/    # First-frame WebP posters
 ```
 
 ## Viewport switch
@@ -44,23 +46,21 @@ Stills are WebP-only from `public/images/webp` (`object-fit: cover`). Desktop sl
 | `desktop/Hero` | `heroRight` | `11-orange-lancer-wheel` | `3/4` |
 | `mobile/Hero` | 3-up collage | Same `10` / `09` / `11` as desktop | `3/4` |
 | `desktop/Gallery` / `mobile/Gallery` | Compare (left) | Prev/next slider: tire `05`/`06`, rear seat `03`/`04`, mat `07`/`08` | `4/3` |
-| | Thumbs (right) | Compare frames + stills including hero `09`–`11` (`galleryThumbs`, 3×3 pages) | `1/1` |
+| | Thumbs (right) | Photos then clips (`galleryItems`, 3×3 pages). All / Images / Videos filter defaults to All. | `1/1` |
 
 Hero LCP candidates use `fetchPriority="high"` (desktop center + mobile collage center). Gallery images use `loading="lazy"`.
 
 Nav/footer logos use `src/assets/logo.png`.
 
-## Reserved videos (not wired yet)
+## Gallery videos
 
-Clips stay in `assets/hpxshinez-web-VIDEOS` (720×1280 vertical). Do not copy to `public/` until a later pass. Prefer gallery `1/1` or desktop hero side `3/4`; avoid `4/3` and `16/9` (heavy crop). `reservedVideos` in `media.ts` mirrors this table.
+Clips live in `public/videos/mp4` (720×1280 vertical) with posters in `public/videos/posters`. Paths come from `videoSrc` / `videoPosterSrc` in `src/data/media.ts`. Thumbs use the poster plus a play overlay; the lightbox plays with `controls`. The before/after slider stays visible on every filter.
 
-| Clip | Future use | Why |
-|------|------------|-----|
-| `01-charger-gt-walkaround` | Gallery (or hero side) | Finished-car showcase |
-| `02-foam-cannon-canopy` | Gallery | Process / action variety |
-| `03-kia-wheel-pressure-rinse` | Gallery | Strongest wheel-process clip |
-
-A later pass can swap two gallery stills (e.g. slots 3 and 6) for muted looping `<video>` without re-deciding assets.
+| Clip | Why |
+|------|-----|
+| `01-charger-gt-walkaround` | Finished-car showcase |
+| `02-foam-cannon-canopy` | Process / action variety |
+| `03-kia-wheel-pressure-rinse` | Strongest wheel-process clip |
 
 ## Notes
 

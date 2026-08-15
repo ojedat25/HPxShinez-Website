@@ -1,3 +1,27 @@
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-bottom: var(--space-11);
+}
+
+.filterBtn {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  background: var(--color-surface-chip);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--space-6) var(--space-12);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.filterBtnActive {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(200px, 0.65fr);
@@ -85,6 +109,7 @@
 }
 
 .thumb {
+  position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   padding: 0;
@@ -105,6 +130,27 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.thumbPlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  pointer-events: none;
+}
+
+.thumbPlayIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-20);
+  height: var(--space-20);
+  border: 1px solid var(--color-border-nav);
+  border-radius: var(--radius-full);
+  background: var(--color-header-bg);
 }
 
 .lightbox {
@@ -135,7 +181,8 @@
   cursor: pointer;
 }
 
-.lightboxImg {
+.lightboxImg,
+.lightboxVideo {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;

@@ -201,24 +201,65 @@ export const galleryThumbs: PhotoAsset[] = galleryMedia.flatMap((slot) =>
   slot.kind === 'still' ? [slot] : [slot.before, slot.after],
 )
 
-/**
- * Reserved for a later pass (not copied to public/ yet).
- * Prefer gallery 1/1 or desktop hero side 3/4 — avoid 4/3 and 16/9 (heavy crop).
- */
-export const reservedVideos = [
+export type VideoSlug =
+  | '01-charger-gt-walkaround'
+  | '02-foam-cannon-canopy'
+  | '03-kia-wheel-pressure-rinse'
+
+export type VideoAsset = {
+  slug: VideoSlug
+  alt: string
+  width: number
+  height: number
+}
+
+export function videoSrc(slug: VideoSlug) {
+  return `/videos/mp4/${slug}.mp4`
+}
+
+export function videoPosterSrc(slug: VideoSlug) {
+  return `/videos/posters/${slug}-poster.webp`
+}
+
+export const galleryVideos: VideoAsset[] = [
   {
     slug: '01-charger-gt-walkaround',
-    futureUse: 'Gallery (or hero side)',
-    reason: 'Finished-car showcase',
+    alt: 'Dodge Charger GT walkaround after detailing',
+    width: 720,
+    height: 1280,
   },
   {
     slug: '02-foam-cannon-canopy',
-    futureUse: 'Gallery',
-    reason: 'Process / action variety',
+    alt: 'Foam cannon wash under a canopy',
+    width: 720,
+    height: 1280,
   },
   {
     slug: '03-kia-wheel-pressure-rinse',
-    futureUse: 'Gallery',
-    reason: 'Strongest of the three wheel-process clips',
+    alt: 'Kia wheel pressure rinse during detailing',
+    width: 720,
+    height: 1280,
   },
-] as const
+]
+
+export type GalleryItem =
+  | (PhotoAsset & { kind: 'photo' })
+  | (VideoAsset & { kind: 'video' })
+
+export type GalleryFilter = 'all' | 'images' | 'videos'
+
+/** Photos in current gallery order, then the three clips. */
+export const galleryItems: GalleryItem[] = [
+  ...galleryThumbs.map((photo) => ({ ...photo, kind: 'photo' as const })),
+  ...galleryVideos.map((video) => ({ ...video, kind: 'video' as const })),
+]
+
+export function galleryFilterItems(filter: GalleryFilter): GalleryItem[] {
+  if (filter === 'images') {
+    return galleryItems.filter((item) => item.kind === 'photo')
+  }
+  if (filter === 'videos') {
+    return galleryItems.filter((item) => item.kind === 'video')
+  }
+  return galleryItems
+}

@@ -1,9 +1,12 @@
-import { ChevronLeft, ChevronRight, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { ChevronLeft, ChevronRight, Play, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import {
   comparePairs,
-  galleryThumbs,
+  galleryFilterItems,
   photoSrc,
+  videoPosterSrc,
+  videoSrc,
+  type GalleryFilter,
   type PhotoWidth,
 } from '../../../data/media'
 import { BeforeAfterSlider } from '../BeforeAfterSlider/BeforeAfterSlider'
@@ -15,23 +18,32 @@ export type GalleryStageProps = {
 
 const GRID_CAP = 9
 
+const FILTERS: { id: GalleryFilter; label: string }[] = [
+  { id: 'all', label: 'All' },
+  { id: 'images', label: 'Images' },
+  { id: 'videos', label: 'Videos' },
+]
+
 /** Featured compare on the left; thumbnail grid with prev/next on the right. */
 export function GalleryStage({ imageWidth }: GalleryStageProps) {
   const [pairIndex, setPairIndex] = useState(0)
   const [thumbIndex, setThumbIndex] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [gridPage, setGridPage] = useState(0)
+  const [filter, setFilter] = useState<GalleryFilter>('all')
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   const pair = comparePairs[pairIndex]
   const pairCount = comparePairs.length
-  const thumbCount = galleryThumbs.length
+  const items = galleryFilterItems(filter)
+  const thumbCount = items.length
   const pageCount = Math.ceil(thumbCount / GRID_CAP)
   const showGridArrows = thumbCount > GRID_CAP
-  const visibleThumbs = galleryThumbs.slice(
+  const visibleThumbs = items.slice(
     gridPage * GRID_CAP,
     gridPage * GRID_CAP + GRID_CAP,
   )
-  const selected = galleryThumbs[thumbIndex]
+  const selected = items[thumbIndex]
 
   useEffect(() => {
     for (const item of comparePairs) {
@@ -41,6 +53,13 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
       after.src = photoSrc(item.after.slug, imageWidth)
     }
   }, [imageWidth])
+
+  function resetVideo() {
+    const video = videoRef.current
+    if (!video) return
+    video.pause()
+    video.currentTime = 0
+  }
 
   function goPair(delta: number) {
     setPairIndex((current) => (current + delta + pairCount) % pairCount)
@@ -55,6 +74,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
   }
 
   function goThumb(delta: number) {
+    resetVideo()
     setThumbIndex((current) =>
       Math.min(thumbCount - 1, Math.max(0, current + delta)),
     )
@@ -67,7 +87,15 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
   }
 
   function closeLightbox() {
+    resetVideo()
     setLightboxOpen(false)
+  }
+
+  function changeFilter(next: GalleryFilter) {
+    setFilter(next)
+    setGridPage(0)
+    setThumbIndex(0)
+    closeLightbox()
   }
 
   useEffect(() => {
@@ -87,6 +115,27 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
 
   return (
     <>
+      <div className={styles.filter} role="group" aria-label="Gallery media type">
+        {FILTERS.map((option) => {
+          const isActive = filter === option.id
+          return (
+            <button
+              key={option.id}
+              type="button"
+              className={
+                isActive
+                  ? `${styles.filterBtn} ${styles.filterBtnActive}`
+                  : styles.filterBtn
+              }
+              aria-pressed={isActive}
+              onClick={() => changeFilter(option.id)}
+            >
+              {option.label}
+            </button>
+          )
+        })}
+      </div>
+
       <div className={styles.layout}>
         <div className={styles.sliderFrame}>
           <BeforeAfterSlider
@@ -131,12 +180,12 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
           ) : null}
           <div className={styles.galleryFrame}>
             <div className={styles.grid}>
-              {visibleThumbs.map((slot, offset) => {
+              {visibleThumbs.map((item, offset) => {
                 const index = gridPage * GRID_CAP + offset
                 const isSelected = lightboxOpen && index === thumbIndex
                 return (
                   <button
-                    key={slot.slug}
+                    key={`${item.kind}-${item.slug}`}
                     type="button"
                     className={
                       isSelected
@@ -144,18 +193,33 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
                         : styles.thumb
                     }
                     onClick={() => openThumb(index)}
-                    aria-label={`Enlarge ${slot.alt}`}
+                    aria-label={
+                      item.kind === 'video'
+                        ? `Play ${item.alt}`
+                        : `Enlarge ${item.alt}`
+                    }
                     aria-current={isSelected}
                   >
                     <img
                       className={styles.thumbImg}
-                      src={photoSrc(slot.slug, 640)}
-                      width={slot.width}
-                      height={slot.height}
+                      src={
+                        item.kind === 'video'
+                          ? videoPosterSrc(item.slug)
+                          : photoSrc(item.slug, 640)
+                      }
+                      width={item.width}
+                      height={item.height}
                       alt=""
                       loading="lazy"
                       decoding="async"
                     />
+                    {item.kind === 'video' ? (
+                      <span className={styles.thumbPlay} aria-hidden="true">
+                        <span className={styles.thumbPlayIcon}>
+                          <Play size={16} strokeWidth={2.5} fill="currentColor" />
+                        </span>
+                      </span>
+                    ) : null}
                   </button>
                 )
               })}
@@ -176,7 +240,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
         </div>
       </div>
 
-      {lightboxOpen ? (
+      {lightboxOpen && selected ? (
         <div
           className={styles.lightbox}
           role="dialog"
@@ -188,7 +252,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
             type="button"
             className={styles.lightboxClose}
             onClick={closeLightbox}
-            aria-label="Close enlarged image"
+            aria-label="Close gallery item"
           >
             <X size={22} strokeWidth={2.5} />
           </button>
@@ -200,7 +264,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
                 event.stopPropagation()
                 goThumb(-1)
               }}
-              aria-label="Previous gallery image"
+              aria-label="Previous gallery item"
             >
               <ChevronLeft size={22} strokeWidth={2.5} />
             </button>
@@ -213,19 +277,36 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
                 event.stopPropagation()
                 goThumb(1)
               }}
-              aria-label="Next gallery image"
+              aria-label="Next gallery item"
             >
               <ChevronRight size={22} strokeWidth={2.5} />
             </button>
           ) : null}
-          <img
-            className={styles.lightboxImg}
-            src={photoSrc(selected.slug, 1024)}
-            width={selected.width}
-            height={selected.height}
-            alt={selected.alt}
-            onClick={(event) => event.stopPropagation()}
-          />
+          {selected.kind === 'video' ? (
+            <video
+              key={selected.slug}
+              ref={videoRef}
+              className={styles.lightboxVideo}
+              src={videoSrc(selected.slug)}
+              poster={videoPosterSrc(selected.slug)}
+              width={selected.width}
+              height={selected.height}
+              controls
+              playsInline
+              preload="metadata"
+              aria-label={selected.alt}
+              onClick={(event) => event.stopPropagation()}
+            />
+          ) : (
+            <img
+              className={styles.lightboxImg}
+              src={photoSrc(selected.slug, 1024)}
+              width={selected.width}
+              height={selected.height}
+              alt={selected.alt}
+              onClick={(event) => event.stopPropagation()}
+            />
+          )}
         </div>
       ) : null}
     </>
