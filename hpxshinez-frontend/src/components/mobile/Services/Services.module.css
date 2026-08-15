@@ -17,6 +17,9 @@
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   background: var(--color-surface);
   border: 1px solid var(--color-border-mid);
   border-radius: var(--radius-md);
@@ -32,6 +35,7 @@
 }
 
 .cardCopy {
+  flex: 1;
   font-size: var(--font-size-card-copy-mobile);
   color: var(--color-text-tertiary);
   line-height: var(--line-height-card-mobile);
@@ -39,6 +43,7 @@
 }
 
 .badge {
+  align-self: flex-end;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--font-size-badge-mobile);
@@ -48,5 +53,5 @@
   border-radius: var(--radius-sm);
   padding: 3px var(--space-4);
   letter-spacing: var(--letter-spacing-lg);
-  text-transform: uppercase;
+  text-transform: none;
 }
