@@ -2,7 +2,6 @@ services:
   - type: web
     name: hpxshinez-website
     runtime: static
-    plan: free
     rootDir: hpxshinez-frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
