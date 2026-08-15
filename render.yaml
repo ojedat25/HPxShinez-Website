@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: hpxshinez-website
+    runtime: static
+    plan: free
+    rootDir: hpxshinez-frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
