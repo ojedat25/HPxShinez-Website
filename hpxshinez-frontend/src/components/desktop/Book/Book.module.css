@@ -1,3 +1,4 @@
+/* --- CTA band --- */
 .section {
   position: relative;
   overflow: hidden;
@@ -19,6 +20,7 @@
   margin: 0 auto;
 }
 
+/* --- Copy --- */
 .eyebrow {
   font: 700 var(--font-size-eyebrow) / 1 var(--font-body);
   letter-spacing: var(--letter-spacing-section);
@@ -43,6 +45,7 @@
   max-width: var(--max-width-book-copy);
 }
 
+/* --- Instagram CTA --- */
 .cta {
   display: inline-flex;
   align-items: center;

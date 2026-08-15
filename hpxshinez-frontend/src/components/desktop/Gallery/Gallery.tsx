@@ -6,6 +6,7 @@ export function Gallery() {
   return (
     <section id="work" className={styles.section}>
       <div className={styles.inner}>
+        {/* --- Section header --- */}
         <div className={styles.header}>
           <div>
             <div className={styles.eyebrow}>Straight off the feed</div>
@@ -20,6 +21,7 @@ export function Gallery() {
             Follow @HPxShinezDetailz
           </a>
         </div>
+        {/* Desktop loads 1024px stills */}
         <GalleryStage imageWidth={1024} />
       </div>
     </section>

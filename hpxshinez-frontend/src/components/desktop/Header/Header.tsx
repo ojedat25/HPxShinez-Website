@@ -6,12 +6,14 @@ export function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
+        {/* --- Brand --- */}
         <a href="#top" className={styles.brand}>
           <Logo size={40} />
           <span className={styles.wordmark}>
             HPxShinez <span className={styles.accent}>Detailz</span>
           </span>
         </a>
+        {/* --- Section links + Book CTA --- */}
         <nav className={styles.nav}>
           <a href="#services" className={styles.navLink}>
             Services

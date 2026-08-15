@@ -6,12 +6,14 @@ export function Book() {
     <section id="book" className={styles.section}>
       <div className={styles.glow} aria-hidden="true" />
       <div className={styles.inner}>
+        {/* --- Copy --- */}
         <div className={styles.eyebrow}>Ready to shine</div>
         <h2 className={styles.title}>Slide into our DMs</h2>
         <p className={styles.copy}>
           Send your vehicle, location, and what you&apos;re after, and we&apos;ll
           confirm a time that works. No forms, no phone tag.
         </p>
+        {/* --- Instagram CTA --- */}
         <a
           href="https://ig.me/m/hpxshinezdetailz"
           target="_blank"

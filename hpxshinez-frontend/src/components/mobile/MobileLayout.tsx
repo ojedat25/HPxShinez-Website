@@ -11,6 +11,7 @@ import styles from './MobileLayout.module.css'
 export function MobileLayout() {
   return (
     <div className={`${styles.root} mobile`}>
+      {/* Header → Hero → Services → Gallery → AreasHours → Book → Footer */}
       <Header />
       <Hero />
       <Services />

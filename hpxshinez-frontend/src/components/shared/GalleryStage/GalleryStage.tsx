@@ -26,7 +26,9 @@ const FILTERS: { id: GalleryFilter; label: string }[] = [
 
 /** Featured compare on the left; thumbnail grid with prev/next on the right. */
 export function GalleryStage({ imageWidth }: GalleryStageProps) {
+  // Compare slider (independent of the thumbnail/lightbox selection)
   const [pairIndex, setPairIndex] = useState(0)
+  // Thumbnail grid + lightbox
   const [thumbIndex, setThumbIndex] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [gridPage, setGridPage] = useState(0)
@@ -45,6 +47,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
   )
   const selected = items[thumbIndex]
 
+  // Prefetch every compare pair so prev/next on the slider feels instant.
   useEffect(() => {
     for (const item of comparePairs) {
       const before = new Image()
@@ -54,6 +57,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
     }
   }, [imageWidth])
 
+  // Stop playback before swapping lightbox items or closing.
   function resetVideo() {
     const video = videoRef.current
     if (!video) return
@@ -61,10 +65,12 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
     video.currentTime = 0
   }
 
+  // Wrap around the featured compare pairs.
   function goPair(delta: number) {
     setPairIndex((current) => (current + delta + pairCount) % pairCount)
   }
 
+  // Clamp grid paging; no wrap (spacers hold layout when an arrow is hidden).
   function goGridPage(delta: number) {
     setGridPage((current) => {
       const next = current + delta
@@ -73,6 +79,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
     })
   }
 
+  // Step lightbox selection without wrapping past the first/last item.
   function goThumb(delta: number) {
     resetVideo()
     setThumbIndex((current) =>
@@ -91,6 +98,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
     setLightboxOpen(false)
   }
 
+  // Filter change resets paging and closes any open lightbox.
   function changeFilter(next: GalleryFilter) {
     setFilter(next)
     setGridPage(0)
@@ -98,6 +106,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
     closeLightbox()
   }
 
+  // Escape closes; arrows step the lightbox only while it is open.
   useEffect(() => {
     if (!lightboxOpen) return
 
@@ -115,6 +124,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
 
   return (
     <>
+      {/* --- Filter: All / Images / Videos --- */}
       <div className={styles.filter} role="group" aria-label="Gallery media type">
         {FILTERS.map((option) => {
           const isActive = filter === option.id
@@ -137,6 +147,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
       </div>
 
       <div className={styles.layout}>
+        {/* --- Featured before/after slider --- */}
         <div className={styles.sliderFrame}>
           <BeforeAfterSlider
             className={styles.slider}
@@ -165,6 +176,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
           </button>
         </div>
 
+        {/* --- Thumbnail grid (paginated 3x3) --- */}
         <div className={styles.galleryPanel}>
           {showGridArrows && gridPage > 0 ? (
             <button
@@ -240,6 +252,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
         </div>
       </div>
 
+      {/* --- Lightbox (photo or video) --- */}
       {lightboxOpen && selected ? (
         <div
           className={styles.lightbox}
@@ -256,57 +269,59 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
           >
             <X size={22} strokeWidth={2.5} />
           </button>
-          {thumbIndex > 0 ? (
-            <button
-              type="button"
-              className={`${styles.nav} ${styles.navPrev}`}
-              onClick={(event) => {
-                event.stopPropagation()
-                goThumb(-1)
-              }}
-              aria-label="Previous gallery item"
-            >
-              <ChevronLeft size={22} strokeWidth={2.5} />
-            </button>
-          ) : null}
-          {thumbIndex < thumbCount - 1 ? (
-            <button
-              type="button"
-              className={`${styles.nav} ${styles.navNext}`}
-              onClick={(event) => {
-                event.stopPropagation()
-                goThumb(1)
-              }}
-              aria-label="Next gallery item"
-            >
-              <ChevronRight size={22} strokeWidth={2.5} />
-            </button>
-          ) : null}
-          {selected.kind === 'video' ? (
-            <video
-              key={selected.slug}
-              ref={videoRef}
-              className={styles.lightboxVideo}
-              src={videoSrc(selected.slug)}
-              poster={videoPosterSrc(selected.slug)}
-              width={selected.width}
-              height={selected.height}
-              controls
-              playsInline
-              preload="metadata"
-              aria-label={selected.alt}
-              onClick={(event) => event.stopPropagation()}
-            />
-          ) : (
-            <img
-              className={styles.lightboxImg}
-              src={photoSrc(selected.slug, 1024)}
-              width={selected.width}
-              height={selected.height}
-              alt={selected.alt}
-              onClick={(event) => event.stopPropagation()}
-            />
-          )}
+          <div className={styles.lightboxStage}>
+            {thumbIndex > 0 ? (
+              <button
+                type="button"
+                className={`${styles.lightboxNav} ${styles.lightboxNavPrev}`}
+                onClick={(event) => {
+                  event.stopPropagation()
+                  goThumb(-1)
+                }}
+                aria-label="Previous gallery item"
+              >
+                <ChevronLeft size={26} strokeWidth={2.5} />
+              </button>
+            ) : null}
+            {thumbIndex < thumbCount - 1 ? (
+              <button
+                type="button"
+                className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
+                onClick={(event) => {
+                  event.stopPropagation()
+                  goThumb(1)
+                }}
+                aria-label="Next gallery item"
+              >
+                <ChevronRight size={26} strokeWidth={2.5} />
+              </button>
+            ) : null}
+            {selected.kind === 'video' ? (
+              <video
+                key={selected.slug}
+                ref={videoRef}
+                className={styles.lightboxVideo}
+                src={videoSrc(selected.slug)}
+                poster={videoPosterSrc(selected.slug)}
+                width={selected.width}
+                height={selected.height}
+                controls
+                playsInline
+                preload="metadata"
+                aria-label={selected.alt}
+                onClick={(event) => event.stopPropagation()}
+              />
+            ) : (
+              <img
+                className={styles.lightboxImg}
+                src={photoSrc(selected.slug, 1024)}
+                width={selected.width}
+                height={selected.height}
+                alt={selected.alt}
+                onClick={(event) => event.stopPropagation()}
+              />
+            )}
+          </div>
         </div>
       ) : null}
     </>

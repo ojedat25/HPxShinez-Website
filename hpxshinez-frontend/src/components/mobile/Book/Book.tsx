@@ -4,12 +4,14 @@ import styles from './Book.module.css'
 export function Book() {
   return (
     <section id="book" className={styles.card}>
+      {/* --- Copy --- */}
       <div className={styles.eyebrow}>Ready to shine</div>
       <div className={styles.title}>Slide into our DMs</div>
       <p className={styles.copy}>
         Send your vehicle, location, and what you&apos;re after. We&apos;ll
         confirm a time that works. No forms, no phone tag.
       </p>
+      {/* --- Instagram CTA --- */}
       <a
         href="https://instagram.com/HPxShinezDetailz"
         target="_blank"

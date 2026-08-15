@@ -1,3 +1,4 @@
+/* Circular brand mark; image is slightly oversized so the crop fills the circle. */
 .mark {
   border-radius: var(--radius-full);
   display: flex;

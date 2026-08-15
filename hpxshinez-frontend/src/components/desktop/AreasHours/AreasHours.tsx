@@ -20,6 +20,7 @@ const HOURS = [
 export function AreasHours() {
   return (
     <section id="areas" className={styles.section}>
+      {/* --- Areas column --- */}
       <div>
         <div className={styles.eyebrow}>Where we roll up</div>
         <h2 className={styles.title}>Service areas</h2>
@@ -35,6 +36,7 @@ export function AreasHours() {
           address. We bring the gear to your driveway.
         </p>
       </div>
+      {/* --- Hours column --- */}
       <div>
         <div className={styles.eyebrow}>When we work</div>
         <h2 className={styles.title}>Hours</h2>

@@ -56,6 +56,7 @@ export function BeforeAfterSlider({
   const rootRef = useRef<HTMLDivElement>(null)
   const labelId = useId()
   const [position, setPosition] = useState(DEFAULT_POSITION)
+  // Paint `shown` only after both images load so the wipe never flashes a half-ready pair.
   const [shown, setShown] = useState<ShownPair>({
     beforeSrc,
     afterSrc,
@@ -91,6 +92,7 @@ export function BeforeAfterSlider({
     setPosition(clampPercent(((clientX - rect.left) / rect.width) * 100))
   }, [])
 
+  // Capture so drag continues even if the pointer leaves the slider.
   function onPointerDown(event: PointerEvent<HTMLDivElement>) {
     if (event.button !== 0) return
     event.currentTarget.setPointerCapture(event.pointerId)
@@ -112,6 +114,7 @@ export function BeforeAfterSlider({
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
     >
+      {/* After sits full-bleed; before is clipped from the right by `clipRight`. */}
       <img
         className={styles.img}
         src={shown.afterSrc}
@@ -136,6 +139,7 @@ export function BeforeAfterSlider({
       >
         <span className={styles.handle} />
       </div>
+      {/* Invisible range for keyboard / screen-reader control of the wipe. */}
       <label className={styles.srOnly} htmlFor={labelId}>
         Before and after comparison
       </label>

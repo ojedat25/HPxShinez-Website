@@ -33,7 +33,9 @@ const SERVICES: ServiceCard[] = [
 export function Services() {
   return (
     <section id="services" className={styles.section}>
+      {/* --- Header --- */}
       <div className={styles.eyebrow}>Services</div>
+      {/* --- Card grid --- */}
       <div className={styles.grid}>
         {SERVICES.map((service) => (
           <div key={service.title} className={styles.card}>

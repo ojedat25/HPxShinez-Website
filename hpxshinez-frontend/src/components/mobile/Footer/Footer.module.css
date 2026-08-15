@@ -1,9 +1,11 @@
+/* --- Footer shell --- */
 .footer {
   margin-top: var(--space-20);
   border-top: 1px solid var(--color-border-copyright);
   background: var(--color-bg-footer);
 }
 
+/* --- Copyright --- */
 .copyright {
   padding: var(--space-12) var(--space-page-x-mobile);
   text-align: center;

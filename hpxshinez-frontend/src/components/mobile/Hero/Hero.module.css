@@ -1,3 +1,4 @@
+/* --- Copy block --- */
 .hero {
   padding: var(--space-hero-top-mobile) var(--space-page-x-mobile) 0;
   position: relative;
@@ -55,6 +56,7 @@
   border-radius: var(--radius-md);
 }
 
+/* --- 3-up collage --- */
 .media {
   width: 100%;
   overflow: hidden;

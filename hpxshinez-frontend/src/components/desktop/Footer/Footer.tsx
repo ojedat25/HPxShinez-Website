@@ -5,6 +5,7 @@ import styles from './Footer.module.css'
 export function Footer() {
   return (
     <footer className={styles.footer}>
+      {/* --- Brand row --- */}
       <div className={styles.top}>
         <div className={styles.brand}>
           <Logo size={42} />
@@ -26,6 +27,7 @@ export function Footer() {
           @HPxShinezDetailz
         </a>
       </div>
+      {/* --- Copyright --- */}
       <div className={styles.copyright}>
         © 2026 HPxShinez Detailz - Booking via Instagram DM only
       </div>

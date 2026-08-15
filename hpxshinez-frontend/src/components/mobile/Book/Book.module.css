@@ -1,3 +1,4 @@
+/* --- CTA card --- */
 .card {
   margin: var(--space-20) var(--space-page-x-mobile) 0;
   padding: var(--space-18) var(--space-14);
@@ -9,6 +10,7 @@
   scroll-margin-top: var(--scroll-offset-mobile);
 }
 
+/* --- Copy --- */
 .eyebrow {
   font: 700 var(--font-size-eyebrow-mobile) / 1 var(--font-body);
   letter-spacing: var(--letter-spacing-section-mobile);
@@ -32,6 +34,7 @@
   margin: var(--space-7) 0 var(--space-12);
 }
 
+/* --- Instagram CTA --- */
 .cta {
   display: flex;
   align-items: center;

@@ -42,7 +42,7 @@
   --color-selection-text: #fff;
   --color-white: #fff;
 
-  /* Logo gradient */
+  /* Gradients */
   --gradient-logo: radial-gradient(
     circle at 50% 45%,
     var(--color-logo-light) 0%,
@@ -162,6 +162,7 @@
   --font-size-book-handle-mobile: 12.5px;
   --font-size-sticky-cta: 15px;
 
+  /* Letter spacing */
   --letter-spacing-tight: 0.003em;
   --letter-spacing-sm: 0.03em;
   --letter-spacing-md: 0.04em;
@@ -173,6 +174,7 @@
   --letter-spacing-section-mobile: 0.2em;
   --letter-spacing-overlay: 0.18em;
 
+  /* Line height */
   --line-height-hero: 0.84;
   --line-height-hero-mobile: 0.82;
   --line-height-heading: 0.95;

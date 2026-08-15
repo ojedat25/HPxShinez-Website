@@ -4,6 +4,7 @@ import styles from './Footer.module.css'
 export function Footer() {
   return (
     <footer className={styles.footer}>
+      {/* --- Copyright --- */}
       <div className={styles.copyright}>
         © 2026 HPxShinez Detailz - Booking via Instagram DM only
       </div>

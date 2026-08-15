@@ -11,6 +11,7 @@ import styles from './DesktopLayout.module.css'
 export function DesktopLayout() {
   return (
     <div className={styles.root}>
+      {/* Header → Hero → Services → Gallery → AreasHours → Book → Footer */}
       <Header />
       <Hero />
       <Services />

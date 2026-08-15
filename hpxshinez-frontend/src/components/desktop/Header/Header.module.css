@@ -1,3 +1,4 @@
+/* --- Sticky bar --- */
 .header {
   position: sticky;
   top: 0;
@@ -17,6 +18,7 @@
   gap: var(--space-14);
 }
 
+/* --- Brand --- */
 .brand {
   display: flex;
   align-items: center;
@@ -35,6 +37,7 @@
   color: var(--color-accent);
 }
 
+/* --- Section links + Book CTA --- */
 .nav {
   display: flex;
   align-items: center;

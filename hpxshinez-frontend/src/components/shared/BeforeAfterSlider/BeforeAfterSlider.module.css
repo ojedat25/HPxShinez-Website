@@ -1,3 +1,4 @@
+/* --- Slider root (pointer drag surface) --- */
 .root {
   position: relative;
   width: 100%;
@@ -8,6 +9,7 @@
   user-select: none;
 }
 
+/* --- After (full) + before (clipped overlay) --- */
 .img {
   display: block;
   width: 100%;
@@ -21,6 +23,7 @@
   inset: 0;
 }
 
+/* --- Divider + handle --- */
 .divider {
   position: absolute;
   top: 0;
@@ -43,6 +46,7 @@
   transform: translate(-50%, -50%);
 }
 
+/* --- Visually hidden range for keyboard / AT --- */
 .range {
   position: absolute;
   inset: 0;

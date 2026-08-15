@@ -12,6 +12,7 @@ export function Hero() {
   return (
     <>
       <section id="top" className={styles.hero}>
+        {/* --- Copy block --- */}
         <div className={styles.eyebrow}>
           Mobile detailing - Twin Cities metro
         </div>
@@ -34,6 +35,7 @@ export function Hero() {
           Book via Instagram DM
         </a>
       </section>
+      {/* --- Collage --- */}
       <div className={styles.collage}>
         {slots.map((slot, index) => (
           <div

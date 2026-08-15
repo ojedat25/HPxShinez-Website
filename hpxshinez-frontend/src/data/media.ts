@@ -1,3 +1,5 @@
+// --- Photo catalog + path helpers ---
+
 /** Photo slug under /images/webp/ (without width suffix). */
 export type PhotoSlug =
   | '02-lancer-interior-after'
@@ -102,6 +104,8 @@ const PHOTO: Record<PhotoSlug, PhotoAsset> = {
   },
 }
 
+// --- Hero collage slots ---
+
 export type ImageSlot = PhotoAsset & {
   aspectRatio: string
 }
@@ -121,6 +125,8 @@ export const desktopHeroMedia = {
     aspectRatio: '3 / 4',
   },
 } as const satisfies Record<string, ImageSlot>
+
+// --- Gallery stills + compare pairs ---
 
 export type GalleryStill = PhotoAsset & {
   kind: 'still'
@@ -201,6 +207,8 @@ export const galleryThumbs: PhotoAsset[] = galleryMedia.flatMap((slot) =>
   slot.kind === 'still' ? [slot] : [slot.before, slot.after],
 )
 
+// --- Videos ---
+
 export type VideoSlug =
   | '01-charger-gt-walkaround'
   | '02-foam-cannon-canopy'
@@ -213,10 +221,12 @@ export type VideoAsset = {
   height: number
 }
 
+/** MP4 clip under /videos/mp4/. */
 export function videoSrc(slug: VideoSlug) {
   return `/videos/mp4/${slug}.mp4`
 }
 
+/** First-frame WebP poster under /videos/posters/. */
 export function videoPosterSrc(slug: VideoSlug) {
   return `/videos/posters/${slug}-poster.webp`
 }
@@ -242,6 +252,8 @@ export const galleryVideos: VideoAsset[] = [
   },
 ]
 
+// --- Combined gallery items + filter helpers ---
+
 export type GalleryItem =
   | (PhotoAsset & { kind: 'photo' })
   | (VideoAsset & { kind: 'video' })
@@ -254,6 +266,7 @@ export const galleryItems: GalleryItem[] = [
   ...galleryVideos.map((video) => ({ ...video, kind: 'video' as const })),
 ]
 
+/** Slice galleryItems by All / Images / Videos. */
 export function galleryFilterItems(filter: GalleryFilter): GalleryItem[] {
   if (filter === 'images') {
     return galleryItems.filter((item) => item.kind === 'photo')

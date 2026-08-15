@@ -5,7 +5,9 @@ import styles from './Gallery.module.css'
 export function Gallery() {
   return (
     <section id="work" className={styles.section}>
+      {/* --- Section header --- */}
       <div className={styles.eyebrow}>The Gallery</div>
+      {/* Mobile loads 640px stills */}
       <GalleryStage imageWidth={640} />
     </section>
   )

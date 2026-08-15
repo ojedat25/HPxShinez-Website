@@ -1,3 +1,4 @@
+/* --- Filter bar --- */
 .filter {
   display: flex;
   flex-wrap: wrap;
@@ -22,6 +23,7 @@
   color: var(--color-accent);
 }
 
+/* --- Compare slider + grid layout --- */
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(200px, 0.65fr);
@@ -62,6 +64,7 @@
   min-height: 0;
 }
 
+/* --- Prev/next controls (slider overlay + grid sides) --- */
 .nav {
   position: absolute;
   top: 50%;
@@ -100,6 +103,7 @@
   flex-shrink: 0;
 }
 
+/* --- Thumbnail grid --- */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -153,6 +157,7 @@
   background: var(--color-header-bg);
 }
 
+/* --- Lightbox overlay --- */
 .lightbox {
   position: fixed;
   inset: 0;
@@ -181,13 +186,49 @@
   cursor: pointer;
 }
 
+/* Media box; nav is positioned against the image, not the viewport. */
+.lightboxStage {
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .lightboxImg,
 .lightboxVideo {
   max-width: 100%;
   max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
 }
 
+.lightboxNav {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-22);
+  height: var(--space-28);
+  transform: translateY(-50%);
+  border: 1px solid var(--color-border-nav);
+  border-radius: var(--radius-md);
+  background: var(--color-header-bg);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.lightboxNavPrev {
+  left: var(--space-5);
+}
+
+.lightboxNavNext {
+  right: var(--space-5);
+}
+
+/* --- Mobile: stack slider above the grid --- */
 @media (max-width: 767px) {
   .layout {
     grid-template-columns: 1fr;

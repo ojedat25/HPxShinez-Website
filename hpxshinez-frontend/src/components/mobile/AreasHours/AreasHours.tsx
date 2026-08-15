@@ -20,6 +20,7 @@ const HOURS = [
 export function AreasHours() {
   return (
     <section id="areas" className={styles.section}>
+      {/* --- Areas --- */}
       <div className={styles.eyebrow}>Service Areas</div>
       <div className={styles.chips}>
         {AREAS.map((area) => (
@@ -32,6 +33,7 @@ export function AreasHours() {
         <strong className={styles.emphasis}>Mobile only.</strong> No shop, no
         address. We bring the gear to your driveway.
       </p>
+      {/* --- Hours --- */}
       <div className={styles.eyebrow}>Hours</div>
       <div className={styles.hoursList}>
         {HOURS.map((row) => (

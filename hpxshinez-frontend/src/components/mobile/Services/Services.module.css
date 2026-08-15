@@ -1,8 +1,10 @@
+/* --- Section shell --- */
 .section {
   padding: var(--space-20) var(--space-page-x-mobile) 0;
   scroll-margin-top: var(--scroll-offset-mobile);
 }
 
+/* --- Header --- */
 .eyebrow {
   font: 700 var(--font-size-eyebrow-mobile) / 1 var(--font-body);
   letter-spacing: var(--letter-spacing-section-mobile);
@@ -11,6 +13,7 @@
   margin-bottom: var(--space-9);
 }
 
+/* --- Card grid --- */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

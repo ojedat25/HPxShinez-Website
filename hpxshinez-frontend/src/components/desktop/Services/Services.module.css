@@ -1,9 +1,11 @@
+/* --- Section shell --- */
 .section {
   max-width: var(--max-width-content);
   margin: 0 auto;
   padding: var(--space-section-y-top) var(--space-page-x) var(--space-section-y-bottom);
 }
 
+/* --- Header --- */
 .header {
   display: flex;
   align-items: flex-end;
@@ -29,6 +31,7 @@
   line-height: var(--line-height-heading);
 }
 
+/* --- Card grid --- */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

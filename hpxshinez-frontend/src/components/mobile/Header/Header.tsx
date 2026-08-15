@@ -12,6 +12,7 @@ const NAV_LINKS = [
 /** Sticky mobile nav: logo, wordmark, hamburger drawer. */
 export function Header() {
   const [open, setOpen] = useState(false)
+  // Hash to scroll to after the drawer closes (avoids scrolling while it is still covering the page).
   const [pendingHash, setPendingHash] = useState<string | null>(null)
   const navId = useId()
 
@@ -26,6 +27,7 @@ export function Header() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [open])
 
+  // After close, scroll to the queued section and update the URL hash.
   useEffect(() => {
     if (open || !pendingHash) return
 
@@ -46,6 +48,7 @@ export function Header() {
 
   return (
     <header className={styles.header}>
+      {/* --- Bar + hamburger --- */}
       <div className={styles.bar}>
         <a
           href="#top"
@@ -72,6 +75,7 @@ export function Header() {
           )}
         </button>
       </div>
+      {/* --- Drawer --- */}
       {open ? (
         <nav id={navId} className={styles.drawer}>
           {NAV_LINKS.map((link) => (

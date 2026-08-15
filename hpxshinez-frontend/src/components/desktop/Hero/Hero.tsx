@@ -8,6 +8,7 @@ export function Hero() {
   return (
     <section id="top" className={styles.hero}>
       <div className={styles.glow} aria-hidden="true" />
+      {/* --- Copy block --- */}
       <div className={styles.copyBlock}>
         <div className={styles.eyebrow}>
           Mobile detailing - Twin Cities metro
@@ -33,6 +34,7 @@ export function Hero() {
           </a>
         </div>
       </div>
+      {/* --- Collage --- */}
       <div className={styles.collage}>
         {/* heroLeft (m3-h1): width 100% of 1fr col; aspect-ratio 3/4 (~351×468 at 1280 content) */}
         <div className={styles.sideSlot}>
