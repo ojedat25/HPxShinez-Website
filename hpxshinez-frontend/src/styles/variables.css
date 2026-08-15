@@ -101,6 +101,9 @@
   --space-section-y-bottom: 70px;
   --space-hero-top: 70px;
   --space-hero-top-mobile: 28px;
+  --scroll-offset-mobile: calc(
+    34px + (var(--space-header-y-mobile) * 2) + 1px + var(--space-7)
+  );
 
   /* Layout */
   --max-width-content: 1280px;

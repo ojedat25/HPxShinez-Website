@@ -6,6 +6,7 @@
   border-top: 2px solid var(--color-accent);
   border-radius: var(--radius-md);
   text-align: center;
+  scroll-margin-top: var(--scroll-offset-mobile);
 }
 
 .eyebrow {

@@ -1,5 +1,6 @@
 .section {
   padding: var(--space-20) var(--space-page-x-mobile) 0;
+  scroll-margin-top: var(--scroll-offset-mobile);
 }
 
 .eyebrow {

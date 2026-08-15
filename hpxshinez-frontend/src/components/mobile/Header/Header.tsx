@@ -1,5 +1,5 @@
 import { Menu, X } from 'lucide-react'
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useState, type MouseEvent } from 'react'
 import { Logo } from '../../shared/Logo/Logo'
 import styles from './Header.module.css'
 
@@ -12,6 +12,7 @@ const NAV_LINKS = [
 /** Sticky mobile nav: logo, wordmark, hamburger drawer. */
 export function Header() {
   const [open, setOpen] = useState(false)
+  const [pendingHash, setPendingHash] = useState<string | null>(null)
   const navId = useId()
 
   useEffect(() => {
@@ -25,14 +26,32 @@ export function Header() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [open])
 
+  useEffect(() => {
+    if (open || !pendingHash) return
+
+    document.querySelector(pendingHash)?.scrollIntoView()
+    history.pushState(null, '', pendingHash)
+    setPendingHash(null)
+  }, [open, pendingHash])
+
   function close() {
+    setOpen(false)
+  }
+
+  function goToHash(event: MouseEvent<HTMLAnchorElement>, href: string) {
+    event.preventDefault()
+    setPendingHash(href)
     setOpen(false)
   }
 
   return (
     <header className={styles.header}>
       <div className={styles.bar}>
-        <a href="#top" className={styles.brand} onClick={close}>
+        <a
+          href="#top"
+          className={styles.brand}
+          onClick={(event) => goToHash(event, '#top')}
+        >
           <Logo size={34} />
           <span className={styles.wordmark}>
             HPxShinez <span className={styles.accent}>Detailz</span>
@@ -60,7 +79,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               className={styles.drawerLink}
-              onClick={close}
+              onClick={(event) => goToHash(event, link.href)}
             >
               {link.label}
             </a>

@@ -1,6 +1,7 @@
 .hero {
   padding: var(--space-hero-top-mobile) var(--space-page-x-mobile) 0;
   position: relative;
+  scroll-margin-top: var(--scroll-offset-mobile);
 }
 
 .eyebrow {
