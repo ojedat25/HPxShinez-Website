@@ -122,14 +122,6 @@ export const desktopHeroMedia = {
   },
 } as const satisfies Record<string, ImageSlot>
 
-/** Mobile hero banner. */
-export const mobileHeroMedia = {
-  banner: {
-    ...PHOTO['09-orange-lancer-hero'],
-    aspectRatio: '16 / 9',
-  },
-} as const satisfies Record<string, ImageSlot>
-
 export type GalleryStill = PhotoAsset & {
   kind: 'still'
   aspectRatio: string
@@ -177,6 +169,21 @@ export const galleryMedia: GallerySlot[] = [
   {
     kind: 'still',
     ...PHOTO['13-mat-foam-process'],
+    aspectRatio: '1 / 1',
+  },
+  {
+    kind: 'still',
+    ...PHOTO['09-orange-lancer-hero'],
+    aspectRatio: '1 / 1',
+  },
+  {
+    kind: 'still',
+    ...PHOTO['10-orange-lancer-foam'],
+    aspectRatio: '1 / 1',
+  },
+  {
+    kind: 'still',
+    ...PHOTO['11-orange-lancer-wheel'],
     aspectRatio: '1 / 1',
   },
 ]

@@ -1,9 +1,13 @@
-import { mobileHeroMedia, photoSrc } from '../../../data/media'
+import { desktopHeroMedia, photoSrc } from '../../../data/media'
 import styles from './Hero.module.css'
 
-/** Mobile hero: eyebrow, headline, copy, IG CTA, 16:9 image band. */
+/** Mobile hero: eyebrow, headline, copy, IG CTA, 3-up collage. */
 export function Hero() {
-  const { banner } = mobileHeroMedia
+  const slots = [
+    desktopHeroMedia.left,
+    desktopHeroMedia.center,
+    desktopHeroMedia.right,
+  ]
 
   return (
     <>
@@ -30,21 +34,25 @@ export function Hero() {
           Book via Instagram DM
         </a>
       </section>
-      {/* heroBanner: width 100%; aspect-ratio 16/9 (~393×221 at design width) */}
-      <div
-        className={`${styles.media} ${styles.banner}`}
-        style={{ aspectRatio: banner.aspectRatio }}
-      >
-        <img
-          className={styles.mediaImg}
-          src={photoSrc(banner.slug, 640)}
-          width={banner.width}
-          height={banner.height}
-          alt={banner.alt}
-          fetchPriority="high"
-          loading="eager"
-          decoding="async"
-        />
+      <div className={styles.collage}>
+        {slots.map((slot, index) => (
+          <div
+            key={slot.slug}
+            className={`${styles.media} ${styles.slot}`}
+            style={{ aspectRatio: slot.aspectRatio }}
+          >
+            <img
+              className={styles.mediaImg}
+              src={photoSrc(slot.slug, 640)}
+              width={slot.width}
+              height={slot.height}
+              alt={slot.alt}
+              fetchPriority={index === 1 ? 'high' : undefined}
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+        ))}
       </div>
     </>
   )

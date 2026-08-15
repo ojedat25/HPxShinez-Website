@@ -40,13 +40,13 @@ Stills are WebP-only from `public/images/webp` (`object-fit: cover`). Desktop sl
 | Component | Slot | Photo | Aspect |
 |-----------|------|-------|--------|
 | `desktop/Hero` | `heroLeft` | `10-orange-lancer-foam` | `3/4` |
-| `desktop/Hero` | `heroCenter` | `09-orange-lancer-hero` | `4/3` |
+| `desktop/Hero` | `heroCenter` | `09-orange-lancer-hero` | `3/4` |
 | `desktop/Hero` | `heroRight` | `11-orange-lancer-wheel` | `3/4` |
-| `mobile/Hero` | `heroBanner` | `09-orange-lancer-hero` | `16/9` |
+| `mobile/Hero` | 3-up collage | Same `10` / `09` / `11` as desktop | `3/4` |
 | `desktop/Gallery` / `mobile/Gallery` | Compare (left) | Prev/next slider: tire `05`/`06`, rear seat `03`/`04`, mat `07`/`08` | `4/3` |
-| | Thumbs (right) | 3×3 grid of compare frames + stills (`galleryThumbs`); click or prev/next to enlarge | `1/1` |
+| | Thumbs (right) | Compare frames + stills including hero `09`–`11` (`galleryThumbs`, 3×3 pages) | `1/1` |
 
-Hero LCP candidates use `fetchPriority="high"` (desktop center + mobile banner). Gallery images use `loading="lazy"`.
+Hero LCP candidates use `fetchPriority="high"` (desktop center + mobile collage center). Gallery images use `loading="lazy"`.
 
 Nav/footer logos use `src/assets/logo.png`.
 
