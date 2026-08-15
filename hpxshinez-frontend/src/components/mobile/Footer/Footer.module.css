@@ -1,0 +1,12 @@
+.footer {
+  margin-top: var(--space-20);
+  border-top: 1px solid var(--color-border-copyright);
+  background: var(--color-bg-footer);
+}
+
+.copyright {
+  padding: var(--space-12) var(--space-page-x-mobile);
+  text-align: center;
+  color: var(--color-text-copyright);
+  font-size: var(--font-size-sm-plus);
+}

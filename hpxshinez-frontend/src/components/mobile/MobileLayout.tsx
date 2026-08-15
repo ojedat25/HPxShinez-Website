@@ -1,5 +1,6 @@
 import { AreasHours } from './AreasHours/AreasHours'
 import { Book } from './Book/Book'
+import { Footer } from './Footer/Footer'
 import { Gallery } from './Gallery/Gallery'
 import { Header } from './Header/Header'
 import { Hero } from './Hero/Hero'
@@ -16,6 +17,7 @@ export function MobileLayout() {
       <Gallery />
       <AreasHours />
       <Book />
+      <Footer />
     </div>
   )
 }
