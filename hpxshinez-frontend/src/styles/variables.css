@@ -101,7 +101,6 @@
   --space-section-y-bottom: 70px;
   --space-hero-top: 70px;
   --space-hero-top-mobile: 28px;
-  --space-sticky-bar: 64px;
 
   /* Layout */
   --max-width-content: 1280px;
@@ -185,6 +184,5 @@
   --blur-header-mobile: 12px;
   --z-header: 30;
   --z-header-mobile: 20;
-  --z-sticky-bar: 30;
   --z-lightbox: 40;
 }

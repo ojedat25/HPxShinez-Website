@@ -26,12 +26,15 @@
 
 .galleryPanel {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--space-5);
   min-width: 0;
 }
 
 .galleryFrame {
   flex: 1;
+  min-width: 0;
   min-height: 0;
 }
 
@@ -60,6 +63,19 @@
   right: var(--space-5);
 }
 
+.gridNav {
+  position: relative;
+  inset: auto;
+  transform: none;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.gridNavSpacer {
+  width: var(--space-20);
+  flex-shrink: 0;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -79,6 +95,7 @@
   cursor: pointer;
 }
 
+.thumb:hover,
 .thumbSelected {
   border-color: var(--color-accent);
 }
@@ -88,22 +105,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.showMore {
-  align-self: flex-end;
-  margin-top: var(--space-5);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: var(--font-size-xs);
-  letter-spacing: var(--letter-spacing-lg);
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  background: transparent;
-  border: 1px solid var(--color-border-follow);
-  border-radius: var(--radius-md);
-  padding: var(--space-3) var(--space-8);
-  cursor: pointer;
 }
 
 .lightbox {

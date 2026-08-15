@@ -20,22 +20,35 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
   const [pairIndex, setPairIndex] = useState(0)
   const [thumbIndex, setThumbIndex] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [showAllThumbs, setShowAllThumbs] = useState(false)
+  const [gridPage, setGridPage] = useState(0)
 
   const pair = comparePairs[pairIndex]
   const pairCount = comparePairs.length
   const thumbCount = galleryThumbs.length
-  const visibleThumbs = showAllThumbs
-    ? galleryThumbs
-    : galleryThumbs.slice(0, GRID_CAP)
+  const pageCount = Math.ceil(thumbCount / GRID_CAP)
+  const showGridArrows = thumbCount > GRID_CAP
+  const visibleThumbs = galleryThumbs.slice(
+    gridPage * GRID_CAP,
+    gridPage * GRID_CAP + GRID_CAP,
+  )
   const selected = galleryThumbs[thumbIndex]
 
   function goPair(delta: number) {
     setPairIndex((current) => (current + delta + pairCount) % pairCount)
   }
 
+  function goGridPage(delta: number) {
+    setGridPage((current) => {
+      const next = current + delta
+      if (next < 0 || next >= pageCount) return current
+      return next
+    })
+  }
+
   function goThumb(delta: number) {
-    setThumbIndex((current) => (current + delta + thumbCount) % thumbCount)
+    setThumbIndex((current) =>
+      Math.min(thumbCount - 1, Math.max(0, current + delta)),
+    )
     setLightboxOpen(true)
   }
 
@@ -44,18 +57,24 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
     setLightboxOpen(true)
   }
 
+  function closeLightbox() {
+    setLightboxOpen(false)
+  }
+
   useEffect(() => {
     if (!lightboxOpen) return
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') setLightboxOpen(false)
-      if (event.key === 'ArrowLeft') goThumb(-1)
-      if (event.key === 'ArrowRight') goThumb(1)
+      if (event.key === 'Escape') closeLightbox()
+      if (event.key === 'ArrowLeft' && thumbIndex > 0) goThumb(-1)
+      if (event.key === 'ArrowRight' && thumbIndex < thumbCount - 1) {
+        goThumb(1)
+      }
     }
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [lightboxOpen, thumbCount])
+  }, [lightboxOpen, thumbCount, thumbIndex])
 
   return (
     <>
@@ -90,24 +109,35 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
         </div>
 
         <div className={styles.galleryPanel}>
+          {showGridArrows && gridPage > 0 ? (
+            <button
+              type="button"
+              className={`${styles.nav} ${styles.gridNav}`}
+              onClick={() => goGridPage(-1)}
+              aria-label="Previous gallery page"
+            >
+              <ChevronLeft size={22} strokeWidth={2.5} />
+            </button>
+          ) : showGridArrows ? (
+            <span className={styles.gridNavSpacer} aria-hidden="true" />
+          ) : null}
           <div className={styles.galleryFrame}>
             <div className={styles.grid}>
-              {visibleThumbs.map((slot) => {
-                const index = galleryThumbs.findIndex(
-                  (thumb) => thumb.slug === slot.slug,
-                )
+              {visibleThumbs.map((slot, offset) => {
+                const index = gridPage * GRID_CAP + offset
+                const isSelected = lightboxOpen && index === thumbIndex
                 return (
                   <button
                     key={slot.slug}
                     type="button"
                     className={
-                      index === thumbIndex
+                      isSelected
                         ? `${styles.thumb} ${styles.thumbSelected}`
                         : styles.thumb
                     }
                     onClick={() => openThumb(index)}
                     aria-label={`Enlarge ${slot.alt}`}
-                    aria-current={index === thumbIndex}
+                    aria-current={isSelected}
                   >
                     <img
                       className={styles.thumbImg}
@@ -122,31 +152,18 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
                 )
               })}
             </div>
+          </div>
+          {showGridArrows && gridPage < pageCount - 1 ? (
             <button
               type="button"
-              className={`${styles.nav} ${styles.navPrev}`}
-              onClick={() => goThumb(-1)}
-              aria-label="Previous gallery image"
-            >
-              <ChevronLeft size={22} strokeWidth={2.5} />
-            </button>
-            <button
-              type="button"
-              className={`${styles.nav} ${styles.navNext}`}
-              onClick={() => goThumb(1)}
-              aria-label="Next gallery image"
+              className={`${styles.nav} ${styles.gridNav}`}
+              onClick={() => goGridPage(1)}
+              aria-label="Next gallery page"
             >
               <ChevronRight size={22} strokeWidth={2.5} />
             </button>
-          </div>
-          {galleryThumbs.length > GRID_CAP ? (
-            <button
-              type="button"
-              className={styles.showMore}
-              onClick={() => setShowAllThumbs((open) => !open)}
-            >
-              {showAllThumbs ? 'Show less' : 'Show more'}
-            </button>
+          ) : showGridArrows ? (
+            <span className={styles.gridNavSpacer} aria-hidden="true" />
           ) : null}
         </div>
       </div>
@@ -157,38 +174,42 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
           role="dialog"
           aria-modal="true"
           aria-label={selected.alt}
-          onClick={() => setLightboxOpen(false)}
+          onClick={closeLightbox}
         >
           <button
             type="button"
             className={styles.lightboxClose}
-            onClick={() => setLightboxOpen(false)}
+            onClick={closeLightbox}
             aria-label="Close enlarged image"
           >
             <X size={22} strokeWidth={2.5} />
           </button>
-          <button
-            type="button"
-            className={`${styles.nav} ${styles.navPrev}`}
-            onClick={(event) => {
-              event.stopPropagation()
-              goThumb(-1)
-            }}
-            aria-label="Previous gallery image"
-          >
-            <ChevronLeft size={22} strokeWidth={2.5} />
-          </button>
-          <button
-            type="button"
-            className={`${styles.nav} ${styles.navNext}`}
-            onClick={(event) => {
-              event.stopPropagation()
-              goThumb(1)
-            }}
-            aria-label="Next gallery image"
-          >
-            <ChevronRight size={22} strokeWidth={2.5} />
-          </button>
+          {thumbIndex > 0 ? (
+            <button
+              type="button"
+              className={`${styles.nav} ${styles.navPrev}`}
+              onClick={(event) => {
+                event.stopPropagation()
+                goThumb(-1)
+              }}
+              aria-label="Previous gallery image"
+            >
+              <ChevronLeft size={22} strokeWidth={2.5} />
+            </button>
+          ) : null}
+          {thumbIndex < thumbCount - 1 ? (
+            <button
+              type="button"
+              className={`${styles.nav} ${styles.navNext}`}
+              onClick={(event) => {
+                event.stopPropagation()
+                goThumb(1)
+              }}
+              aria-label="Next gallery image"
+            >
+              <ChevronRight size={22} strokeWidth={2.5} />
+            </button>
+          ) : null}
           <img
             className={styles.lightboxImg}
             src={photoSrc(selected.slug, 1024)}
