@@ -269,33 +269,33 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
           >
             <X size={22} strokeWidth={2.5} />
           </button>
+          {thumbIndex > 0 ? (
+            <button
+              type="button"
+              className={`${styles.lightboxNav} ${styles.lightboxNavPrev}`}
+              onClick={(event) => {
+                event.stopPropagation()
+                goThumb(-1)
+              }}
+              aria-label="Previous gallery item"
+            >
+              <ChevronLeft size={26} strokeWidth={2.5} />
+            </button>
+          ) : null}
+          {thumbIndex < thumbCount - 1 ? (
+            <button
+              type="button"
+              className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
+              onClick={(event) => {
+                event.stopPropagation()
+                goThumb(1)
+              }}
+              aria-label="Next gallery item"
+            >
+              <ChevronRight size={26} strokeWidth={2.5} />
+            </button>
+          ) : null}
           <div className={styles.lightboxStage}>
-            {thumbIndex > 0 ? (
-              <button
-                type="button"
-                className={`${styles.lightboxNav} ${styles.lightboxNavPrev}`}
-                onClick={(event) => {
-                  event.stopPropagation()
-                  goThumb(-1)
-                }}
-                aria-label="Previous gallery item"
-              >
-                <ChevronLeft size={26} strokeWidth={2.5} />
-              </button>
-            ) : null}
-            {thumbIndex < thumbCount - 1 ? (
-              <button
-                type="button"
-                className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
-                onClick={(event) => {
-                  event.stopPropagation()
-                  goThumb(1)
-                }}
-                aria-label="Next gallery item"
-              >
-                <ChevronRight size={26} strokeWidth={2.5} />
-              </button>
-            ) : null}
             {selected.kind === 'video' ? (
               <video
                 key={selected.slug}

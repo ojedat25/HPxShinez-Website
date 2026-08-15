@@ -186,9 +186,8 @@
   cursor: pointer;
 }
 
-/* Media box; nav is positioned against the image, not the viewport. */
+/* Shrinks to the visible photo so backdrop clicks miss the image box. */
 .lightboxStage {
-  position: relative;
   display: flex;
   max-width: 100%;
   max-height: 100%;
