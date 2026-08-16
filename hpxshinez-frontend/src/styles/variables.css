@@ -1,16 +1,15 @@
 :root {
   /* Colors */
   --color-bg: #0a0a0a;
-  --color-bg-deep: #070707;
+  --color-bg-gallery: #070707;
   --color-bg-footer: #060606;
   --color-text: #f4f4f4;
   --color-text-muted: #cfcfcf;
   --color-text-secondary: #a9a9a9;
   --color-text-tertiary: #9a9a9a;
-  --color-text-dim: #7a7a7a;
-  --color-text-faint: #6f6f6f;
+  --color-text-tagline: #7a7a7a;
+  --color-text-hours: #6f6f6f;
   --color-text-copyright: #565656;
-  --color-text-note: #c9c9c9;
   --color-accent: #e01e2b;
   --color-accent-dark: #b3141f;
   --color-accent-soft: rgba(224, 30, 43, 0.08);
@@ -27,17 +26,13 @@
   --color-border-mid: #232323;
   --color-border-strong: #242424;
   --color-border-nav: #2a2a2a;
-  --color-border-follow: #2c2c2c;
+  --color-border-follow-link: #2c2c2c;
   --color-border-dashed: #3a3a3a;
   --color-border-badge: #3a2326;
   --color-border-copyright: #141414;
   --color-logo-light: #cfcfcf;
   --color-logo-mid: #7a7a7a;
   --color-logo-dark: #101010;
-  --color-overlay-dashed: rgba(255, 255, 255, 0.28);
-  --color-overlay-label: rgba(255, 255, 255, 0.5);
-  --color-overlay-muted: rgba(255, 255, 255, 0.25);
-  --color-overlay-faint: rgba(255, 255, 255, 0.35);
   --color-selection-bg: #e01e2b;
   --color-selection-text: #fff;
   --color-white: #fff;
@@ -160,7 +155,6 @@
   --font-size-book-copy-mobile: 13px;
   --font-size-book-cta-mobile: 16px;
   --font-size-book-handle-mobile: 12.5px;
-  --font-size-sticky-cta: 15px;
 
   /* Letter spacing */
   --letter-spacing-tight: 0.003em;
@@ -172,7 +166,6 @@
   --letter-spacing-eyebrow: 0.14em;
   --letter-spacing-section: 0.22em;
   --letter-spacing-section-mobile: 0.2em;
-  --letter-spacing-overlay: 0.18em;
 
   /* Line height */
   --line-height-hero: 0.84;

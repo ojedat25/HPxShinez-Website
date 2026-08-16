@@ -16,7 +16,7 @@ export type GalleryStageProps = {
   imageWidth: PhotoWidth
 }
 
-const GRID_CAP = 9
+const THUMBS_PER_PAGE = 9
 
 const FILTERS: { id: GalleryFilter; label: string }[] = [
   { id: 'all', label: 'All' },
@@ -32,28 +32,28 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
   const [thumbIndex, setThumbIndex] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [gridPage, setGridPage] = useState(0)
-  const [filter, setFilter] = useState<GalleryFilter>('all')
+  const [mediaFilter, setMediaFilter] = useState<GalleryFilter>('all')
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  const pair = comparePairs[pairIndex]
-  const pairCount = comparePairs.length
-  const items = galleryFilterItems(filter)
-  const thumbCount = items.length
-  const pageCount = Math.ceil(thumbCount / GRID_CAP)
-  const showGridArrows = thumbCount > GRID_CAP
-  const visibleThumbs = items.slice(
-    gridPage * GRID_CAP,
-    gridPage * GRID_CAP + GRID_CAP,
+  const activeComparePair = comparePairs[pairIndex]
+  const comparePairCount = comparePairs.length
+  const filteredGalleryItems = galleryFilterItems(mediaFilter)
+  const thumbCount = filteredGalleryItems.length
+  const pageCount = Math.ceil(thumbCount / THUMBS_PER_PAGE)
+  const showGridArrows = thumbCount > THUMBS_PER_PAGE
+  const visibleThumbs = filteredGalleryItems.slice(
+    gridPage * THUMBS_PER_PAGE,
+    gridPage * THUMBS_PER_PAGE + THUMBS_PER_PAGE,
   )
-  const selected = items[thumbIndex]
+  const lightboxItem = filteredGalleryItems[thumbIndex]
 
   // Prefetch every compare pair so prev/next on the slider feels instant.
   useEffect(() => {
-    for (const item of comparePairs) {
+    for (const comparePair of comparePairs) {
       const before = new Image()
-      before.src = photoSrc(item.before.slug, imageWidth)
+      before.src = photoSrc(comparePair.before.slug, imageWidth)
       const after = new Image()
-      after.src = photoSrc(item.after.slug, imageWidth)
+      after.src = photoSrc(comparePair.after.slug, imageWidth)
     }
   }, [imageWidth])
 
@@ -66,8 +66,10 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
   }
 
   // Wrap around the featured compare pairs.
-  function goPair(delta: number) {
-    setPairIndex((current) => (current + delta + pairCount) % pairCount)
+  function stepComparePair(delta: number) {
+    setPairIndex(
+      (current) => (current + delta + comparePairCount) % comparePairCount,
+    )
   }
 
   // Clamp grid paging; no wrap (spacers hold layout when an arrow is hidden).
@@ -80,7 +82,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
   }
 
   // Step lightbox selection without wrapping past the first/last item.
-  function goThumb(delta: number) {
+  function stepLightboxItem(delta: number) {
     resetVideo()
     setThumbIndex((current) =>
       Math.min(thumbCount - 1, Math.max(0, current + delta)),
@@ -88,7 +90,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
     setLightboxOpen(true)
   }
 
-  function openThumb(index: number) {
+  function openLightboxAt(index: number) {
     setThumbIndex(index)
     setLightboxOpen(true)
   }
@@ -99,8 +101,8 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
   }
 
   // Filter change resets paging and closes any open lightbox.
-  function changeFilter(next: GalleryFilter) {
-    setFilter(next)
+  function applyMediaFilter(next: GalleryFilter) {
+    setMediaFilter(next)
     setGridPage(0)
     setThumbIndex(0)
     closeLightbox()
@@ -112,9 +114,9 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') closeLightbox()
-      if (event.key === 'ArrowLeft' && thumbIndex > 0) goThumb(-1)
+      if (event.key === 'ArrowLeft' && thumbIndex > 0) stepLightboxItem(-1)
       if (event.key === 'ArrowRight' && thumbIndex < thumbCount - 1) {
-        goThumb(1)
+        stepLightboxItem(1)
       }
     }
 
@@ -127,18 +129,18 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
       {/* --- Filter: All / Images / Videos --- */}
       <div className={styles.filter} role="group" aria-label="Gallery media type">
         {FILTERS.map((option) => {
-          const isActive = filter === option.id
+          const isFilterActive = mediaFilter === option.id
           return (
             <button
               key={option.id}
               type="button"
               className={
-                isActive
+                isFilterActive
                   ? `${styles.filterBtn} ${styles.filterBtnActive}`
                   : styles.filterBtn
               }
-              aria-pressed={isActive}
-              onClick={() => changeFilter(option.id)}
+              aria-pressed={isFilterActive}
+              onClick={() => applyMediaFilter(option.id)}
             >
               {option.label}
             </button>
@@ -151,17 +153,17 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
         <div className={styles.sliderFrame}>
           <BeforeAfterSlider
             className={styles.slider}
-            beforeSrc={photoSrc(pair.before.slug, imageWidth)}
-            afterSrc={photoSrc(pair.after.slug, imageWidth)}
-            beforeAlt={pair.before.alt}
-            afterAlt={pair.after.alt}
-            width={pair.after.width}
-            height={pair.after.height}
+            beforeSrc={photoSrc(activeComparePair.before.slug, imageWidth)}
+            afterSrc={photoSrc(activeComparePair.after.slug, imageWidth)}
+            beforeAlt={activeComparePair.before.alt}
+            afterAlt={activeComparePair.after.alt}
+            width={activeComparePair.after.width}
+            height={activeComparePair.after.height}
           />
           <button
             type="button"
             className={`${styles.nav} ${styles.navPrev}`}
-            onClick={() => goPair(-1)}
+            onClick={() => stepComparePair(-1)}
             aria-label="Previous comparison"
           >
             <ChevronLeft size={22} strokeWidth={2.5} />
@@ -169,7 +171,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
           <button
             type="button"
             className={`${styles.nav} ${styles.navNext}`}
-            onClick={() => goPair(1)}
+            onClick={() => stepComparePair(1)}
             aria-label="Next comparison"
           >
             <ChevronRight size={22} strokeWidth={2.5} />
@@ -193,7 +195,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
           <div className={styles.galleryFrame}>
             <div className={styles.grid}>
               {visibleThumbs.map((item, offset) => {
-                const index = gridPage * GRID_CAP + offset
+                const index = gridPage * THUMBS_PER_PAGE + offset
                 const isSelected = lightboxOpen && index === thumbIndex
                 return (
                   <button
@@ -204,7 +206,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
                         ? `${styles.thumb} ${styles.thumbSelected}`
                         : styles.thumb
                     }
-                    onClick={() => openThumb(index)}
+                    onClick={() => openLightboxAt(index)}
                     aria-label={
                       item.kind === 'video'
                         ? `Play ${item.alt}`
@@ -253,12 +255,12 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
       </div>
 
       {/* --- Lightbox (photo or video) --- */}
-      {lightboxOpen && selected ? (
+      {lightboxOpen && lightboxItem ? (
         <div
           className={styles.lightbox}
           role="dialog"
           aria-modal="true"
-          aria-label={selected.alt}
+          aria-label={lightboxItem.alt}
           onClick={closeLightbox}
         >
           <button
@@ -275,7 +277,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
               className={`${styles.lightboxNav} ${styles.lightboxNavPrev}`}
               onClick={(event) => {
                 event.stopPropagation()
-                goThumb(-1)
+                stepLightboxItem(-1)
               }}
               aria-label="Previous gallery item"
             >
@@ -288,7 +290,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
               className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
               onClick={(event) => {
                 event.stopPropagation()
-                goThumb(1)
+                stepLightboxItem(1)
               }}
               aria-label="Next gallery item"
             >
@@ -296,28 +298,28 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
             </button>
           ) : null}
           <div className={styles.lightboxStage}>
-            {selected.kind === 'video' ? (
+            {lightboxItem.kind === 'video' ? (
               <video
-                key={selected.slug}
+                key={lightboxItem.slug}
                 ref={videoRef}
                 className={styles.lightboxVideo}
-                src={videoSrc(selected.slug)}
-                poster={videoPosterSrc(selected.slug)}
-                width={selected.width}
-                height={selected.height}
+                src={videoSrc(lightboxItem.slug)}
+                poster={videoPosterSrc(lightboxItem.slug)}
+                width={lightboxItem.width}
+                height={lightboxItem.height}
                 controls
                 playsInline
                 preload="metadata"
-                aria-label={selected.alt}
+                aria-label={lightboxItem.alt}
                 onClick={(event) => event.stopPropagation()}
               />
             ) : (
               <img
                 className={styles.lightboxImg}
-                src={photoSrc(selected.slug, 1024)}
-                width={selected.width}
-                height={selected.height}
-                alt={selected.alt}
+                src={photoSrc(lightboxItem.slug, 1024)}
+                width={lightboxItem.width}
+                height={lightboxItem.height}
+                alt={lightboxItem.alt}
                 onClick={(event) => event.stopPropagation()}
               />
             )}

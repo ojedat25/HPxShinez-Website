@@ -46,6 +46,22 @@
   transform: translate(-50%, -50%);
 }
 
+/* Release settle: only divider position + before clip, never the root. */
+.settling .divider {
+  transition: left 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.settling .before {
+  transition: clip-path 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settling .divider,
+  .settling .before {
+    transition: none;
+  }
+}
+
 /* --- Visually hidden range for keyboard / AT --- */
 .range {
   position: absolute;

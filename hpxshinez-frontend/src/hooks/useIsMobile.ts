@@ -13,15 +13,15 @@ export function useIsMobile(): boolean {
 
   // Re-run the desktop/mobile switch whenever the viewport crosses 767px.
   useEffect(() => {
-    const media = window.matchMedia(MOBILE_QUERY)
+    const mobileQuery = window.matchMedia(MOBILE_QUERY)
     const onChange = (event: MediaQueryListEvent) => {
       setIsMobile(event.matches)
     }
 
-    setIsMobile(media.matches)
-    media.addEventListener('change', onChange)
+    setIsMobile(mobileQuery.matches)
+    mobileQuery.addEventListener('change', onChange)
     return () => {
-      media.removeEventListener('change', onChange)
+      mobileQuery.removeEventListener('change', onChange)
     }
   }, [])
 
