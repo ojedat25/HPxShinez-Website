@@ -34,7 +34,7 @@ export function Services() {
   return (
     <section id="services" className={styles.section}>
       {/* --- Header --- */}
-      <div className={styles.eyebrow}>Services</div>
+      <h2 className={styles.eyebrow}>Services</h2>
       {/* --- Card grid --- */}
       <div className={styles.grid}>
         {SERVICES.map((service) => (
