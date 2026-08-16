@@ -91,6 +91,24 @@
   background: var(--color-accent);
   padding: 13px var(--space-14);
   border-radius: var(--radius-md);
+  animation: ctaGlowPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes ctaGlowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 12px 2px rgba(224, 30, 43, 0.28);
+  }
+  50% {
+    box-shadow: 0 0 24px 8px rgba(224, 30, 43, 0.48);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta {
+    animation: none;
+    box-shadow: 0 0 16px 4px rgba(224, 30, 43, 0.35);
+  }
 }
 
 /* --- 3-up collage --- */
