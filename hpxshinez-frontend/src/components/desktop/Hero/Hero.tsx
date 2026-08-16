@@ -11,7 +11,7 @@ export function Hero() {
       {/* --- Copy block --- */}
       <div className={styles.copyBlock}>
         <div className={styles.eyebrow}>
-          Mobile detailing - Twin Cities metro
+          Family owned detailing in the Twin Cities metro
         </div>
         <h1 className={styles.title}>
           Get that

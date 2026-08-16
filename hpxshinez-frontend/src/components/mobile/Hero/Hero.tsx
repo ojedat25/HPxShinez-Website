@@ -14,7 +14,7 @@ export function Hero() {
       <section id="top" className={styles.hero}>
         {/* --- Copy block --- */}
         <div className={styles.eyebrow}>
-          Mobile detailing - Twin Cities metro
+          Family owned detailing in the Twin Cities metro
         </div>
         <h1 className={styles.title}>
           Get that
