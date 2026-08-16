@@ -1,9 +1,9 @@
-import { desktopHeroMedia, photoSrc } from '../../../data/media'
+import { heroCollage, photoSrc } from '../../../data/media'
 import styles from './Hero.module.css'
 
 /** Desktop hero: eyebrow, headline, copy, IG CTA, 3-column collage. */
 export function Hero() {
-  const { left, center, right } = desktopHeroMedia
+  const { left, center, right } = heroCollage
 
   return (
     <section id="top" className={styles.hero}>

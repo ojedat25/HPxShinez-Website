@@ -11,39 +11,39 @@ const NAV_LINKS = [
 
 /** Sticky mobile nav: logo, wordmark, hamburger drawer. */
 export function Header() {
-  const [open, setOpen] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
   // Hash to scroll to after the drawer closes (avoids scrolling while it is still covering the page).
   const [pendingHash, setPendingHash] = useState<string | null>(null)
-  const navId = useId()
+  const drawerNavId = useId()
 
   useEffect(() => {
-    if (!open) return
+    if (!drawerOpen) return
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') setDrawerOpen(false)
     }
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [open])
+  }, [drawerOpen])
 
   // After close, scroll to the queued section and update the URL hash.
   useEffect(() => {
-    if (open || !pendingHash) return
+    if (drawerOpen || !pendingHash) return
 
     document.querySelector(pendingHash)?.scrollIntoView()
     history.pushState(null, '', pendingHash)
     setPendingHash(null)
-  }, [open, pendingHash])
+  }, [drawerOpen, pendingHash])
 
-  function close() {
-    setOpen(false)
+  function closeDrawer() {
+    setDrawerOpen(false)
   }
 
   function goToHash(event: MouseEvent<HTMLAnchorElement>, href: string) {
     event.preventDefault()
     setPendingHash(href)
-    setOpen(false)
+    setDrawerOpen(false)
   }
 
   return (
@@ -63,12 +63,12 @@ export function Header() {
         <button
           type="button"
           className={styles.menuButton}
-          aria-expanded={open}
-          aria-controls={navId}
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          onClick={() => setOpen((current) => !current)}
+          aria-expanded={drawerOpen}
+          aria-controls={drawerNavId}
+          aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
+          onClick={() => setDrawerOpen((current) => !current)}
         >
-          {open ? (
+          {drawerOpen ? (
             <X size={20} color="var(--color-text)" strokeWidth={2.5} />
           ) : (
             <Menu size={20} color="var(--color-text)" strokeWidth={2.5} />
@@ -76,8 +76,8 @@ export function Header() {
         </button>
       </div>
       {/* --- Drawer --- */}
-      {open ? (
-        <nav id={navId} className={styles.drawer}>
+      {drawerOpen ? (
+        <nav id={drawerNavId} className={styles.drawer}>
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -93,7 +93,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.drawerCta}
-            onClick={close}
+            onClick={closeDrawer}
           >
             Book via DM
           </a>

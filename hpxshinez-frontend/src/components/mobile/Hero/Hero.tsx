@@ -1,12 +1,12 @@
-import { desktopHeroMedia, photoSrc } from '../../../data/media'
+import { heroCollage, photoSrc } from '../../../data/media'
 import styles from './Hero.module.css'
 
 /** Mobile hero: eyebrow, headline, copy, IG CTA, 3-up collage. */
 export function Hero() {
-  const slots = [
-    desktopHeroMedia.left,
-    desktopHeroMedia.center,
-    desktopHeroMedia.right,
+  const collageSlots = [
+    heroCollage.left,
+    heroCollage.center,
+    heroCollage.right,
   ]
 
   return (
@@ -37,7 +37,7 @@ export function Hero() {
       </section>
       {/* --- Collage --- */}
       <div className={styles.collage}>
-        {slots.map((slot, index) => (
+        {collageSlots.map((slot, index) => (
           <div
             key={slot.slug}
             className={`${styles.media} ${styles.slot}`}

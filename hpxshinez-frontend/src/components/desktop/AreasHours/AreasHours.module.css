@@ -44,7 +44,7 @@
 .note {
   margin-top: var(--space-12);
   font-size: var(--font-size-md-plus);
-  color: var(--color-text-faint);
+  color: var(--color-text-hours);
 }
 
 .emphasis {

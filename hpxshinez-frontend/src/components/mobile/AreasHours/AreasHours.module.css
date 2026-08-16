@@ -22,7 +22,7 @@
 .note {
   margin: var(--space-9) 0 var(--space-16);
   font-size: var(--font-size-card-copy-mobile);
-  color: var(--color-text-faint);
+  color: var(--color-text-hours);
 }
 
 .emphasis {

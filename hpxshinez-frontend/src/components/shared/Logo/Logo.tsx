@@ -9,11 +9,11 @@ export type LogoProps = {
 
 /** Circular brand mark from src/assets/logo.png. */
 export function Logo({ size, className }: LogoProps) {
-  const classNames = [styles.mark, className].filter(Boolean).join(' ')
+  const markClassName = [styles.mark, className].filter(Boolean).join(' ')
 
   return (
     <span
-      className={classNames}
+      className={markClassName}
       style={{ width: size, height: size }}
     >
       <img

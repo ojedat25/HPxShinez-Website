@@ -29,7 +29,7 @@ export function photoSrc(slug: PhotoSlug, width: PhotoWidth) {
   return `/images/webp/${slug}-${width}.webp`
 }
 
-const PHOTO: Record<PhotoSlug, PhotoAsset> = {
+const photoCatalog: Record<PhotoSlug, PhotoAsset> = {
   '02-lancer-interior-after': {
     slug: '02-lancer-interior-after',
     alt: 'Mitsubishi Lancer interior after a full detail',
@@ -106,25 +106,25 @@ const PHOTO: Record<PhotoSlug, PhotoAsset> = {
 
 // --- Hero collage slots ---
 
-export type ImageSlot = PhotoAsset & {
+export type HeroCollageSlot = PhotoAsset & {
   aspectRatio: string
 }
 
-/** Desktop hero collage slots. */
-export const desktopHeroMedia = {
+/** Hero collage slots (desktop and mobile). */
+export const heroCollage = {
   left: {
-    ...PHOTO['10-orange-lancer-foam'],
+    ...photoCatalog['10-orange-lancer-foam'],
     aspectRatio: '3 / 4',
   },
   center: {
-    ...PHOTO['09-orange-lancer-hero'],
+    ...photoCatalog['09-orange-lancer-hero'],
     aspectRatio: '3 / 4',
   },
   right: {
-    ...PHOTO['11-orange-lancer-wheel'],
+    ...photoCatalog['11-orange-lancer-wheel'],
     aspectRatio: '3 / 4',
   },
-} as const satisfies Record<string, ImageSlot>
+} as const satisfies Record<string, HeroCollageSlot>
 
 // --- Gallery stills + compare pairs ---
 
@@ -146,65 +146,64 @@ export type GallerySlot = GalleryStill | GalleryBeforeAfter
 export const galleryMedia: GallerySlot[] = [
   {
     kind: 'still',
-    ...PHOTO['02-lancer-interior-after'],
+    ...photoCatalog['02-lancer-interior-after'],
     aspectRatio: '1 / 1',
   },
   {
     kind: 'beforeAfter',
     aspectRatio: '1 / 1',
-    before: PHOTO['05-charger-tire-before'],
-    after: PHOTO['06-charger-tire-after'],
+    before: photoCatalog['05-charger-tire-before'],
+    after: photoCatalog['06-charger-tire-after'],
   },
   {
     kind: 'beforeAfter',
     aspectRatio: '1 / 1',
-    before: PHOTO['03-lancer-rear-seat-before'],
-    after: PHOTO['04-lancer-rear-seat-after'],
+    before: photoCatalog['03-lancer-rear-seat-before'],
+    after: photoCatalog['04-lancer-rear-seat-after'],
   },
   {
     kind: 'beforeAfter',
     aspectRatio: '1 / 1',
-    before: PHOTO['07-subaru-mat-before'],
-    after: PHOTO['08-subaru-mat-after'],
+    before: photoCatalog['07-subaru-mat-before'],
+    after: photoCatalog['08-subaru-mat-after'],
   },
   {
     kind: 'still',
-    ...PHOTO['12-kia-interior-finished'],
+    ...photoCatalog['12-kia-interior-finished'],
     aspectRatio: '1 / 1',
   },
   {
     kind: 'still',
-    ...PHOTO['13-mat-foam-process'],
+    ...photoCatalog['13-mat-foam-process'],
     aspectRatio: '1 / 1',
   },
   {
     kind: 'still',
-    ...PHOTO['09-orange-lancer-hero'],
+    ...photoCatalog['09-orange-lancer-hero'],
     aspectRatio: '1 / 1',
   },
   {
     kind: 'still',
-    ...PHOTO['10-orange-lancer-foam'],
+    ...photoCatalog['10-orange-lancer-foam'],
     aspectRatio: '1 / 1',
   },
   {
     kind: 'still',
-    ...PHOTO['11-orange-lancer-wheel'],
+    ...photoCatalog['11-orange-lancer-wheel'],
     aspectRatio: '1 / 1',
   },
 ]
 
 export const comparePairs: GalleryBeforeAfter[] = galleryMedia.filter(
-  (slot): slot is GalleryBeforeAfter => slot.kind === 'beforeAfter',
-)
-
-export const galleryStills: GalleryStill[] = galleryMedia.filter(
-  (slot): slot is GalleryStill => slot.kind === 'still',
+  (galleryItem): galleryItem is GalleryBeforeAfter =>
+    galleryItem.kind === 'beforeAfter',
 )
 
 /** All gallery photos, including compare before/after frames. */
-export const galleryThumbs: PhotoAsset[] = galleryMedia.flatMap((slot) =>
-  slot.kind === 'still' ? [slot] : [slot.before, slot.after],
+export const galleryPhotos: PhotoAsset[] = galleryMedia.flatMap((galleryItem) =>
+  galleryItem.kind === 'still'
+    ? [galleryItem]
+    : [galleryItem.before, galleryItem.after],
 )
 
 // --- Videos ---
@@ -262,7 +261,7 @@ export type GalleryFilter = 'all' | 'images' | 'videos'
 
 /** Photos in current gallery order, then the three clips. */
 export const galleryItems: GalleryItem[] = [
-  ...galleryThumbs.map((photo) => ({ ...photo, kind: 'photo' as const })),
+  ...galleryPhotos.map((photo) => ({ ...photo, kind: 'photo' as const })),
   ...galleryVideos.map((video) => ({ ...video, kind: 'video' as const })),
 ]
 

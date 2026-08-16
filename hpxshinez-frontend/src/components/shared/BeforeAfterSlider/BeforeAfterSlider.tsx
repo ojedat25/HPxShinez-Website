@@ -18,7 +18,7 @@ export type BeforeAfterSliderProps = {
   className?: string
 }
 
-type ShownPair = {
+type LoadedPair = {
   beforeSrc: string
   afterSrc: string
   beforeAlt: string
@@ -27,7 +27,7 @@ type ShownPair = {
   height: number
 }
 
-const DEFAULT_POSITION = 50
+const DEFAULT_WIPE_PERCENT = 50
 
 function clampPercent(value: number) {
   return Math.min(100, Math.max(0, value))
@@ -54,10 +54,10 @@ export function BeforeAfterSlider({
   className,
 }: BeforeAfterSliderProps) {
   const rootRef = useRef<HTMLDivElement>(null)
-  const labelId = useId()
-  const [position, setPosition] = useState(DEFAULT_POSITION)
-  // Paint `shown` only after both images load so the wipe never flashes a half-ready pair.
-  const [shown, setShown] = useState<ShownPair>({
+  const wipeControlId = useId()
+  const [wipePercent, setWipePercent] = useState(DEFAULT_WIPE_PERCENT)
+  // Paint `loadedPair` only after both images load so the wipe never flashes a half-ready pair.
+  const [loadedPair, setLoadedPair] = useState<LoadedPair>({
     beforeSrc,
     afterSrc,
     beforeAlt,
@@ -71,9 +71,9 @@ export function BeforeAfterSlider({
 
     Promise.all([loadImage(beforeSrc), loadImage(afterSrc)]).then(() => {
       if (cancelled) return
-      setShown((current) => {
+      setLoadedPair((current) => {
         if (current.beforeSrc !== beforeSrc || current.afterSrc !== afterSrc) {
-          setPosition(DEFAULT_POSITION)
+          setWipePercent(DEFAULT_WIPE_PERCENT)
         }
         return { beforeSrc, afterSrc, beforeAlt, afterAlt, width, height }
       })
@@ -84,73 +84,73 @@ export function BeforeAfterSlider({
     }
   }, [beforeSrc, afterSrc, beforeAlt, afterAlt, width, height])
 
-  const setFromClientX = useCallback((clientX: number) => {
+  const setWipeFromClientX = useCallback((clientX: number) => {
     const root = rootRef.current
     if (!root) return
     const rect = root.getBoundingClientRect()
     if (rect.width === 0) return
-    setPosition(clampPercent(((clientX - rect.left) / rect.width) * 100))
+    setWipePercent(clampPercent(((clientX - rect.left) / rect.width) * 100))
   }, [])
 
   // Capture so drag continues even if the pointer leaves the slider.
   function onPointerDown(event: PointerEvent<HTMLDivElement>) {
     if (event.button !== 0) return
     event.currentTarget.setPointerCapture(event.pointerId)
-    setFromClientX(event.clientX)
+    setWipeFromClientX(event.clientX)
   }
 
   function onPointerMove(event: PointerEvent<HTMLDivElement>) {
     if (!event.currentTarget.hasPointerCapture(event.pointerId)) return
-    setFromClientX(event.clientX)
+    setWipeFromClientX(event.clientX)
   }
 
-  const classNames = [styles.root, className].filter(Boolean).join(' ')
-  const clipRight = 100 - position
+  const rootClassName = [styles.root, className].filter(Boolean).join(' ')
+  const beforeClipRightPercent = 100 - wipePercent
 
   return (
     <div
       ref={rootRef}
-      className={classNames}
+      className={rootClassName}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
     >
-      {/* After sits full-bleed; before is clipped from the right by `clipRight`. */}
+      {/* After sits full-bleed; before is clipped from the right by `beforeClipRightPercent`. */}
       <img
         className={styles.img}
-        src={shown.afterSrc}
-        width={shown.width}
-        height={shown.height}
-        alt={shown.afterAlt}
+        src={loadedPair.afterSrc}
+        width={loadedPair.width}
+        height={loadedPair.height}
+        alt={loadedPair.afterAlt}
         draggable={false}
       />
       <img
         className={`${styles.img} ${styles.before}`}
-        src={shown.beforeSrc}
-        width={shown.width}
-        height={shown.height}
-        alt={shown.beforeAlt}
+        src={loadedPair.beforeSrc}
+        width={loadedPair.width}
+        height={loadedPair.height}
+        alt={loadedPair.beforeAlt}
         draggable={false}
-        style={{ clipPath: `inset(0 ${clipRight}% 0 0)` }}
+        style={{ clipPath: `inset(0 ${beforeClipRightPercent}% 0 0)` }}
       />
       <div
         className={styles.divider}
-        style={{ left: `${position}%` }}
+        style={{ left: `${wipePercent}%` }}
         aria-hidden="true"
       >
         <span className={styles.handle} />
       </div>
       {/* Invisible range for keyboard / screen-reader control of the wipe. */}
-      <label className={styles.srOnly} htmlFor={labelId}>
+      <label className={styles.srOnly} htmlFor={wipeControlId}>
         Before and after comparison
       </label>
       <input
-        id={labelId}
+        id={wipeControlId}
         className={styles.range}
         type="range"
         min={0}
         max={100}
-        value={position}
-        onChange={(event) => setPosition(Number(event.target.value))}
+        value={wipePercent}
+        onChange={(event) => setWipePercent(Number(event.target.value))}
       />
     </div>
   )

@@ -36,7 +36,7 @@
 
 .tagline {
   font-size: var(--font-size-sm-plus);
-  color: var(--color-text-dim);
+  color: var(--color-text-tagline);
   margin-top: var(--space-1);
 }
 
