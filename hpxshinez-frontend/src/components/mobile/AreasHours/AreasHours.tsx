@@ -21,7 +21,7 @@ export function AreasHours() {
   return (
     <section id="areas" className={styles.section}>
       {/* --- Areas --- */}
-      <div className={styles.eyebrow}>Service Areas</div>
+      <h2 className={styles.eyebrow}>Service Areas</h2>
       <div className={styles.chips}>
         {AREAS.map((area) => (
           <span key={area} className={styles.chip}>
@@ -34,7 +34,7 @@ export function AreasHours() {
         address. We bring the gear to your driveway.
       </p>
       {/* --- Hours --- */}
-      <div className={styles.eyebrow}>Hours</div>
+      <h2 className={styles.eyebrow}>Hours</h2>
       <div className={styles.hoursList}>
         {HOURS.map((row) => (
           <div key={row.days} className={styles.hoursRow}>

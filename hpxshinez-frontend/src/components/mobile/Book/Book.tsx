@@ -6,7 +6,7 @@ export function Book() {
     <section id="book" className={styles.card}>
       {/* --- Copy --- */}
       <div className={styles.eyebrow}>Ready to shine</div>
-      <div className={styles.title}>Slide into our DMs</div>
+      <h2 className={styles.title}>Slide into our DMs</h2>
       <p className={styles.copy}>
         Send your vehicle, location, and what you&apos;re after. We&apos;ll
         confirm a time that works. No forms, no phone tag.
