@@ -1,3 +1,4 @@
+import { SQUARE_SERVICE_WIDGETS } from '../../../data/booking'
 import { SERVICE_CATEGORIES, type Service } from '../../../data/services'
 import styles from './Services.module.css'
 
@@ -14,7 +15,7 @@ export function Services() {
             <h3 className={styles.groupTitle}>{category.title}</h3>
             <div className={styles.grid}>
               {category.services.map((service) => (
-                <ServiceCard key={service.title} service={service} />
+                <ServiceCard key={service.id} service={service} />
               ))}
             </div>
           </div>
@@ -25,11 +26,16 @@ export function Services() {
 }
 
 function ServiceCard({ service }: { service: Service }) {
+  const widgetUrl = SQUARE_SERVICE_WIDGETS[service.id]
+
   return (
     <div className={styles.card}>
       <div className={styles.cardBody}>
         <div className={styles.cardTitle}>{service.title}</div>
         <p className={styles.cardCopy}>{service.description}</p>
+        {!service.includes && service.note ? (
+          <p className={styles.note}>{service.note}</p>
+        ) : null}
         {service.includes ? (
           <details className={styles.dropdown}>
             <summary className={styles.summary}>What's included</summary>
@@ -42,7 +48,19 @@ function ServiceCard({ service }: { service: Service }) {
           </details>
         ) : null}
       </div>
-      <span className={styles.badge}>{service.price}</span>
+      <div className={styles.cardFooter}>
+        {widgetUrl ? (
+          <a
+            href={widgetUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.book}
+          >
+            Book
+          </a>
+        ) : null}
+        <span className={styles.badge}>{service.price}</span>
+      </div>
     </div>
   )
 }

@@ -140,10 +140,30 @@
   line-height: var(--line-height-card-mobile);
 }
 
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-top: var(--space-7);
+}
+
+.book {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-lg);
+  text-transform: uppercase;
+  color: var(--color-white);
+  background: var(--color-accent);
+  padding: var(--space-2) var(--space-7);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
 .badge {
   position: relative;
-  align-self: flex-end;
-  margin-top: var(--space-7);
+  margin-left: auto;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--font-size-badge-mobile);
