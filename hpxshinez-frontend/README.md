@@ -66,4 +66,4 @@ Clips live in `public/videos/mp4` (720×1280 vertical) with posters in `public/v
 
 - Colors, spacing, and type sizes live in `styles/variables.css` — no hardcoded hex in components.
 - Instagram SVG icons are left as commented placeholders (`{/* Instagram icon — no lucide equivalent */}`); lucide-react has no Instagram brand icon.
-- Mobile hamburger opens a drawer with Services, Work, Areas, and Book via DM.
+- Mobile hamburger opens a drawer with Services, Work, Areas, and Book now.

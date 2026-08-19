@@ -32,7 +32,7 @@ function ServiceCard({ service }: { service: Service }) {
         <p className={styles.cardCopy}>{service.description}</p>
         {service.includes ? (
           <details className={styles.dropdown}>
-            <summary className={styles.summary}>What&apos;s included</summary>
+            <summary className={styles.summary}>What's included</summary>
             <ul className={styles.includes}>
               {service.includes.map((item) => (
                 <li key={item}>{item}</li>

@@ -1,7 +1,8 @@
+import { SQUARE_BOOKING_URL } from '../../../data/booking'
 import { heroCollage, photoSrc } from '../../../data/media'
 import styles from './Hero.module.css'
 
-/** Desktop hero: eyebrow, headline, copy, IG CTA, 3-column collage. */
+/** Desktop hero: eyebrow, headline, copy, Book now CTA, 3-column collage. */
 export function Hero() {
   const { left, center, right } = heroCollage
 
@@ -20,17 +21,17 @@ export function Hero() {
         </h1>
         <p className={styles.copy}>
           Mobile car detailing across the Minneapolis metro. We roll up to your
-          driveway and leave your ride flawless. Booking is one DM away.
+          driveway and leave your ride flawless. Book a time online and we'll
+          come to you.
         </p>
         <div className={styles.ctaRow}>
           <a
-            href="https://instagram.com/HPxShinezDetailz"
+            href={SQUARE_BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.cta}
           >
-            {/* Instagram icon — no lucide equivalent */}
-            Book via Instagram DM
+            Book now
           </a>
         </div>
       </div>
