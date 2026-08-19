@@ -31,10 +31,25 @@
   line-height: var(--line-height-heading);
 }
 
+/* --- Category groups --- */
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-23);
+}
+
+.groupTitle {
+  font: 700 var(--font-size-eyebrow) / 1 var(--font-body);
+  letter-spacing: var(--letter-spacing-section);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-11);
+}
+
 /* --- Card grid --- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: var(--space-11);
 }
 
@@ -56,6 +71,10 @@
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
 }
 
+.cardBody {
+  flex: 1;
+}
+
 .cardTitle {
   font-family: var(--font-display);
   font-weight: 700;
@@ -65,16 +84,84 @@
 }
 
 .cardCopy {
-  flex: 1;
   color: var(--color-text-tertiary);
   font-size: var(--font-size-md-plus);
   line-height: var(--line-height-card);
-  margin: var(--space-6) 0 var(--space-11);
+  margin: var(--space-6) 0 0;
+}
+
+/* --- Included-item dropdown --- */
+.dropdown {
+  margin-top: var(--space-9);
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  width: fit-content;
+  cursor: pointer;
+  list-style: none;
+  font: 600 var(--font-size-sm) / 1 var(--font-body);
+  letter-spacing: var(--letter-spacing-md);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.summary:focus {
+  outline: none;
+}
+
+.summary:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary::marker {
+  content: '';
+}
+
+.summary::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--color-accent);
+  border-bottom: 1.5px solid var(--color-accent);
+  transform: rotate(45deg);
+  transition: transform 180ms ease-out;
+}
+
+.dropdown[open] .summary::after {
+  transform: rotate(-135deg);
+}
+
+.includes {
+  margin-top: var(--space-7);
+  padding-left: 1.15em;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-md-plus);
+  line-height: var(--line-height-card);
+}
+
+.includes li + li {
+  margin-top: var(--space-2);
+}
+
+.note {
+  margin-top: var(--space-7);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-card);
 }
 
 .badge {
   position: relative;
   align-self: flex-end;
+  margin-top: var(--space-11);
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: var(--letter-spacing-xl);
@@ -85,6 +172,7 @@
   background: var(--color-accent-soft);
   border-radius: var(--radius-sm);
   padding: var(--space-2) var(--space-6);
+  white-space: nowrap;
 }
 
 .badge::after {
@@ -114,6 +202,10 @@
   }
 
   .badge::after {
+    transition: none;
+  }
+
+  .summary::after {
     transition: none;
   }
 }

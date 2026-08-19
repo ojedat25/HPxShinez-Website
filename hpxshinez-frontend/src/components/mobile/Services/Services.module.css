@@ -13,10 +13,25 @@
   margin-bottom: var(--space-9);
 }
 
+/* --- Category groups --- */
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.groupTitle {
+  font: 700 var(--font-size-eyebrow-mobile) / 1 var(--font-body);
+  letter-spacing: var(--letter-spacing-section-mobile);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-7);
+}
+
 /* --- Card grid --- */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-5);
 }
 
@@ -38,25 +53,97 @@
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
 }
 
+.cardBody {
+  flex: 1;
+}
+
 .cardTitle {
   font-family: var(--font-display);
   font-weight: 700;
   text-transform: uppercase;
   font-size: var(--font-size-card-title-mobile);
-  line-height: 1;
+  line-height: 1.15;
 }
 
 .cardCopy {
-  flex: 1;
   font-size: var(--font-size-card-copy-mobile);
   color: var(--color-text-tertiary);
   line-height: var(--line-height-card-mobile);
-  margin: 6px 0 var(--space-7);
+  margin: 6px 0 0;
+}
+
+/* --- Included-item dropdown --- */
+.dropdown {
+  margin-top: var(--space-7);
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: fit-content;
+  cursor: pointer;
+  list-style: none;
+  font: 600 var(--font-size-xs) / 1 var(--font-body);
+  letter-spacing: var(--letter-spacing-md);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.summary:focus {
+  outline: none;
+}
+
+.summary:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary::marker {
+  content: '';
+}
+
+.summary::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-right: 1.5px solid var(--color-accent);
+  border-bottom: 1.5px solid var(--color-accent);
+  transform: rotate(45deg);
+  transition: transform 180ms ease-out;
+}
+
+.dropdown[open] .summary::after {
+  transform: rotate(-135deg);
+}
+
+.includes {
+  margin-top: var(--space-6);
+  padding-left: 1.15em;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-card-copy-mobile);
+  line-height: var(--line-height-card-mobile);
+}
+
+.includes li + li {
+  margin-top: var(--space-2);
+}
+
+.note {
+  margin-top: var(--space-6);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-card-copy-mobile);
+  line-height: var(--line-height-card-mobile);
 }
 
 .badge {
   position: relative;
   align-self: flex-end;
+  margin-top: var(--space-7);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--font-size-badge-mobile);
@@ -67,6 +154,7 @@
   padding: 3px var(--space-4);
   letter-spacing: var(--letter-spacing-lg);
   text-transform: none;
+  white-space: nowrap;
 }
 
 .badge::after {
@@ -96,6 +184,10 @@
   }
 
   .badge::after {
+    transition: none;
+  }
+
+  .summary::after {
     transition: none;
   }
 }
