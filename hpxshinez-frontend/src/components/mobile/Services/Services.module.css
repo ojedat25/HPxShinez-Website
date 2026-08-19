@@ -80,11 +80,13 @@
 .summary {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
-  width: fit-content;
+  gap: var(--space-6);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-7) 0;
   cursor: pointer;
   list-style: none;
-  font: 600 var(--font-size-xs) / 1 var(--font-body);
+  font: 600 var(--font-size-base) / 1.2 var(--font-body);
   letter-spacing: var(--letter-spacing-md);
   text-transform: uppercase;
   color: var(--color-text-muted);
@@ -109,10 +111,10 @@
 
 .summary::after {
   content: '';
-  width: 5px;
-  height: 5px;
-  border-right: 1.5px solid var(--color-accent);
-  border-bottom: 1.5px solid var(--color-accent);
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
   transform: rotate(45deg);
   transition: transform 180ms ease-out;
 }
@@ -149,25 +151,28 @@
 }
 
 .book {
+  flex: 1;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-base);
   letter-spacing: var(--letter-spacing-lg);
   text-transform: uppercase;
   color: var(--color-white);
   background: var(--color-accent);
-  padding: var(--space-2) var(--space-7);
+  padding: var(--space-7) var(--space-12);
   border-radius: var(--radius-sm);
+  text-align: center;
   white-space: nowrap;
 }
 
 .badge {
   position: relative;
+  flex-shrink: 0;
   margin-left: auto;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--font-size-badge-mobile);
-  color: var(--color-accent);
+  color: var(--color-price);
   border: 1px solid var(--color-border-badge);
   background: var(--color-accent-soft);
   border-radius: var(--radius-sm);
@@ -184,7 +189,7 @@
   bottom: 0;
   width: 100%;
   height: 1px;
-  background: var(--color-accent);
+  background: var(--color-price);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 180ms ease-out;
