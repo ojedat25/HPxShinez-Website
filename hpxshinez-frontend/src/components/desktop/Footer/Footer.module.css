@@ -42,7 +42,7 @@
 
 .handleCta {
   color: var(--color-white);
-  background: var(--color-accent);
+  background: var(--color-accent-solid);
   padding: var(--space-6) var(--space-12);
   border-radius: var(--radius-sm);
   font-family: var(--font-display);
