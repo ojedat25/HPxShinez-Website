@@ -13,11 +13,13 @@ export function DesktopLayout() {
     <div className={styles.root}>
       {/* Header → Hero → Services → Gallery → AreasHours → Book → Footer */}
       <Header />
-      <Hero />
-      <Services />
-      <Gallery />
-      <AreasHours />
-      <Book />
+      <main>
+        <Hero />
+        <Services />
+        <Gallery />
+        <AreasHours />
+        <Book />
+      </main>
       <Footer />
     </div>
   )

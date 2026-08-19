@@ -13,11 +13,13 @@ export function MobileLayout() {
     <div className={`${styles.root} mobile`}>
       {/* Header → Hero → Services → Gallery → AreasHours → Book → Footer */}
       <Header />
-      <Hero />
-      <Services />
-      <Gallery />
-      <AreasHours />
-      <Book />
+      <main>
+        <Hero />
+        <Services />
+        <Gallery />
+        <AreasHours />
+        <Book />
+      </main>
       <Footer />
     </div>
   )
