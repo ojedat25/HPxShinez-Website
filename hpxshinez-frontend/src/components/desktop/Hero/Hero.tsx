@@ -36,7 +36,7 @@ export function Hero() {
         </div>
         <HeroSlider
           slides={heroSlides}
-          width={1024}
+          width={800}
           className={styles.slider}
         />
       </div>

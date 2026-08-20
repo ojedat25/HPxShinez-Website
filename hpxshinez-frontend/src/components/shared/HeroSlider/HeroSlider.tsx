@@ -13,7 +13,7 @@ import {
 } from '../../../data/media'
 import styles from './HeroSlider.module.css'
 
-const SLIDE_INTERVAL_MS = 5000
+const SLIDE_INTERVAL_MS = 3000
 const SWIPE_RATIO = 0.18
 const AXIS_LOCK_PX = 8
 

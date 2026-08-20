@@ -158,7 +158,7 @@
   letter-spacing: var(--letter-spacing-lg);
   text-transform: uppercase;
   color: var(--color-white);
-  background: var(--color-accent);
+  background: var(--color-accent-solid);
   padding: var(--space-7) var(--space-12);
   border-radius: var(--radius-sm);
   text-align: center;

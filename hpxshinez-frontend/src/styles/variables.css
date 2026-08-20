@@ -16,7 +16,7 @@
   --color-accent-soft: rgba(224, 30, 43, 0.08);
   --color-accent-glow: rgba(224, 30, 43, 0.14);
   --color-accent-glow-strong: rgba(224, 30, 43, 0.18);
-  --color-price: #1e8e3e;
+  --color-price: #219642;
   --color-surface: #111;
   --color-surface-chip: #121212;
   --color-placeholder: #141414;
@@ -115,7 +115,7 @@
   --radius-full: 50%;
 
   /* Typography */
-  --font-display: 'Saira Condensed', sans-serif;
+  --font-display: 'Saira Condensed', 'Saira Condensed Fallback', sans-serif;
   --font-body: 'Hanken Grotesk', sans-serif;
 
   --font-size-xs: 11px;

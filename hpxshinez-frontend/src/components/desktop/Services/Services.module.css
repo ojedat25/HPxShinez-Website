@@ -29,6 +29,7 @@
   text-transform: uppercase;
   font-size: clamp(34px, 5vw, 58px);
   line-height: var(--line-height-heading);
+  min-height: calc(clamp(34px, 5vw, 58px) * var(--line-height-heading));
 }
 
 /* --- Category groups --- */
@@ -173,7 +174,7 @@
   letter-spacing: var(--letter-spacing-lg);
   text-transform: uppercase;
   color: var(--color-white);
-  background: var(--color-accent);
+  background: var(--color-accent-solid);
   min-width: 108px;
   padding: var(--space-6) var(--space-24);
   border-radius: var(--radius-sm);

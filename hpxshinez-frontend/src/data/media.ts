@@ -15,7 +15,7 @@ export type PhotoSlug =
   | '12-kia-interior-finished'
   | '13-mat-foam-process'
 
-export type PhotoWidth = 640 | 1024
+export type PhotoWidth = 640 | 800 | 1024
 
 export type PhotoAsset = {
   slug: PhotoSlug
@@ -24,7 +24,7 @@ export type PhotoAsset = {
   height: number
 }
 
-/** WebP only — desktop uses 1024, mobile uses 640. */
+/** WebP only — desktop hero uses 800, gallery desktop 1024, mobile 640. */
 export function photoSrc(slug: PhotoSlug, width: PhotoWidth) {
   return `/images/webp/${slug}-${width}.webp`
 }

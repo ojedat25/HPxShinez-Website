@@ -52,20 +52,34 @@
   left: 50%;
   z-index: 1;
   display: flex;
-  gap: var(--space-5);
+  gap: 0;
   transform: translateX(-50%);
 }
 
 .dot {
+  position: relative;
+  width: var(--space-16);
+  height: var(--space-16);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+}
+
+.dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: var(--space-5);
   height: var(--space-5);
-  padding: 0;
   border: 1px solid var(--color-white);
   border-radius: var(--radius-full);
   background: transparent;
   opacity: 0.55;
-  cursor: pointer;
-  appearance: none;
+  transform: translate(-50%, -50%);
 }
 
 .dot:focus-visible {
@@ -73,7 +87,7 @@
   outline-offset: 3px;
 }
 
-.dotActive {
+.dotActive::before {
   opacity: 1;
   background: var(--color-white);
 }
