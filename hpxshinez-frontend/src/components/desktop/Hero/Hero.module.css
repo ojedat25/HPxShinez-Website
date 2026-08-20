@@ -1,8 +1,7 @@
 /* --- Hero shell --- */
 .hero {
   position: relative;
-  text-align: center;
-  padding: var(--space-hero-top) var(--space-page-x) 0;
+  padding: var(--space-hero-top) var(--space-page-x) var(--space-26);
   overflow: hidden;
 }
 
@@ -13,11 +12,23 @@
   pointer-events: none;
 }
 
+.layout {
+  position: relative;
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-25);
+  align-items: center;
+}
+
 /* --- Copy block --- */
 .copyBlock {
   position: relative;
-  max-width: var(--max-width-hero-text);
-  margin: 0 auto;
+}
+
+.slider {
+  justify-self: end;
 }
 
 .eyebrow {
@@ -87,7 +98,7 @@
 
 .copy {
   max-width: var(--max-width-hero-copy);
-  margin: var(--space-16) auto 0;
+  margin: var(--space-16) 0 0;
   color: var(--color-text-secondary);
   font-size: clamp(15px, 2vw, 19px);
   line-height: var(--line-height-body);
@@ -97,7 +108,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-10);
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: var(--space-19);
 }
 
@@ -134,71 +145,3 @@
   }
 }
 
-/* --- 3-column collage --- */
-.collage {
-  position: relative;
-  max-width: var(--max-width-content);
-  margin: var(--space-25) auto 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: var(--space-11);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .collage > * {
-    animation: collageReveal 600ms ease-out both;
-  }
-
-  .collage > *:nth-child(2) {
-    animation-delay: 100ms;
-  }
-
-  .collage > *:nth-child(3) {
-    animation-delay: 200ms;
-  }
-}
-
-@keyframes collageReveal {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.sideSlot {
-  width: 100%;
-  margin-bottom: var(--space-17);
-}
-
-.centerSlot {
-  width: 100%;
-}
-
-.media {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  background: var(--color-placeholder);
-}
-
-.mediaImg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.sideBorder {
-  border: 1px solid var(--color-border-soft);
-  border-radius: var(--radius-md);
-}
-
-.centerBorder {
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-md);
-}
