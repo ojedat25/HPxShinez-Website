@@ -1,4 +1,4 @@
-import logoSrc from '../../../assets/logo.png'
+import logoSrc from '../../../assets/logo.webp'
 import styles from './Logo.module.css'
 
 export type LogoProps = {
@@ -7,7 +7,7 @@ export type LogoProps = {
   className?: string
 }
 
-/** Circular brand mark from src/assets/logo.png. */
+/** Circular brand mark from src/assets/logo.webp. */
 export function Logo({ size, className }: LogoProps) {
   const markClassName = [styles.mark, className].filter(Boolean).join(' ')
 

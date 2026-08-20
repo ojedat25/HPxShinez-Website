@@ -1,11 +1,15 @@
+import { lazy, Suspense } from 'react'
 import { AreasHours } from './AreasHours/AreasHours'
 import { Book } from './Book/Book'
 import { Footer } from './Footer/Footer'
-import { Gallery } from './Gallery/Gallery'
 import { Header } from './Header/Header'
 import { Hero } from './Hero/Hero'
 import { Services } from './Services/Services'
 import styles from './DesktopLayout.module.css'
+
+const Gallery = lazy(() =>
+  import('./Gallery/Gallery').then((module) => ({ default: module.Gallery })),
+)
 
 /** Full desktop page tree matching Bold.dc.html. */
 export function DesktopLayout() {
@@ -16,7 +20,9 @@ export function DesktopLayout() {
       <main>
         <Hero />
         <Services />
-        <Gallery />
+        <Suspense fallback={null}>
+          <Gallery />
+        </Suspense>
         <AreasHours />
         <Book />
       </main>

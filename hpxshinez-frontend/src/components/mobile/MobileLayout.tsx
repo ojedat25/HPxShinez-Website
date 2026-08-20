@@ -1,11 +1,15 @@
+import { lazy, Suspense } from 'react'
 import { AreasHours } from './AreasHours/AreasHours'
 import { Book } from './Book/Book'
 import { Footer } from './Footer/Footer'
-import { Gallery } from './Gallery/Gallery'
 import { Header } from './Header/Header'
 import { Hero } from './Hero/Hero'
 import { Services } from './Services/Services'
 import styles from './MobileLayout.module.css'
+
+const Gallery = lazy(() =>
+  import('./Gallery/Gallery').then((module) => ({ default: module.Gallery })),
+)
 
 /** Mobile page tree matching Bold Mobile inner content (no phone chrome). */
 export function MobileLayout() {
@@ -16,7 +20,9 @@ export function MobileLayout() {
       <main>
         <Hero />
         <Services />
-        <Gallery />
+        <Suspense fallback={null}>
+          <Gallery />
+        </Suspense>
         <AreasHours />
         <Book />
       </main>
