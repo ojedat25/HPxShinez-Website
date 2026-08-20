@@ -1,11 +1,5 @@
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type PointerEvent,
-} from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import {
   photoSrc,
   type HeroSlide,
@@ -14,8 +8,6 @@ import {
 import styles from './HeroSlider.module.css'
 
 const SLIDE_INTERVAL_MS = 3000
-const SWIPE_RATIO = 0.18
-const AXIS_LOCK_PX = 8
 
 export type HeroSliderProps = {
   slides: readonly HeroSlide[]
@@ -27,21 +19,15 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-/** Auto-rotating hero slider with pointer swipe (mouse drag + touch). */
+/** Auto-rotating hero slider with prev/next buttons. */
 export function HeroSlider({ slides, width, className }: HeroSliderProps) {
   const labelId = useId()
-  const frameRef = useRef<HTMLDivElement>(null)
-  const dragStartXRef = useRef(0)
-  const dragStartYRef = useRef(0)
-  const dragDeltaRef = useRef(0)
-  const axisLockRef = useRef<'x' | 'y' | null>(null)
-  const pointerIdRef = useRef<number | null>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
   const [trackIndex, setTrackIndex] = useState(1)
   const [animateTrack, setAnimateTrack] = useState(true)
-  const [dragX, setDragX] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
   const [isHoverPaused, setIsHoverPaused] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [controlsVisible, setControlsVisible] = useState(false)
 
   const slideCount = slides.length
   const trackSlides =
@@ -53,8 +39,15 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
         ? 0
         : trackIndex - 1
   const activeSlide = slides[realIndex]
-  const rootClassName = [styles.root, className].filter(Boolean).join(' ')
-  const isPaused = isHoverPaused || isDragging
+  const isOnClone = trackIndex === 0 || trackIndex === slideCount + 1
+  const rootClassName = [
+    styles.root,
+    controlsVisible && styles.controlsVisible,
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
+  const isPaused = isHoverPaused || controlsVisible
 
   const goTo = useCallback(
     (nextIndex: number, animate: boolean) => {
@@ -85,79 +78,48 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
     return () => window.clearInterval(intervalId)
   }, [slideCount, isPaused, hasInteracted, trackIndex, goTo])
 
-  function resetDrag() {
-    pointerIdRef.current = null
-    axisLockRef.current = null
-    dragDeltaRef.current = 0
-    setIsDragging(false)
-    setDragX(0)
-  }
-
-  function onPointerDown(event: PointerEvent<HTMLDivElement>) {
-    if (event.button !== 0 || slideCount <= 1) {
+  useEffect(() => {
+    if (!controlsVisible) {
       return
     }
 
-    pointerIdRef.current = event.pointerId
-    dragStartXRef.current = event.clientX
-    dragStartYRef.current = event.clientY
-    dragDeltaRef.current = 0
-    axisLockRef.current = null
-  }
-
-  function onPointerMove(event: PointerEvent<HTMLDivElement>) {
-    if (pointerIdRef.current !== event.pointerId) {
-      return
-    }
-
-    const deltaX = event.clientX - dragStartXRef.current
-    const deltaY = event.clientY - dragStartYRef.current
-
-    if (axisLockRef.current === null) {
-      if (Math.abs(deltaX) < AXIS_LOCK_PX && Math.abs(deltaY) < AXIS_LOCK_PX) {
+    function onDocumentPointerDown(event: PointerEvent) {
+      if (rootRef.current?.contains(event.target as Node)) {
         return
       }
 
-      axisLockRef.current = Math.abs(deltaX) >= Math.abs(deltaY) ? 'x' : 'y'
-      if (axisLockRef.current === 'y') {
-        pointerIdRef.current = null
-        return
-      }
+      setControlsVisible(false)
 
-      event.currentTarget.setPointerCapture(event.pointerId)
-      setIsDragging(true)
+      if (
+        document.activeElement instanceof HTMLElement &&
+        rootRef.current?.contains(document.activeElement)
+      ) {
+        document.activeElement.blur()
+      }
     }
 
-    if (axisLockRef.current !== 'x') {
+    document.addEventListener('pointerdown', onDocumentPointerDown)
+    return () => {
+      document.removeEventListener('pointerdown', onDocumentPointerDown)
+    }
+  }, [controlsVisible])
+
+  function step(delta: number) {
+    if (isOnClone) {
       return
     }
 
-    dragDeltaRef.current = deltaX
-    setDragX(deltaX)
+    setHasInteracted(true)
+    goTo(trackIndex + delta, true)
   }
 
-  function finishGesture(event: PointerEvent<HTMLDivElement>) {
-    if (pointerIdRef.current !== event.pointerId) {
+  function goToSlide(index: number) {
+    if (isOnClone) {
       return
     }
 
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId)
-    }
-
-    const frameWidth = frameRef.current?.offsetWidth ?? 0
-    const delta = dragDeltaRef.current
-    const swiped =
-      axisLockRef.current === 'x' && Math.abs(delta) >= frameWidth * SWIPE_RATIO
-
-    if (swiped) {
-      setHasInteracted(true)
-      goTo(trackIndex + (delta < 0 ? 1 : -1), true)
-    } else if (axisLockRef.current === 'x') {
-      setAnimateTrack(true)
-    }
-
-    resetDrag()
+    setHasInteracted(true)
+    goTo(index + 1, true)
   }
 
   function onTransitionEnd() {
@@ -175,22 +137,18 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
     return null
   }
 
-  const trackClassName = [
-    styles.track,
-    !isDragging && animateTrack && styles.trackAnimated,
-  ]
-    .filter(Boolean)
-    .join(' ')
-  const frameClassName = [styles.frame, isDragging && styles.frameDragging]
+  const trackClassName = [styles.track, animateTrack && styles.trackAnimated]
     .filter(Boolean)
     .join(' ')
 
   return (
     <div
+      ref={rootRef}
       className={rootClassName}
       role="region"
       aria-roledescription="carousel"
       aria-labelledby={labelId}
+      onPointerDown={() => setControlsVisible(true)}
       onMouseEnter={() => setIsHoverPaused(true)}
       onMouseLeave={() => setIsHoverPaused(false)}
       onFocusCapture={() => setIsHoverPaused(true)}
@@ -207,18 +165,13 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
         {activeSlide.alt}
       </p>
       <div
-        ref={frameRef}
-        className={frameClassName}
+        className={styles.frame}
         style={{ aspectRatio: activeSlide.aspectRatio }}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={finishGesture}
-        onPointerCancel={resetDrag}
       >
         <div
           className={trackClassName}
           style={{
-            transform: `translate3d(calc(${-trackIndex * 100}% + ${dragX}px), 0, 0)`,
+            transform: `translate3d(${-trackIndex * 100}%, 0, 0)`,
           }}
           onTransitionEnd={onTransitionEnd}
         >
@@ -242,6 +195,26 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
             )
           })}
         </div>
+        {slideCount > 1 ? (
+          <>
+            <button
+              type="button"
+              className={`${styles.nav} ${styles.navPrev}`}
+              aria-label="Previous slide"
+              onClick={() => step(-1)}
+            >
+              <ChevronLeft size={22} strokeWidth={2.5} />
+            </button>
+            <button
+              type="button"
+              className={`${styles.nav} ${styles.navNext}`}
+              aria-label="Next slide"
+              onClick={() => step(1)}
+            >
+              <ChevronRight size={22} strokeWidth={2.5} />
+            </button>
+          </>
+        ) : null}
       </div>
       <div className={styles.dots} role="group" aria-label="Slide controls">
         {slides.map((slide, index) => {
@@ -254,10 +227,7 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
               className={`${styles.dot} ${isActive ? styles.dotActive : ''}`}
               aria-label={`Show slide ${index + 1}`}
               aria-current={isActive ? 'true' : undefined}
-              onClick={() => {
-                setHasInteracted(true)
-                goTo(index + 1, true)
-              }}
+              onClick={() => goToSlide(index)}
             />
           )
         })}

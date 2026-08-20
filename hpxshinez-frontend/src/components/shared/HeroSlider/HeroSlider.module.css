@@ -11,13 +11,6 @@
   background: var(--color-placeholder);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
-  cursor: grab;
-  touch-action: pan-y;
-  user-select: none;
-}
-
-.frameDragging {
-  cursor: grabbing;
 }
 
 .track {
@@ -42,6 +35,54 @@
 
 @media (prefers-reduced-motion: reduce) {
   .trackAnimated {
+    transition: none;
+  }
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-20);
+  height: var(--space-20);
+  padding: 0;
+  transform: translateY(-50%);
+  border: 1px solid var(--color-border-nav);
+  border-radius: var(--radius-full);
+  background: var(--color-header-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  appearance: none;
+  transition: opacity 200ms ease;
+}
+
+.navPrev {
+  left: var(--space-5);
+}
+
+.navNext {
+  right: var(--space-5);
+}
+
+.nav:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 3px;
+}
+
+.root:hover .nav,
+.root:focus-within .nav,
+.controlsVisible .nav {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav {
     transition: none;
   }
 }
