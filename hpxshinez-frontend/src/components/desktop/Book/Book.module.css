@@ -45,7 +45,7 @@
   max-width: var(--max-width-book-copy);
 }
 
-/* --- Instagram CTA --- */
+/* --- Book CTA --- */
 .cta {
   display: inline-flex;
   align-items: center;

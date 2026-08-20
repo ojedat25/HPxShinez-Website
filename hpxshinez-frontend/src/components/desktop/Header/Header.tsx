@@ -1,7 +1,8 @@
+import { SQUARE_BOOKING_URL } from '../../../data/booking'
 import { Logo } from '../../shared/Logo/Logo'
 import styles from './Header.module.css'
 
-/** Sticky desktop nav: logo, wordmark, section links, Book via DM CTA. */
+/** Sticky desktop nav: logo, wordmark, section links, Book now CTA. */
 export function Header() {
   return (
     <header className={styles.header}>
@@ -25,12 +26,12 @@ export function Header() {
             Areas
           </a>
           <a
-            href="https://instagram.com/HPxShinezDetailz"
+            href={SQUARE_BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.cta}
           >
-            Book via DM
+            Book now
           </a>
         </nav>
       </div>

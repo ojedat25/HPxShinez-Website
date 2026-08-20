@@ -6,7 +6,7 @@ export function Footer() {
     <footer className={styles.footer}>
       {/* --- Copyright --- */}
       <div className={styles.copyright}>
-        © 2026 HPxShinez Detailz - Booking via Instagram DM only
+        © 2026 HPxShinez Detailz - Book online
       </div>
     </footer>
   )

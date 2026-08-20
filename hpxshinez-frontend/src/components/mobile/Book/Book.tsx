@@ -1,27 +1,27 @@
+import { SQUARE_BOOKING_URL } from '../../../data/booking'
 import styles from './Book.module.css'
 
-/** Mobile book card with red top border and IG CTA. */
+/** Mobile book card with red top border and Book now CTA. */
 export function Book() {
   return (
     <section id="book" className={styles.card}>
       {/* --- Copy --- */}
       <div className={styles.eyebrow}>Ready to shine</div>
-      <h2 className={styles.title}>Slide into our DMs</h2>
+      <h2 className={styles.title}>Book your shine</h2>
       <p className={styles.copy}>
-        Send your vehicle, location, and what you&apos;re after. We&apos;ll
-        confirm a time that works. No forms, no phone tag.
+        Pick a time, tell us about your vehicle, and we'll roll up to your
+        driveway.
       </p>
-      {/* --- Instagram CTA --- */}
+      {/* --- Book CTA --- */}
       <a
-        href="https://instagram.com/HPxShinezDetailz"
+        href={SQUARE_BOOKING_URL}
         target="_blank"
         rel="noopener noreferrer"
         className={styles.cta}
       >
-        {/* Instagram icon — no lucide equivalent */}
-        Book via Instagram DM
+        Book now
       </a>
-      <div className={styles.handle}>@HPxShinezDetailz</div>
+      <div className={styles.handle}>Questions? @HPxShinezDetailz</div>
     </section>
   )
 }

@@ -1,50 +1,66 @@
+import { SQUARE_SERVICE_WIDGETS } from '../../../data/booking'
+import { SERVICE_CATEGORIES, type Service } from '../../../data/services'
 import styles from './Services.module.css'
 
-type ServiceCard = {
-  title: string
-  description: string
-  price: string
-}
-
-const SERVICES: ServiceCard[] = [
-  {
-    title: 'Gloss',
-    description: 'Quick exterior wash and dry.',
-    price: '$99.99',
-  },
-  {
-    title: 'Premier Gloss',
-    description: 'Full exterior, decon through wax.',
-    price: '$149.99',
-  },
-  {
-    title: 'Revive',
-    description: 'Fast interior reset, surfaces, glass.',
-    price: '$199.99',
-  },
-  {
-    title: 'Full Revive',
-    description: 'Every inch detailed and conditioned.',
-    price: '$249.99',
-  },
-]
-
-/** Mobile 2×2 services grid. */
+/** Mobile services grouped by category with included-item dropdowns. */
 export function Services() {
   return (
     <section id="services" className={styles.section}>
       {/* --- Header --- */}
       <h2 className={styles.eyebrow}>Services</h2>
-      {/* --- Card grid --- */}
-      <div className={styles.grid}>
-        {SERVICES.map((service) => (
-          <div key={service.title} className={styles.card}>
-            <div className={styles.cardTitle}>{service.title}</div>
-            <p className={styles.cardCopy}>{service.description}</p>
-            <span className={styles.badge}>{service.price}</span>
+      {/* --- Category groups --- */}
+      <div className={styles.groups}>
+        {SERVICE_CATEGORIES.map((category) => (
+          <div key={category.id}>
+            <h3 className={styles.groupTitle}>{category.title}</h3>
+            <div className={styles.grid}>
+              {category.services.map((service) => (
+                <ServiceCard key={service.id} service={service} />
+              ))}
+            </div>
           </div>
         ))}
       </div>
     </section>
+  )
+}
+
+function ServiceCard({ service }: { service: Service }) {
+  const widgetUrl = SQUARE_SERVICE_WIDGETS[service.id]
+
+  return (
+    <div className={styles.card}>
+      <div className={styles.cardBody}>
+        <div className={styles.cardTitle}>{service.title}</div>
+        <p className={styles.cardCopy}>{service.description}</p>
+        {!service.includes && service.note ? (
+          <p className={styles.note}>{service.note}</p>
+        ) : null}
+        {service.includes ? (
+          <details className={styles.dropdown}>
+            <summary className={styles.summary}>What's included</summary>
+            <ul className={styles.includes}>
+              {service.includes.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            {service.note ? <p className={styles.note}>{service.note}</p> : null}
+          </details>
+        ) : null}
+      </div>
+      <div className={styles.cardFooter}>
+        {widgetUrl ? (
+          <a
+            href={widgetUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.book}
+          >
+            Book
+          </a>
+        ) : null}
+        <span className={styles.badge}>{service.price}</span>
+      </div>
+    </div>
   )
 }

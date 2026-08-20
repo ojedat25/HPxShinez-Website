@@ -1,5 +1,6 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useId, useState, type MouseEvent } from 'react'
+import { SQUARE_BOOKING_URL } from '../../../data/booking'
 import { Logo } from '../../shared/Logo/Logo'
 import styles from './Header.module.css'
 
@@ -89,13 +90,13 @@ export function Header() {
             </a>
           ))}
           <a
-            href="https://instagram.com/HPxShinezDetailz"
+            href={SQUARE_BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.drawerCta}
             onClick={closeDrawer}
           >
-            Book via DM
+            Book now
           </a>
         </nav>
       ) : null}
