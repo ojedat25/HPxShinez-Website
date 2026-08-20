@@ -8,12 +8,6 @@ import {
 import styles from './HeroSlider.module.css'
 
 const SLIDE_INTERVAL_MS = 3000
-const HEIGHT_CAP = 0.7
-const PORTRAIT_ASPECT = 3 / 4
-
-function sliderMaxWidthPx(viewportHeight: number) {
-  return viewportHeight * HEIGHT_CAP * PORTRAIT_ASPECT
-}
 
 export type HeroSliderProps = {
   slides: readonly HeroSlide[]
@@ -25,6 +19,23 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
+/** Map infinite-track index to a real slide index; clamp if track ever overshoots. */
+function resolveRealIndex(trackIndex: number, slideCount: number) {
+  if (slideCount <= 0) {
+    return 0
+  }
+
+  if (trackIndex <= 0) {
+    return slideCount - 1
+  }
+
+  if (trackIndex >= slideCount + 1) {
+    return 0
+  }
+
+  return trackIndex - 1
+}
+
 /** Auto-rotating hero slider with prev/next buttons. */
 export function HeroSlider({ slides, width, className }: HeroSliderProps) {
   const labelId = useId()
@@ -34,26 +45,18 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
   const [isHoverPaused, setIsHoverPaused] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
   const [controlsVisible, setControlsVisible] = useState(false)
-  const viewportWidthRef = useRef(
-    typeof window === 'undefined' ? 0 : window.innerWidth,
-  )
-  const [maxWidthPx, setMaxWidthPx] = useState(() =>
-    typeof window === 'undefined'
-      ? undefined
-      : sliderMaxWidthPx(window.innerHeight),
+  const [isDocumentHidden, setIsDocumentHidden] = useState(
+    () => typeof document !== 'undefined' && document.hidden,
   )
 
   const slideCount = slides.length
   const trackSlides =
     slideCount > 0 ? [slides[slideCount - 1], ...slides, slides[0]] : []
-  const realIndex =
-    trackIndex === 0
-      ? slideCount - 1
-      : trackIndex === slideCount + 1
-        ? 0
-        : trackIndex - 1
+  const realIndex = resolveRealIndex(trackIndex, slideCount)
   const activeSlide = slides[realIndex]
   const isOnClone = trackIndex === 0 || trackIndex === slideCount + 1
+  const isTrackOutOfBounds =
+    slideCount > 0 && (trackIndex < 0 || trackIndex > slideCount + 1)
   const rootClassName = [
     styles.root,
     controlsVisible && styles.controlsVisible,
@@ -61,7 +64,8 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
   ]
     .filter(Boolean)
     .join(' ')
-  const isPaused = isHoverPaused || controlsVisible
+  const isPaused =
+    isHoverPaused || controlsVisible || isOnClone || isDocumentHidden
 
   const goTo = useCallback(
     (nextIndex: number, animate: boolean) => {
@@ -80,23 +84,47 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
     [slideCount],
   )
 
-  useEffect(() => {
-    function onResize() {
-      const nextWidth = window.innerWidth
-      if (Math.abs(nextWidth - viewportWidthRef.current) < 2) {
-        return
-      }
-
-      viewportWidthRef.current = nextWidth
-      setMaxWidthPx(sliderMaxWidthPx(window.innerHeight))
+  const snapOffClone = useCallback(() => {
+    if (trackIndex <= 0) {
+      goTo(slideCount, false)
+      return
     }
 
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [])
+    if (trackIndex >= slideCount + 1) {
+      goTo(1, false)
+    }
+  }, [trackIndex, slideCount, goTo])
+
+  // Pause while hidden; snap off clones when the tab becomes visible again
+  // (background tabs often skip transitionend, which would leave autoplay stuck).
+  useEffect(() => {
+    function onVisibilityChange() {
+      setIsDocumentHidden(document.hidden)
+      if (!document.hidden) {
+        snapOffClone()
+      }
+    }
+
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+    }
+  }, [snapOffClone])
+
+  // Recover immediately if track index ever walks past the clone slots.
+  useEffect(() => {
+    if (isTrackOutOfBounds) {
+      snapOffClone()
+    }
+  }, [isTrackOutOfBounds, snapOffClone])
 
   useEffect(() => {
-    if (slideCount <= 1 || isPaused || hasInteracted || prefersReducedMotion()) {
+    if (
+      slideCount <= 1 ||
+      isPaused ||
+      hasInteracted ||
+      prefersReducedMotion()
+    ) {
       return
     }
 
@@ -134,7 +162,7 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
   }, [controlsVisible])
 
   function step(delta: number) {
-    if (isOnClone) {
+    if (isOnClone || isTrackOutOfBounds) {
       return
     }
 
@@ -143,7 +171,7 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
   }
 
   function goToSlide(index: number) {
-    if (isOnClone) {
+    if (isOnClone || isTrackOutOfBounds) {
       return
     }
 
@@ -177,7 +205,6 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
       role="region"
       aria-roledescription="carousel"
       aria-labelledby={labelId}
-      style={maxWidthPx != null ? { maxWidth: `${maxWidthPx}px` } : undefined}
       onPointerDown={() => setControlsVisible(true)}
       onMouseEnter={() => setIsHoverPaused(true)}
       onMouseLeave={() => setIsHoverPaused(false)}
