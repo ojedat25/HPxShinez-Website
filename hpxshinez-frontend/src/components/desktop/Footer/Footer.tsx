@@ -29,7 +29,15 @@ export function Footer() {
       </div>
       {/* --- Copyright --- */}
       <div className={styles.copyright}>
-        © 2026 HPxShinez Detailz - Book online
+        © 2026 HPxShinez Detailz - Site by{' '}
+        <a
+          href="https://dev-toni.me"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.creditLink}
+        >
+          Toni Ojeda
+        </a>
       </div>
     </footer>
   )
