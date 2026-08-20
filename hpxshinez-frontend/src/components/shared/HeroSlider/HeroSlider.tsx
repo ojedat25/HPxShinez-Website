@@ -8,6 +8,12 @@ import {
 import styles from './HeroSlider.module.css'
 
 const SLIDE_INTERVAL_MS = 3000
+const HEIGHT_CAP = 0.7
+const PORTRAIT_ASPECT = 3 / 4
+
+function sliderMaxWidthPx(viewportHeight: number) {
+  return viewportHeight * HEIGHT_CAP * PORTRAIT_ASPECT
+}
 
 export type HeroSliderProps = {
   slides: readonly HeroSlide[]
@@ -28,6 +34,14 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
   const [isHoverPaused, setIsHoverPaused] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
   const [controlsVisible, setControlsVisible] = useState(false)
+  const viewportWidthRef = useRef(
+    typeof window === 'undefined' ? 0 : window.innerWidth,
+  )
+  const [maxWidthPx, setMaxWidthPx] = useState(() =>
+    typeof window === 'undefined'
+      ? undefined
+      : sliderMaxWidthPx(window.innerHeight),
+  )
 
   const slideCount = slides.length
   const trackSlides =
@@ -65,6 +79,21 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
     },
     [slideCount],
   )
+
+  useEffect(() => {
+    function onResize() {
+      const nextWidth = window.innerWidth
+      if (Math.abs(nextWidth - viewportWidthRef.current) < 2) {
+        return
+      }
+
+      viewportWidthRef.current = nextWidth
+      setMaxWidthPx(sliderMaxWidthPx(window.innerHeight))
+    }
+
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   useEffect(() => {
     if (slideCount <= 1 || isPaused || hasInteracted || prefersReducedMotion()) {
@@ -148,6 +177,7 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
       role="region"
       aria-roledescription="carousel"
       aria-labelledby={labelId}
+      style={maxWidthPx != null ? { maxWidth: `${maxWidthPx}px` } : undefined}
       onPointerDown={() => setControlsVisible(true)}
       onMouseEnter={() => setIsHoverPaused(true)}
       onMouseLeave={() => setIsHoverPaused(false)}
