@@ -1,6 +1,7 @@
 /* --- Copy block --- */
 .hero {
-  padding: var(--space-hero-top-mobile) var(--space-page-x-mobile) 0;
+  padding: var(--space-hero-top-mobile) var(--space-page-x-mobile)
+    var(--space-15);
   position: relative;
   scroll-margin-top: var(--scroll-offset-mobile);
 }
@@ -111,55 +112,7 @@
   }
 }
 
-/* --- 3-up collage --- */
-.media {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  background: var(--color-placeholder);
+.slider {
+  margin-top: var(--space-15);
 }
 
-.mediaImg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.collage {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: var(--space-3);
-  margin: var(--space-15) var(--space-page-x-mobile) 0;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .collage > * {
-    animation: collageReveal 600ms ease-out both;
-  }
-
-  .collage > *:nth-child(2) {
-    animation-delay: 100ms;
-  }
-
-  .collage > *:nth-child(3) {
-    animation-delay: 200ms;
-  }
-}
-
-@keyframes collageReveal {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.slot {
-  border: 1px solid var(--color-border-soft);
-  border-radius: var(--radius-sm);
-}

@@ -104,27 +104,27 @@ const photoCatalog: Record<PhotoSlug, PhotoAsset> = {
   },
 }
 
-// --- Hero collage slots ---
+// --- Hero slider slides ---
 
-export type HeroCollageSlot = PhotoAsset & {
+export type HeroSlide = PhotoAsset & {
   aspectRatio: string
 }
 
-/** Hero collage slots (desktop and mobile). */
-export const heroCollage = {
-  left: {
+/** Ordered hero slider photos (desktop and mobile). */
+export const heroSlides = [
+  {
     ...photoCatalog['10-orange-lancer-foam'],
     aspectRatio: '3 / 4',
   },
-  center: {
+  {
     ...photoCatalog['09-orange-lancer-hero'],
     aspectRatio: '3 / 4',
   },
-  right: {
+  {
     ...photoCatalog['11-orange-lancer-wheel'],
     aspectRatio: '3 / 4',
   },
-} as const satisfies Record<string, HeroCollageSlot>
+] as const satisfies readonly HeroSlide[]
 
 // --- Gallery stills + compare pairs ---
 
