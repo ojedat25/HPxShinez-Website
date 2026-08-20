@@ -8,9 +8,10 @@
   --color-text-secondary: #a9a9a9;
   --color-text-tertiary: #9a9a9a;
   --color-text-tagline: #7a7a7a;
-  --color-text-hours: #6f6f6f;
-  --color-text-copyright: #565656;
-  --color-accent: #e01e2b;
+  --color-text-hours: #8a8a8a;
+  --color-text-copyright: #8a8a8a;
+  --color-accent: #ff3b30;
+  --color-accent-solid: #c41c28;
   --color-accent-dark: #b3141f;
   --color-accent-soft: rgba(224, 30, 43, 0.08);
   --color-accent-glow: rgba(224, 30, 43, 0.14);
