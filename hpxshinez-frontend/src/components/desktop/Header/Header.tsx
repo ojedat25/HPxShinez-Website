@@ -23,7 +23,7 @@ export function Header() {
             Work
           </a>
           <a href="#areas" className={styles.navLink}>
-            Areas
+            Areas & Hours
           </a>
           <a
             href={SQUARE_BOOKING_URL}

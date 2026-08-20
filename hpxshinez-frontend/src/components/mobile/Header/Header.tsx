@@ -7,7 +7,7 @@ import styles from './Header.module.css'
 const NAV_LINKS = [
   { href: '#services', label: 'Services' },
   { href: '#work', label: 'Work' },
-  { href: '#areas', label: 'Areas' },
+  { href: '#areas', label: 'Areas & Hours' },
 ] as const
 
 /** Sticky mobile nav: logo, wordmark, hamburger drawer. */
