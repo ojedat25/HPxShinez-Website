@@ -1,5 +1,6 @@
 import { SQUARE_BOOKING_URL } from '../../../data/booking'
 import { Logo } from '../../shared/Logo/Logo'
+import { ThemeToggle } from '../../shared/ThemeToggle/ThemeToggle'
 import styles from './Header.module.css'
 
 /** Sticky desktop nav: logo, wordmark, section links, Book now CTA. */
@@ -33,6 +34,7 @@ export function Header() {
           >
             Book now
           </a>
+          <ThemeToggle />
         </nav>
       </div>
     </header>

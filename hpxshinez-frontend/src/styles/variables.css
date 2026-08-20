@@ -1,4 +1,6 @@
 :root {
+  color-scheme: dark;
+
   /* Colors */
   --color-bg: #0a0a0a;
   --color-bg-gallery: #070707;
@@ -186,4 +188,37 @@
   --z-header: 30;
   --z-header-mobile: 20;
   --z-lightbox: 40;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --color-bg: #f5f5f5;
+  --color-bg-gallery: #eeeeee;
+  --color-bg-footer: #e8e8e8;
+  --color-text: #121212;
+  --color-text-muted: #3a3a3a;
+  --color-text-secondary: #555555;
+  --color-text-tertiary: #666666;
+  --color-text-tagline: #757575;
+  --color-text-hours: #6a6a6a;
+  --color-text-copyright: #6a6a6a;
+  --color-surface: #ffffff;
+  --color-surface-chip: #f0f0f0;
+  --color-placeholder: #e6e6e6;
+  --color-header-bg: rgba(255, 255, 255, 0.88);
+  --color-header-bg-mobile: #ffffff;
+  --color-border: #e0e0e0;
+  --color-border-section: #e2e2e2;
+  --color-border-soft: #e4e4e4;
+  --color-border-mid: #d8d8d8;
+  --color-border-strong: #d0d0d0;
+  --color-border-nav: #c8c8c8;
+  --color-border-follow-link: #c4c4c4;
+  --color-border-dashed: #b0b0b0;
+  --color-border-badge: #e8c4c8;
+  --color-border-copyright: #e6e6e6;
+  --color-logo-light: #2a2a2a;
+  --color-logo-mid: #5a5a5a;
+  --color-logo-dark: #e0e0e0;
 }

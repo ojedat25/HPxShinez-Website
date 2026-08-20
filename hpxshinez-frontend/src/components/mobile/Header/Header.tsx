@@ -2,6 +2,7 @@ import { Menu, X } from 'lucide-react'
 import { useEffect, useId, useState, type MouseEvent } from 'react'
 import { SQUARE_BOOKING_URL } from '../../../data/booking'
 import { Logo } from '../../shared/Logo/Logo'
+import { ThemeToggle } from '../../shared/ThemeToggle/ThemeToggle'
 import styles from './Header.module.css'
 
 const NAV_LINKS = [
@@ -61,20 +62,23 @@ export function Header() {
             HPxShinez <span className={styles.accent}>Detailz</span>
           </span>
         </a>
-        <button
-          type="button"
-          className={styles.menuButton}
-          aria-expanded={drawerOpen}
-          aria-controls={drawerNavId}
-          aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
-          onClick={() => setDrawerOpen((current) => !current)}
-        >
-          {drawerOpen ? (
-            <X size={20} color="var(--color-text)" strokeWidth={2.5} />
-          ) : (
-            <Menu size={20} color="var(--color-text)" strokeWidth={2.5} />
-          )}
-        </button>
+        <div className={styles.actions}>
+          <ThemeToggle />
+          <button
+            type="button"
+            className={styles.menuButton}
+            aria-expanded={drawerOpen}
+            aria-controls={drawerNavId}
+            aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setDrawerOpen((current) => !current)}
+          >
+            {drawerOpen ? (
+              <X size={20} color="var(--color-text)" strokeWidth={2.5} />
+            ) : (
+              <Menu size={20} color="var(--color-text)" strokeWidth={2.5} />
+            )}
+          </button>
+        </div>
       </div>
       {/* --- Drawer --- */}
       {drawerOpen ? (

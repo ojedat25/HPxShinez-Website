@@ -21,6 +21,12 @@
   gap: var(--space-6);
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
 .wordmark {
   font-family: var(--font-display);
   font-weight: 700;
