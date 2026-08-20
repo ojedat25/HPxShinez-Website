@@ -20,9 +20,13 @@
   font-family: var(--font-display);
   font-weight: 800;
   text-transform: uppercase;
-  font-size: clamp(30px, 4vw, 48px);
+  font-size: clamp(40px, 5.5vw, 64px);
   line-height: var(--line-height-heading);
   margin-bottom: var(--space-15);
+  text-decoration: underline;
+  text-decoration-thickness: 0.065em;
+  text-underline-offset: 0.14em;
+  text-decoration-skip-ink: none;
 }
 
 /* --- Area chips --- */

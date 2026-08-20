@@ -16,12 +16,12 @@ const HOURS = [
   { days: 'Sat to Sun', time: '10AM to 7PM' },
 ] as const
 
-/** Mobile service area chips and hours rows (eyebrow-only headers). */
+/** Mobile service area chips and hours rows. */
 export function AreasHours() {
   return (
     <section id="areas" className={styles.section}>
       {/* --- Areas --- */}
-      <h2 className={styles.eyebrow}>Service Areas</h2>
+      <h2 className={styles.title}>Service Areas</h2>
       <div className={styles.chips}>
         {AREAS.map((area) => (
           <span key={area} className={styles.chip}>
@@ -34,7 +34,7 @@ export function AreasHours() {
         address. We bring the gear to your driveway.
       </p>
       {/* --- Hours --- */}
-      <h2 className={styles.eyebrow}>Hours</h2>
+      <h2 className={styles.title}>Hours</h2>
       <div className={styles.hoursList}>
         {HOURS.map((row) => (
           <div key={row.days} className={styles.hoursRow}>

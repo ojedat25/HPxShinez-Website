@@ -6,7 +6,7 @@ export function Gallery() {
   return (
     <section id="work" className={styles.section}>
       {/* --- Section header --- */}
-      <h2 className={styles.eyebrow}>The Gallery</h2>
+      <h2 className={styles.title}>The Gallery</h2>
       {/* Mobile loads 640px stills */}
       <GalleryStage imageWidth={640} />
     </section>

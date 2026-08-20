@@ -7,7 +7,7 @@ export function Services() {
   return (
     <section id="services" className={styles.section}>
       {/* --- Header --- */}
-      <h2 className={styles.eyebrow}>Services</h2>
+      <h2 className={styles.title}>Services</h2>
       {/* --- Category groups --- */}
       <div className={styles.groups}>
         {SERVICE_CATEGORIES.map((category) => (

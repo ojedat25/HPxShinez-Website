@@ -21,7 +21,7 @@
   --color-surface-chip: #121212;
   --color-placeholder: #141414;
   --color-header-bg: rgba(8, 8, 8, 0.82);
-  --color-header-bg-mobile: rgba(8, 8, 8, 0.85);
+  --color-header-bg-mobile: #000;
   --color-border: #1c1c1c;
   --color-border-section: #1a1a1a;
   --color-border-soft: #1f1f1f;
@@ -148,6 +148,7 @@
   --font-size-hero-mobile: 72px;
   --font-size-hero-copy-mobile: 14px;
   --font-size-hero-cta-mobile: 15px;
+  --font-size-section-title-mobile: 32px;
   --font-size-card-title-mobile: 20px;
   --font-size-card-copy-mobile: 11.5px;
   --font-size-badge-mobile: 10.5px;

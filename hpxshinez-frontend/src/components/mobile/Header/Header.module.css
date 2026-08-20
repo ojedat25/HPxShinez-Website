@@ -4,7 +4,6 @@
   top: 0;
   z-index: var(--z-header-mobile);
   background: var(--color-header-bg-mobile);
-  backdrop-filter: blur(var(--blur-header-mobile));
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -55,10 +54,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-11);
-  padding: 0 var(--space-page-x-mobile) var(--space-14);
+  padding: var(--space-12) var(--space-page-x-mobile) var(--space-14);
   border-top: 1px solid var(--color-border);
   background: var(--color-header-bg-mobile);
-  backdrop-filter: blur(var(--blur-header-mobile));
 }
 
 .drawerLink {

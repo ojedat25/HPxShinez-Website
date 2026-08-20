@@ -5,12 +5,17 @@
 }
 
 /* --- Header --- */
-.eyebrow {
-  font: 700 var(--font-size-eyebrow-mobile) / 1 var(--font-body);
-  letter-spacing: var(--letter-spacing-section-mobile);
+.title {
+  font-family: var(--font-display);
+  font-weight: 800;
   text-transform: uppercase;
-  color: var(--color-accent);
+  font-size: var(--font-size-section-title-mobile);
+  line-height: var(--line-height-heading);
   margin-bottom: var(--space-9);
+  text-decoration: underline;
+  text-decoration-thickness: 0.065em;
+  text-underline-offset: 0.14em;
+  text-decoration-skip-ink: none;
 }
 
 /* --- Category groups --- */
