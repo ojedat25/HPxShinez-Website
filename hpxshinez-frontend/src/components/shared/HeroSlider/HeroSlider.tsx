@@ -8,6 +8,12 @@ import {
 import styles from './HeroSlider.module.css'
 
 const SLIDE_INTERVAL_MS = 3000
+const HEIGHT_CAP = 0.7
+const PORTRAIT_ASPECT = 3 / 4
+
+function sliderMaxWidthPx(viewportHeight: number) {
+  return viewportHeight * HEIGHT_CAP * PORTRAIT_ASPECT
+}
 
 export type HeroSliderProps = {
   slides: readonly HeroSlide[]
@@ -47,6 +53,15 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
   const [controlsVisible, setControlsVisible] = useState(false)
   const [isDocumentHidden, setIsDocumentHidden] = useState(
     () => typeof document !== 'undefined' && document.hidden,
+  )
+  // Lock height-based max-width on first paint; ignore URL-bar height churn.
+  const viewportWidthRef = useRef(
+    typeof window === 'undefined' ? 0 : window.innerWidth,
+  )
+  const [maxWidthPx, setMaxWidthPx] = useState(() =>
+    typeof window === 'undefined'
+      ? undefined
+      : sliderMaxWidthPx(window.innerHeight),
   )
 
   const slideCount = slides.length
@@ -94,6 +109,23 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
       goTo(1, false)
     }
   }, [trackIndex, slideCount, goTo])
+
+  // Only recalc the height cap when width actually changes (rotate / desktop
+  // resize). Mobile URL-bar show/hide changes height alone and is ignored.
+  useEffect(() => {
+    function onResize() {
+      const nextWidth = window.innerWidth
+      if (Math.abs(nextWidth - viewportWidthRef.current) < 2) {
+        return
+      }
+
+      viewportWidthRef.current = nextWidth
+      setMaxWidthPx(sliderMaxWidthPx(window.innerHeight))
+    }
+
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   // Pause while hidden; snap off clones when the tab becomes visible again
   // (background tabs often skip transitionend, which would leave autoplay stuck).
@@ -205,6 +237,7 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
       role="region"
       aria-roledescription="carousel"
       aria-labelledby={labelId}
+      style={maxWidthPx != null ? { maxWidth: `${maxWidthPx}px` } : undefined}
       onPointerDown={() => setControlsVisible(true)}
       onMouseEnter={() => setIsHoverPaused(true)}
       onMouseLeave={() => setIsHoverPaused(false)}
