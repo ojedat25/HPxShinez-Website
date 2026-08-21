@@ -58,7 +58,6 @@ Clips live in `public/videos/mp4` (720×1280 vertical) with posters in `public/v
 
 | Clip | Why |
 |------|-----|
-| `01-charger-gt-walkaround` | Finished-car showcase |
 | `02-foam-cannon-canopy` | Process / action variety |
 | `03-kia-wheel-pressure-rinse` | Strongest wheel-process clip |
 
