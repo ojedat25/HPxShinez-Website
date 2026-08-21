@@ -209,7 +209,6 @@ export const galleryPhotos: PhotoAsset[] = galleryMedia.flatMap((galleryItem) =>
 // --- Videos ---
 
 export type VideoSlug =
-  | '01-charger-gt-walkaround'
   | '02-foam-cannon-canopy'
   | '03-kia-wheel-pressure-rinse'
 
@@ -232,12 +231,6 @@ export function videoPosterSrc(slug: VideoSlug) {
 
 export const galleryVideos: VideoAsset[] = [
   {
-    slug: '01-charger-gt-walkaround',
-    alt: 'Dodge Charger GT walkaround after detailing',
-    width: 720,
-    height: 1280,
-  },
-  {
     slug: '02-foam-cannon-canopy',
     alt: 'Foam cannon wash under a canopy',
     width: 720,
@@ -259,7 +252,7 @@ export type GalleryItem =
 
 export type GalleryFilter = 'all' | 'images' | 'videos'
 
-/** Photos in current gallery order, then the three clips. */
+/** Photos in current gallery order, then the clips. */
 export const galleryItems: GalleryItem[] = [
   ...galleryPhotos.map((photo) => ({ ...photo, kind: 'photo' as const })),
   ...galleryVideos.map((video) => ({ ...video, kind: 'video' as const })),
