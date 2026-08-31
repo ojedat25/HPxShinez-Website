@@ -51,6 +51,32 @@
   text-transform: uppercase;
 }
 
+/* --- Legal --- */
+.legal {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 0 var(--space-page-x) var(--space-16);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-9) var(--space-16);
+}
+
+.legalLabel {
+  font-size: var(--font-size-sm-plus);
+  font-weight: 600;
+  letter-spacing: var(--letter-spacing-md);
+  text-transform: uppercase;
+  color: var(--color-text-tagline);
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-9) var(--space-16);
+  list-style: none;
+}
+
 /* --- Copyright --- */
 .copyright {
   border-top: 1px solid var(--color-border-copyright);

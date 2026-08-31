@@ -5,13 +5,18 @@ import { Logo } from '../../shared/Logo/Logo'
 import styles from './Header.module.css'
 
 const NAV_LINKS = [
-  { href: '#services', label: 'Services' },
-  { href: '#work', label: 'Work' },
-  { href: '#areas', label: 'Areas & Hours' },
+  { hash: '#services', label: 'Services' },
+  { hash: '#work', label: 'Work' },
+  { hash: '#areas', label: 'Areas & Hours' },
 ] as const
 
+type HeaderProps = {
+  /** Logo target. Home page uses `#top`; standalone pages pass `/`. */
+  homeHref?: string
+}
+
 /** Sticky mobile nav: logo, wordmark, hamburger drawer. */
-export function Header() {
+export function Header({ homeHref = '#top' }: HeaderProps) {
   const [drawerOpen, setDrawerOpen] = useState(false)
   // Hash to scroll to after the drawer closes (avoids scrolling while it is still covering the page).
   const [pendingHash, setPendingHash] = useState<string | null>(null)
@@ -42,6 +47,10 @@ export function Header() {
   }
 
   function goToHash(event: MouseEvent<HTMLAnchorElement>, href: string) {
+    if (!href.startsWith('#')) {
+      setDrawerOpen(false)
+      return
+    }
     event.preventDefault()
     setPendingHash(href)
     setDrawerOpen(false)
@@ -52,9 +61,9 @@ export function Header() {
       {/* --- Bar + hamburger --- */}
       <div className={styles.bar}>
         <a
-          href="#top"
+          href={homeHref}
           className={styles.brand}
-          onClick={(event) => goToHash(event, '#top')}
+          onClick={(event) => goToHash(event, homeHref)}
         >
           <Logo size={34} />
           <span className={styles.wordmark}>
@@ -79,16 +88,19 @@ export function Header() {
       {/* --- Drawer --- */}
       {drawerOpen ? (
         <nav id={drawerNavId} className={styles.drawer}>
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={styles.drawerLink}
-              onClick={(event) => goToHash(event, link.href)}
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const href = homeHref === '/' ? `/${link.hash}` : link.hash
+            return (
+              <a
+                key={link.hash}
+                href={href}
+                className={styles.drawerLink}
+                onClick={(event) => goToHash(event, href)}
+              >
+                {link.label}
+              </a>
+            )
+          })}
           <a
             href={SQUARE_BOOKING_URL}
             target="_blank"
