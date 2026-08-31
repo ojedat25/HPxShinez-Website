@@ -104,6 +104,24 @@
   line-height: var(--line-height-body);
 }
 
+.serviceLine {
+  max-width: var(--max-width-hero-copy);
+  margin: var(--space-12) 0 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-body);
+}
+
+.moreLink {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.moreLink:hover {
+  color: var(--color-text-muted);
+}
+
 .ctaRow {
   display: flex;
   flex-wrap: wrap;

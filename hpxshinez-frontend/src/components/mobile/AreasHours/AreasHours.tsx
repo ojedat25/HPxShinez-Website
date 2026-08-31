@@ -1,20 +1,5 @@
+import { AREAS, HOURS } from '../../../data/areas'
 import styles from './AreasHours.module.css'
-
-const AREAS = [
-  'Minneapolis',
-  'Columbia Heights',
-  'Fridley',
-  'Coon Rapids',
-  'St. Anthony',
-  'St. Paul',
-  'Edina',
-  'Richfield',
-] as const
-
-const HOURS = [
-  { days: 'Mon to Fri', time: '5PM to 8PM' },
-  { days: 'Sat to Sun', time: '10AM to 7PM' },
-] as const
 
 /** Mobile service area chips and hours rows. */
 export function AreasHours() {

@@ -79,6 +79,23 @@
   margin-bottom: var(--space-14);
 }
 
+.serviceLine {
+  font-size: var(--font-size-eyebrow-mobile);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-body);
+  margin: 0 0 var(--space-12);
+}
+
+.moreLink {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.moreLink:hover {
+  color: var(--color-text-muted);
+}
+
 .cta {
   display: inline-flex;
   align-items: center;
