@@ -1,3 +1,6 @@
+// Service catalog — edit titles, prices, and copy here.
+// Service ids with a matching key in booking.ts get a per-service Book button.
+// After changing names/descriptions, sync hasOfferCatalog in index.html.
 /** A single detailing service or add-on. */
 export type Service = {
   id: string

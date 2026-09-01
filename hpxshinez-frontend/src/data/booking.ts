@@ -1,3 +1,5 @@
+// Square Appointments URLs — update here when links change in the Square dashboard.
+// SQUARE_SERVICE_WIDGETS keys must match service.id in services.ts.
 export const SQUARE_BOOKING_URL =
   'https://app.squareup.com/appointments/book/52reehotkj7cfs/LVXK0DMRMG26C/start'
 

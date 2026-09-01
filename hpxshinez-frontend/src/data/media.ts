@@ -1,3 +1,7 @@
+// Photo and video catalog for hero, gallery compare pairs, and lightbox.
+// Add new assets to public/images/webp/ (640, 800, 1024) or public/videos/
+// then register slugs here. See README.md "Media" section for width conventions.
+
 // --- Photo catalog + path helpers ---
 
 /** Photo slug under /images/webp/ (without width suffix). */

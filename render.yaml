@@ -1,3 +1,6 @@
+# Render static site for hpxshinez.com
+# Deploys from hpxshinez-frontend/ on push. Legal routes get pre-built HTML;
+# everything else falls through to the SPA index.html rewrite.
 services:
   - type: web
     name: hpxshinez-website

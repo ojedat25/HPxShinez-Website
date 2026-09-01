@@ -1,3 +1,5 @@
+// Top-level route switch — no react-router. Legal pages are lazy-loaded;
+// home page picks MobileLayout or DesktopLayout via useIsMobile (767px).
 import { lazy, Suspense, type ReactNode } from 'react'
 import { MobileLayout } from './components/mobile/MobileLayout'
 import { useIsMobile } from './hooks/useIsMobile'

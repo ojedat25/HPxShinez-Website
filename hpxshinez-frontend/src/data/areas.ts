@@ -1,3 +1,5 @@
+// Service areas and hours — also mirrored in index.html JSON-LD (areaServed,
+// openingHoursSpecification) and the home meta description.
 /** Cities we serve, shown as chips in AreasHours and condensed in the hero. */
 export const AREAS = [
   'Minneapolis',

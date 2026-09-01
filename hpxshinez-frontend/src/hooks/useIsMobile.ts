@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+// Breakpoint shared by App.tsx (layout switch) and LegalPageLayout (header/footer).
 const MOBILE_QUERY = '(max-width: 767px)'
 
 /** True when viewport matches mobile breakpoint (max-width: 767px). */
