@@ -135,15 +135,16 @@
 .cta {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-7);
+  justify-content: center;
+  gap: var(--space-9);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: var(--font-size-hero-cta);
+  font-size: var(--font-size-book-cta);
   letter-spacing: var(--letter-spacing-lg);
   text-transform: uppercase;
   color: var(--color-white);
   background: var(--color-accent-solid);
-  padding: 15px var(--space-18);
+  padding: 17px var(--space-20);
   border-radius: var(--radius-md);
   animation: ctaGlowPulse 2.8s ease-in-out infinite;
 }

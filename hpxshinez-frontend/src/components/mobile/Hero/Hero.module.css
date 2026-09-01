@@ -100,18 +100,17 @@
 
 .cta {
   display: flex;
-  width: max-content;
-  margin-left: auto;
   align-items: center;
-  gap: var(--space-5);
+  justify-content: center;
+  gap: var(--space-6);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: var(--font-size-hero-cta-mobile);
+  font-size: var(--font-size-book-cta-mobile);
   letter-spacing: var(--letter-spacing-lg);
   text-transform: uppercase;
   color: var(--color-white);
   background: var(--color-accent-solid);
-  padding: 13px var(--space-14);
+  padding: var(--space-11) var(--space-14);
   border-radius: var(--radius-md);
   animation: ctaGlowPulse 2.8s ease-in-out infinite;
 }
