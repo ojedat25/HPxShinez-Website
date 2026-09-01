@@ -5,6 +5,8 @@ export function CancellationPolicyPage() {
   return (
     <LegalPageLayout
       title="HPxShinez Detailz: Cancellation Policy"
+      description="Rescheduling and cancellation terms for mobile auto detailing appointments booked with HPxShinez Detailz."
+      path="/cancellation-policy"
       effectiveDate="August 31, 2026"
     >
       <p>

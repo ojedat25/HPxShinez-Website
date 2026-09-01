@@ -334,7 +334,7 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
                 src={photoSrc(slide.slug, width)}
                 width={slide.width}
                 height={slide.height}
-                alt=""
+                alt={slide.alt}
                 aria-hidden="true"
                 draggable={false}
                 fetchPriority={isLcpSlide ? 'high' : undefined}

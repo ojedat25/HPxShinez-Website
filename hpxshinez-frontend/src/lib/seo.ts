@@ -1,0 +1,24 @@
+export type PageMeta = {
+  title: string
+  description: string
+  path: string
+}
+
+function setContent(selector: string, attribute: string, value: string) {
+  document.head.querySelector(selector)?.setAttribute(attribute, value)
+}
+
+/** Syncs document.title and head meta tags to match the current route. */
+export function setPageMeta({ title, description, path }: PageMeta) {
+  document.title = title
+
+  const url = `https://hpxshinez.com${path}`
+
+  setContent('meta[name="description"]', 'content', description)
+  setContent('link[rel="canonical"]', 'href', url)
+  setContent('meta[property="og:title"]', 'content', title)
+  setContent('meta[property="og:description"]', 'content', description)
+  setContent('meta[property="og:url"]', 'content', url)
+  setContent('meta[name="twitter:title"]', 'content', title)
+  setContent('meta[name="twitter:description"]', 'content', description)
+}

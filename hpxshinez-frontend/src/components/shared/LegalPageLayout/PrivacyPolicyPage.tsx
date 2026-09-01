@@ -5,6 +5,8 @@ export function PrivacyPolicyPage() {
   return (
     <LegalPageLayout
       title="HPxShinez Detailz: Privacy Policy"
+      description="How HPxShinez Detailz collects and uses information when you book mobile auto detailing in the Twin Cities metro."
+      path="/privacy-policy"
       effectiveDate="August 31, 2026"
     >
       <p>

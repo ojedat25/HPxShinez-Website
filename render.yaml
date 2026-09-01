@@ -10,5 +10,14 @@ services:
         value: "22"
     routes:
       - type: rewrite
+        source: /privacy-policy
+        destination: /privacy-policy/index.html
+      - type: rewrite
+        source: /liability-disclaimer
+        destination: /liability-disclaimer/index.html
+      - type: rewrite
+        source: /cancellation-policy
+        destination: /cancellation-policy/index.html
+      - type: rewrite
         source: /*
         destination: /index.html

@@ -1,0 +1,15 @@
+{
+  "name": "HPxShinez Detailz",
+  "short_name": "HPxShinez",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#1c1c1e",
+  "theme_color": "#1c1c1e",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
