@@ -22,7 +22,7 @@ export function Footer() {
       <div className={styles.copyright}>
         © 2026 HPxShinez Detailz - Site by{' '}
         <a
-          href="https://dev-toni.me"
+          href="https://github.com/ojedat25"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.creditLink}
