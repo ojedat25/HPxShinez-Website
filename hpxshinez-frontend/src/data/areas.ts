@@ -11,8 +11,8 @@ export const AREAS = [
 ] as const
 
 export const HOURS = [
-  { days: 'Mon to Fri', time: '5PM to 8PM' },
-  { days: 'Sat to Sun', time: '10AM to 7PM' },
+  { days: 'Monday to Friday', time: '5PM to 8PM' },
+  { days: 'Saturday & Sunday', time: '10AM to 7PM' },
 ] as const
 
 const HERO_CITY_PREVIEW = 3

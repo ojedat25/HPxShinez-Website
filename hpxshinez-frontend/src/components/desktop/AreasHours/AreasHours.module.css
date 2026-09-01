@@ -33,16 +33,19 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-6);
+  gap: var(--space-9);
 }
 
 .chip {
-  font-weight: 600;
-  font-size: var(--font-size-base);
+  font-weight: 700;
+  font-size: var(--font-size-hours);
   background: var(--color-surface-chip);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
   padding: var(--space-6) var(--space-12);
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  color: var(--color-text-hours);
 }
 
 .note {
@@ -70,7 +73,7 @@
   background: var(--color-surface-chip);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
-  padding: var(--space-13) var(--space-15);
+  padding: var(--space-6) var(--space-12);
 }
 
 .hoursDays {
@@ -79,11 +82,12 @@
   text-transform: uppercase;
   font-size: var(--font-size-hours);
   letter-spacing: var(--letter-spacing-md);
+  color: var(--color-text-hours);
 }
 
 .hoursTime {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--font-size-hours-value);
-  color: var(--color-text);
+  color: var(--color-text-hours);
 }

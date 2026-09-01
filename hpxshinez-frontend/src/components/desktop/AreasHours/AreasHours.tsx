@@ -24,7 +24,7 @@ export function AreasHours() {
       {/* --- Hours column --- */}
       <div>
         <div className={styles.eyebrow}>When we work</div>
-        <h2 className={styles.title}>Hours</h2>
+        <h2 className={styles.title}>Days & Hours</h2>
         <div className={styles.hoursList}>
           {HOURS.map((row) => (
             <div key={row.days} className={styles.hoursRow}>
