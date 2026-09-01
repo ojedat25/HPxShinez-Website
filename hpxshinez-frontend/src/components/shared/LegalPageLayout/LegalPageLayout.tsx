@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from 'react'
 import { useIsMobile } from '../../../hooks/useIsMobile'
+import { setPageMeta } from '../../../lib/seo'
 import { Footer as DesktopFooter } from '../../desktop/Footer/Footer'
 import { Header as DesktopHeader } from '../../desktop/Header/Header'
 import { Footer as MobileFooter } from '../../mobile/Footer/Footer'
@@ -8,6 +9,8 @@ import styles from './LegalPageLayout.module.css'
 
 type LegalPageLayoutProps = {
   title: string
+  description: string
+  path: string
   effectiveDate: string
   children: ReactNode
 }
@@ -15,6 +18,8 @@ type LegalPageLayoutProps = {
 /** Shared article shell for legal documents. Reuses viewport Header/Footer. */
 export function LegalPageLayout({
   title,
+  description,
+  path,
   effectiveDate,
   children,
 }: LegalPageLayoutProps) {
@@ -23,6 +28,10 @@ export function LegalPageLayout({
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+  useEffect(() => {
+    setPageMeta({ title, description, path })
+  }, [title, description, path])
 
   return (
     <div className={isMobile ? `${styles.root} mobile` : styles.root}>

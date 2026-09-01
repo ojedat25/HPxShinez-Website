@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1c1c1e" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HPxShinez Detailz | Mobile Car Detailing in Minneapolis</title>
     <meta
@@ -51,6 +54,8 @@
       content="Family-owned mobile auto detailing across the Twin Cities. We roll up to your driveway. Book online."
     />
     <meta property="og:url" content="https://hpxshinez.com/" />
+    <meta property="og:site_name" content="HPxShinez Detailz" />
+    <meta property="og:locale" content="en_US" />
     <meta
       property="og:image"
       content="https://hpxshinez.com/images/webp/09-orange-lancer-hero-1024.webp"
@@ -67,7 +72,7 @@
       content="https://hpxshinez.com/images/webp/09-orange-lancer-hero-1024.webp"
     />
 
-    <!-- TODO: add "telephone" to JSON-LD when a public phone number exists. Do not invent one. -->
+    <!-- hasOfferCatalog below mirrors src/data/services.ts — keep in sync if services change. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -76,7 +81,87 @@
         "description": "Family-owned mobile auto detailing across the Minneapolis / Twin Cities metro. We come to your driveway.",
         "url": "https://hpxshinez.com/",
         "image": "https://hpxshinez.com/images/webp/09-orange-lancer-hero-1024.webp",
+        "telephone": "+17633311933",
         "serviceType": "Mobile auto detailing",
+        "priceRange": "$15-$400",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Detailing Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Like New Detail",
+                "description": "Good little clean and nothing too crazy for those daily drivers :)"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "The Showroom Detail",
+                "description": "Deep clean inside and out. Best choice if you've never deep cleaned your car before. This will leave your car looking like it came straight out the factory!!"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Exterior Wash",
+                "description": "Wash around the car and a wheel clean."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "The HP Shine Wash",
+                "description": "Deep outside. More effective than a basic wash."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Interior Cleaning only",
+                "description": "Vacuuming, clean upholstery, and a fresh smell."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "The HP Shine Clean",
+                "description": "Deep inside."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Engine Bay cleaning",
+                "description": "A cleaning of the area under your vehicle's hood, removing dirt, dust, grease, and grime to leave the engine compartment looking clean and well-maintained."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Tire shine on wheels",
+                "description": "Can add to your simple outside wash. Comes included with The Showroom Detail."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Extreme pet hair removal",
+                "description": "Any hairs that are tough to remove and take time will be considered \"extreme.\""
+              }
+            }
+          ]
+        },
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Minneapolis",

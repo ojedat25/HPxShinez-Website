@@ -5,6 +5,8 @@ export function LiabilityDisclaimerPage() {
   return (
     <LegalPageLayout
       title="HPxShinez Detailz: Liability Disclaimer"
+      description="Terms and liability limitations that apply when you book mobile auto detailing service with HPxShinez Detailz."
+      path="/liability-disclaimer"
       effectiveDate="August 31, 2026"
     >
       <p>
