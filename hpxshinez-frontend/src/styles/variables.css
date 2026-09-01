@@ -23,7 +23,7 @@
   --color-header-bg: rgba(28, 28, 30, 0.82);
   --color-header-bg-mobile: #1c1c1e;
   --color-border: #1c1c1c;
-  --color-border-section: #555558;
+  --color-border-section: rgba(255, 255, 255, 0.05);
   --color-border-soft: #1f1f1f;
   --color-border-mid: #232323;
   --color-border-strong: #242424;
