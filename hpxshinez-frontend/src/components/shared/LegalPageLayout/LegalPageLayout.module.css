@@ -41,7 +41,7 @@
   margin-top: var(--space-11);
   margin-bottom: var(--space-20);
   font-size: var(--font-size-md);
-  color: var(--color-text-tagline);
+  color: var(--color-text-dim);
 }
 
 .body {

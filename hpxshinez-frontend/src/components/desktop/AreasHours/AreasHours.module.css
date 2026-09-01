@@ -38,20 +38,20 @@
 
 .chip {
   font-weight: 700;
-  font-size: var(--font-size-hours);
+  font-size: var(--font-size-areas-hours);
   background: var(--color-surface-chip);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
   padding: var(--space-6) var(--space-12);
   text-transform: uppercase;
   font-family: var(--font-display);
-  color: var(--color-text-hours);
+  color: var(--color-text-areas-hours);
 }
 
 .note {
   margin-top: var(--space-12);
   font-size: var(--font-size-md-plus);
-  color: var(--color-text-hours);
+  color: var(--color-text-areas-hours);
 }
 
 .emphasis {
@@ -80,14 +80,14 @@
   font-family: var(--font-display);
   font-weight: 700;
   text-transform: uppercase;
-  font-size: var(--font-size-hours);
+  font-size: var(--font-size-areas-hours);
   letter-spacing: var(--letter-spacing-md);
-  color: var(--color-text-hours);
+  color: var(--color-text-areas-hours);
 }
 
 .hoursTime {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--font-size-hours-value);
-  color: var(--color-text-hours);
+  color: var(--color-text-areas-hours);
 }

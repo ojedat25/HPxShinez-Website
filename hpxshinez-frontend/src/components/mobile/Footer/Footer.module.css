@@ -16,7 +16,7 @@
   font-weight: 600;
   letter-spacing: var(--letter-spacing-md);
   text-transform: uppercase;
-  color: var(--color-text-tagline);
+  color: var(--color-text-dim);
 }
 
 .legalLinks {
