@@ -4,7 +4,7 @@
     var(--space-15);
   position: relative;
   scroll-margin-top: var(--scroll-offset-mobile);
-  border-bottom: 1px solid var(--color-border-nav);
+  border-bottom: 1px solid var(--color-border-section);
 }
 
 .eyebrow {
