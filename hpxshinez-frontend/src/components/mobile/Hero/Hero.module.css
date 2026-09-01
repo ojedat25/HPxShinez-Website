@@ -81,8 +81,9 @@
 }
 
 .serviceLine {
-  font-size: var(--font-size-eyebrow-mobile);
-  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  font-weight: 800;
+  color: var(--color-text-muted);
   line-height: var(--line-height-body);
   margin: 0 0 var(--space-12);
 }
