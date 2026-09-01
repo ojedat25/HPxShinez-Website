@@ -64,12 +64,13 @@
   font-weight: 600;
   letter-spacing: var(--letter-spacing-nav);
   text-transform: uppercase;
+  text-align: right;
   color: var(--color-text-muted);
 }
 
 .drawerCta {
   display: inline-flex;
-  align-self: flex-start;
+  align-self: flex-end;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--font-size-cta-sm);
