@@ -11,8 +11,8 @@ export const AREAS = [
 ] as const
 
 export const HOURS = [
-  { days: 'Monday to Friday', time: '5PM to 8PM' },
-  { days: 'Saturday & Sunday', time: '10AM to 7PM' },
+  { days: 'Monday to Friday', daysShort: 'Mon to Fri', time: '5PM to 8PM' },
+  { days: 'Saturday & Sunday', daysShort: 'Sat to Sun', time: '10AM to 7PM' },
 ] as const
 
 const HERO_CITY_PREVIEW = 3
@@ -21,6 +21,6 @@ const HERO_CITY_PREVIEW = 3
 export function heroServiceLine() {
   const previewCities = AREAS.slice(0, HERO_CITY_PREVIEW)
   const moreCount = Math.max(0, AREAS.length - HERO_CITY_PREVIEW)
-  const hours = HOURS.map((row) => `${row.days} ${row.time}`).join(', ')
+  const hours = HOURS.map((row) => `${row.daysShort} ${row.time}`).join(', ')
   return { previewCities, moreCount, hours }
 }
