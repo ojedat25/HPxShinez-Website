@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense } from 'react'
 import { AreasHours } from './AreasHours/AreasHours'
 import { Book } from './Book/Book'
 import { Footer } from './Footer/Footer'
@@ -11,40 +11,6 @@ const Gallery = lazy(() =>
   import('./Gallery/Gallery').then((module) => ({ default: module.Gallery })),
 )
 
-/** Mount the gallery chunk only when it is close to the viewport. */
-function GalleryNearViewport() {
-  const slotRef = useRef<HTMLDivElement>(null)
-  const [shouldMount, setShouldMount] = useState(false)
-
-  useEffect(() => {
-    const slot = slotRef.current
-    if (!slot) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return
-        observer.disconnect()
-        setShouldMount(true)
-      },
-      { rootMargin: '400px 0px' },
-    )
-    observer.observe(slot)
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <div ref={slotRef}>
-      {shouldMount ? (
-        <Suspense fallback={null}>
-          <Gallery />
-        </Suspense>
-      ) : (
-        <section id="work" />
-      )}
-    </div>
-  )
-}
-
 /** Mobile page tree matching Bold Mobile inner content (no phone chrome). */
 export function MobileLayout() {
   return (
@@ -54,7 +20,9 @@ export function MobileLayout() {
       <main>
         <Hero />
         <Services />
-        <GalleryNearViewport />
+        <Suspense fallback={null}>
+          <Gallery />
+        </Suspense>
         <AreasHours />
         <Book />
       </main>
