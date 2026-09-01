@@ -46,16 +46,54 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
     gridPage * THUMBS_PER_PAGE + THUMBS_PER_PAGE,
   )
   const lightboxItem = filteredGalleryItems[thumbIndex]
+  const layoutRef = useRef<HTMLDivElement>(null)
+  const [galleryNear, setGalleryNear] = useState(false)
 
-  // Prefetch every compare pair so prev/next on the slider feels instant.
+  // Prefetch only the next compare pair once the gallery is near the viewport
+  // (or after the first prev/next), so first load does not compete with LCP.
   useEffect(() => {
-    for (const comparePair of comparePairs) {
+    if (galleryNear) return
+    const layout = layoutRef.current
+    if (!layout) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return
+        observer.disconnect()
+        setGalleryNear(true)
+      },
+      { rootMargin: '200px' },
+    )
+    observer.observe(layout)
+    return () => observer.disconnect()
+  }, [galleryNear])
+
+  useEffect(() => {
+    if (!galleryNear) return
+    const nextPair = comparePairs[(pairIndex + 1) % comparePairCount]
+    if (!nextPair) return
+
+    let idleId = 0
+    let timeoutId = 0
+
+    function prefetchNextPair() {
       const before = new Image()
-      before.src = photoSrc(comparePair.before.slug, imageWidth)
+      before.src = photoSrc(nextPair.before.slug, imageWidth)
       const after = new Image()
-      after.src = photoSrc(comparePair.after.slug, imageWidth)
+      after.src = photoSrc(nextPair.after.slug, imageWidth)
     }
-  }, [imageWidth])
+
+    if (typeof requestIdleCallback === 'function') {
+      idleId = requestIdleCallback(prefetchNextPair)
+    } else {
+      timeoutId = window.setTimeout(prefetchNextPair, 1)
+    }
+
+    return () => {
+      if (idleId) cancelIdleCallback(idleId)
+      if (timeoutId) window.clearTimeout(timeoutId)
+    }
+  }, [galleryNear, pairIndex, comparePairCount, imageWidth])
 
   // Stop playback before swapping lightbox items or closing.
   function resetVideo() {
@@ -67,6 +105,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
 
   // Wrap around the featured compare pairs.
   function stepComparePair(delta: number) {
+    setGalleryNear(true)
     setPairIndex(
       (current) => (current + delta + comparePairCount) % comparePairCount,
     )
@@ -148,7 +187,7 @@ export function GalleryStage({ imageWidth }: GalleryStageProps) {
         })}
       </div>
 
-      <div className={styles.layout}>
+      <div ref={layoutRef} className={styles.layout}>
         {/* --- Featured before/after slider --- */}
         <div className={styles.sliderFrame}>
           <BeforeAfterSlider

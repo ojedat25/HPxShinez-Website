@@ -5,10 +5,12 @@ export type LogoProps = {
   /** Diameter of the circular logo mark in pixels (desktop nav 40, footer 42, mobile nav 34) */
   size: number
   className?: string
+  /** Empty when brand text is adjacent; pass a name only when the mark is alone. */
+  alt?: string
 }
 
 /** Circular brand mark from src/assets/logo.webp. */
-export function Logo({ size, className }: LogoProps) {
+export function Logo({ size, className, alt = '' }: LogoProps) {
   const markClassName = [styles.mark, className].filter(Boolean).join(' ')
 
   return (
@@ -18,7 +20,7 @@ export function Logo({ size, className }: LogoProps) {
     >
       <img
         src={logoSrc}
-        alt="HPxShinez Detailz"
+        alt={alt}
         className={styles.image}
       />
     </span>

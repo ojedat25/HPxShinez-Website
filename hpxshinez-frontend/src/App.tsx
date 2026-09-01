@@ -1,14 +1,10 @@
 import { lazy, Suspense, type ReactNode } from 'react'
+import { MobileLayout } from './components/mobile/MobileLayout'
 import { useIsMobile } from './hooks/useIsMobile'
 
 const DesktopLayout = lazy(() =>
   import('./components/desktop/DesktopLayout').then((module) => ({
     default: module.DesktopLayout,
-  })),
-)
-const MobileLayout = lazy(() =>
-  import('./components/mobile/MobileLayout').then((module) => ({
-    default: module.MobileLayout,
   })),
 )
 const PrivacyPolicyPage = lazy(() =>

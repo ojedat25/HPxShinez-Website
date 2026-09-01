@@ -46,10 +46,12 @@ function resolveRealIndex(trackIndex: number, slideCount: number) {
 export function HeroSlider({ slides, width, className }: HeroSliderProps) {
   const labelId = useId()
   const rootRef = useRef<HTMLDivElement>(null)
-  const [trackIndex, setTrackIndex] = useState(1)
+  const [trackIndex, setTrackIndex] = useState(0)
   const [animateTrack, setAnimateTrack] = useState(true)
   const [isHoverPaused, setIsHoverPaused] = useState(false)
   const [hasInteracted, setHasInteracted] = useState(false)
+  const [fullTrack, setFullTrack] = useState(false)
+  const fullTrackRef = useRef(false)
   const [controlsVisible, setControlsVisible] = useState(false)
   const [isDocumentHidden, setIsDocumentHidden] = useState(
     () => typeof document !== 'undefined' && document.hidden,
@@ -66,12 +68,21 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
 
   const slideCount = slides.length
   const trackSlides =
-    slideCount > 0 ? [slides[slideCount - 1], ...slides, slides[0]] : []
-  const realIndex = resolveRealIndex(trackIndex, slideCount)
+    slideCount === 0
+      ? []
+      : fullTrack && slideCount > 1
+        ? [slides[slideCount - 1], ...slides, slides[0]]
+        : [slides[0]]
+  const realIndex = fullTrack
+    ? resolveRealIndex(trackIndex, slideCount)
+    : 0
   const activeSlide = slides[realIndex]
-  const isOnClone = trackIndex === 0 || trackIndex === slideCount + 1
+  const isOnClone =
+    fullTrack && (trackIndex === 0 || trackIndex === slideCount + 1)
   const isTrackOutOfBounds =
-    slideCount > 0 && (trackIndex < 0 || trackIndex > slideCount + 1)
+    fullTrack &&
+    slideCount > 0 &&
+    (trackIndex < 0 || trackIndex > slideCount + 1)
   const rootClassName = [
     styles.root,
     controlsVisible && styles.controlsVisible,
@@ -99,7 +110,32 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
     [slideCount],
   )
 
+  // Expand from the LCP-only slide to the looping track, then go to nextIndex.
+  const enableFullTrack = useCallback(
+    (nextTrackIndex: number) => {
+      if (fullTrackRef.current) {
+        goTo(nextTrackIndex, true)
+        return
+      }
+
+      fullTrackRef.current = true
+      setFullTrack(true)
+      setAnimateTrack(false)
+      setTrackIndex(1)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          goTo(nextTrackIndex, true)
+        })
+      })
+    },
+    [goTo],
+  )
+
   const snapOffClone = useCallback(() => {
+    if (!fullTrackRef.current) {
+      return
+    }
+
     if (trackIndex <= 0) {
       goTo(slideCount, false)
       return
@@ -161,11 +197,16 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
     }
 
     const intervalId = window.setInterval(() => {
+      if (!fullTrackRef.current) {
+        enableFullTrack(2)
+        return
+      }
+
       goTo(trackIndex + 1, true)
     }, SLIDE_INTERVAL_MS)
 
     return () => window.clearInterval(intervalId)
-  }, [slideCount, isPaused, hasInteracted, trackIndex, goTo])
+  }, [slideCount, isPaused, hasInteracted, trackIndex, goTo, enableFullTrack])
 
   useEffect(() => {
     if (!controlsVisible) {
@@ -199,6 +240,11 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
     }
 
     setHasInteracted(true)
+    if (!fullTrackRef.current) {
+      enableFullTrack(delta < 0 ? 0 : 2)
+      return
+    }
+
     goTo(trackIndex + delta, true)
   }
 
@@ -208,10 +254,23 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
     }
 
     setHasInteracted(true)
+    if (!fullTrackRef.current) {
+      if (index === 0) {
+        return
+      }
+
+      enableFullTrack(index + 1)
+      return
+    }
+
     goTo(index + 1, true)
   }
 
   function onTransitionEnd() {
+    if (!fullTrackRef.current) {
+      return
+    }
+
     if (trackIndex === 0) {
       goTo(slideCount, false)
       return
@@ -266,7 +325,7 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
           onTransitionEnd={onTransitionEnd}
         >
           {trackSlides.map((slide, index) => {
-            const isFirstReal = index === 1
+            const isLcpSlide = fullTrack ? index === 1 : index === 0
 
             return (
               <img
@@ -278,9 +337,9 @@ export function HeroSlider({ slides, width, className }: HeroSliderProps) {
                 alt=""
                 aria-hidden="true"
                 draggable={false}
-                fetchPriority={isFirstReal ? 'high' : undefined}
-                loading={isFirstReal ? 'eager' : 'lazy'}
-                decoding="async"
+                fetchPriority={isLcpSlide ? 'high' : undefined}
+                loading={isLcpSlide ? 'eager' : 'lazy'}
+                decoding={isLcpSlide ? 'sync' : 'async'}
               />
             )
           })}
