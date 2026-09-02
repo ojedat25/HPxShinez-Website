@@ -15,12 +15,7 @@ export function Book() {
           your driveway.
         </p>
         {/* --- Book CTA --- */}
-        <a
-          href={SQUARE_BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.cta}
-        >
+        <a href={SQUARE_BOOKING_URL} className={styles.cta}>
           Book now
         </a>
         <div className={styles.handle}>Questions? @HPxShinezDetailz on Instagram</div>

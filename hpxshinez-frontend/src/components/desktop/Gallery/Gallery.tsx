@@ -14,8 +14,6 @@ export function Gallery() {
           </div>
           <a
             href="https://instagram.com/HPxShinezDetailz"
-            target="_blank"
-            rel="noopener noreferrer"
             className={styles.follow}
           >
             Follow @HPxShinezDetailz

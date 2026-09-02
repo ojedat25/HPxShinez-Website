@@ -36,12 +36,7 @@ export function Header({ homeHref = '#top' }: HeaderProps) {
               {link.label}
             </a>
           ))}
-          <a
-            href={SQUARE_BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.cta}
-          >
+          <a href={SQUARE_BOOKING_URL} className={styles.cta}>
             Book now
           </a>
         </nav>

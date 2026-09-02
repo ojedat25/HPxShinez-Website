@@ -35,12 +35,7 @@ export function Hero() {
         <br />
         {hours}
       </p>
-      <a
-        href={SQUARE_BOOKING_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles.cta}
-      >
+      <a href={SQUARE_BOOKING_URL} className={styles.cta}>
         Book now
       </a>
       <HeroSlider slides={heroSlides} width={640} className={styles.slider} />
