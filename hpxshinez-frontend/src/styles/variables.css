@@ -97,6 +97,9 @@
   --scroll-offset-mobile: calc(
     34px + (var(--space-header-y-mobile) * 2) + 1px + var(--space-7)
   );
+  --scroll-offset-desktop: calc(
+    40px + (var(--space-header-y) * 2) + 1px + var(--space-7)
+  );
 
   /* Layout */
   --max-width-content: 1280px;

@@ -3,6 +3,7 @@
   max-width: var(--max-width-content);
   margin: 0 auto;
   padding: var(--space-section-y-top) var(--space-page-x) var(--space-section-y-bottom);
+  scroll-margin-top: var(--scroll-offset-desktop);
 }
 
 /* --- Header --- */

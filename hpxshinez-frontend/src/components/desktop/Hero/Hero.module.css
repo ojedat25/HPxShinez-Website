@@ -4,6 +4,7 @@
   padding: var(--space-hero-top) var(--space-page-x) var(--space-26);
   overflow: hidden;
   border-bottom: 1px solid var(--color-border-section);
+  scroll-margin-top: var(--scroll-offset-desktop);
 }
 
 .glow {

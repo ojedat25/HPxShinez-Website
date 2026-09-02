@@ -2,6 +2,7 @@
 // home page picks MobileLayout or DesktopLayout via useIsMobile (767px).
 import { lazy, Suspense, type ReactNode } from 'react'
 import { MobileLayout } from './components/mobile/MobileLayout'
+import { useHomeHashScroll } from './hooks/useHomeHashScroll'
 import { useIsMobile } from './hooks/useIsMobile'
 
 const DesktopLayout = lazy(() =>
@@ -40,10 +41,19 @@ function currentPathname(): string {
   return path
 }
 
+const LEGAL_PATHS = new Set([
+  '/privacy-policy',
+  '/liability-disclaimer',
+  '/cancellation-policy',
+])
+
 /** Pathname switch for legal pages, then desktop vs mobile home layouts. */
 function App() {
   const isMobile = useIsMobile()
   const pathname = currentPathname()
+  const isHome = !LEGAL_PATHS.has(pathname)
+
+  useHomeHashScroll(isHome, isMobile)
 
   let page: ReactNode
   switch (pathname) {
