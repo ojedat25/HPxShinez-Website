@@ -40,12 +40,7 @@ export function Hero() {
             {hours}
           </p>
           <div className={styles.ctaRow}>
-            <a
-              href={SQUARE_BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.cta}
-            >
+            <a href={SQUARE_BOOKING_URL} className={styles.cta}>
               Book now
             </a>
           </div>

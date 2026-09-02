@@ -103,8 +103,6 @@ export function Header({ homeHref = '#top' }: HeaderProps) {
           })}
           <a
             href={SQUARE_BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             className={styles.drawerCta}
             onClick={closeDrawer}
           >

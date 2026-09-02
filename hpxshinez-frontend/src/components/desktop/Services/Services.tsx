@@ -55,12 +55,7 @@ function ServiceCard({ service }: { service: Service }) {
       </div>
       <div className={styles.cardFooter}>
         {widgetUrl ? (
-          <a
-            href={widgetUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.book}
-          >
+          <a href={widgetUrl} className={styles.book}>
             Book
           </a>
         ) : null}

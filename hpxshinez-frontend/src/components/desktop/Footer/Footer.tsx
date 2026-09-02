@@ -21,8 +21,6 @@ export function Footer() {
         </div>
         <a
           href="https://www.instagram.com/hpxshinezdetailz"
-          target="_blank"
-          rel="noopener noreferrer"
           className={styles.handleCta}
         >
           @HPxShinezDetailz
@@ -44,12 +42,7 @@ export function Footer() {
       {/* --- Copyright --- */}
       <div className={styles.copyright}>
         © 2026 HPxShinez Detailz - Site by{' '}
-        <a
-          href="https://github.com/ojedat25"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.creditLink}
-        >
+        <a href="https://github.com/ojedat25" className={styles.creditLink}>
           Toni Ojeda
         </a>
       </div>

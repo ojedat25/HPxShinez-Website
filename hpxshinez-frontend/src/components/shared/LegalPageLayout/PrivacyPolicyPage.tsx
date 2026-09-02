@@ -73,11 +73,7 @@ export function PrivacyPolicyPage() {
         reach by clicking the "Book Now" link on our site. Once you leave
         hpxshinez.com for the Square booking page, your information is governed
         by{' '}
-        <a
-          href="https://squareup.com/us/en/legal/general/privacy"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://squareup.com/us/en/legal/general/privacy">
           Square's Privacy Policy
         </a>, not by this one. Square is a separate data controller for the booking
         and payment functions it provides; HPxShinez does not have access to,
