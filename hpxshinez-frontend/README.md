@@ -73,7 +73,7 @@ Pathname-based routing in `App.tsx`:
 | `/` | `MobileLayout` or `DesktopLayout` |
 | `/privacy-policy` | `PrivacyPolicyPage` |
 | `/liability-disclaimer` | `LiabilityDisclaimerPage` |
-| `/cancellation-policy` | `CancellationPolicyPage` |
+| `/booking-policy` | `BookingPolicyPage` |
 
 Legal pages reuse the viewport-appropriate `Header`/`Footer` via `LegalPageLayout`, which also calls `setPageMeta()` from `lib/seo.ts` on mount.
 

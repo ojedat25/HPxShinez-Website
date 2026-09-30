@@ -25,10 +25,10 @@ const routes = [
       'Terms and liability limitations that apply when you book mobile auto detailing service with HPxShinez Detailz.',
   },
   {
-    path: '/cancellation-policy',
-    title: 'HPxShinez Detailz: Cancellation Policy',
+    path: '/booking-policy',
+    title: 'HPxShinez Detailz: Booking, Cancellation & Weather Policy',
     description:
-      'Rescheduling and cancellation terms for mobile auto detailing appointments booked with HPxShinez Detailz.',
+      'Deposit, 48-hour cancellation, and weather rescheduling terms for mobile auto detailing appointments booked with HPxShinez Detailz.',
   },
 ]
 

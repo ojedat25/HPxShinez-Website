@@ -3,6 +3,6 @@
 export const LEGAL_PAGES = [
   { path: '/privacy-policy', label: 'Privacy Policy' },
   { path: '/liability-disclaimer', label: 'Liability Disclaimer' },
-  { path: '/cancellation-policy', label: 'Cancellation Policy' },
+  { path: '/booking-policy', label: 'Booking, Cancellation & Weather Policy' },
 ] as const
 

@@ -24,10 +24,10 @@ const LiabilityDisclaimerPage = lazy(() =>
     }),
   ),
 )
-const CancellationPolicyPage = lazy(() =>
-  import('./components/shared/LegalPageLayout/CancellationPolicyPage').then(
+const BookingPolicyPage = lazy(() =>
+  import('./components/shared/LegalPageLayout/BookingPolicyPage').then(
     (module) => ({
-      default: module.CancellationPolicyPage,
+      default: module.BookingPolicyPage,
     }),
   ),
 )
@@ -44,7 +44,7 @@ function currentPathname(): string {
 const LEGAL_PATHS = new Set([
   '/privacy-policy',
   '/liability-disclaimer',
-  '/cancellation-policy',
+  '/booking-policy',
 ])
 
 /** Pathname switch for legal pages, then desktop vs mobile home layouts. */
@@ -63,8 +63,8 @@ function App() {
     case '/liability-disclaimer':
       page = <LiabilityDisclaimerPage />
       break
-    case '/cancellation-policy':
-      page = <CancellationPolicyPage />
+    case '/booking-policy':
+      page = <BookingPolicyPage />
       break
     default:
       page = isMobile ? <MobileLayout /> : <DesktopLayout />
